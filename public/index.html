@@ -40,4 +40,12 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script>
+    navigator.mediaSession.metadata = new MediaMetadata({
+  title: "Episode Title",
+  artist: "Podcast Host",
+  album: "Podcast Title",
+  artwork: [{src: "podcast.jpg"}]
+});
+    </script>
 </html>

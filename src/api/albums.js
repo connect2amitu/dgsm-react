@@ -11,3 +11,12 @@ export const getAlbums = (query) => {
   return callApi(_URL, options);
 }
 
+export const getAlbumWithTrack = (slug = "", query) => {
+  var _URL = generateURL(URL + "/" + slug, query);
+
+  let options = {
+    method: 'GET',
+  }
+  return callApi(_URL, options);
+}
+

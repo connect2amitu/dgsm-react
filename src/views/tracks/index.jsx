@@ -1,51 +1,44 @@
 import React from 'react'
-import { HOST_API } from '../../shared/constants';
 import { connect } from 'react-redux';
 import { getTrack, clearTracks } from '../../actions/tracks';
 import { Button, Grid, CircularProgress } from '@material-ui/core';
-import { PlayArrowRounded, AddCircleRounded } from '@material-ui/icons';
+import { playStopButtonClickHandler } from '../../shared/funs';
+import { playerCurrentTrack } from '../../actions/player';
+import SongCard from '../../components/SongCard';
 
-var trackStyle = {
-  borderRadius: "10px",
-  background: `url("http://localhost/dgsm/uploads/albumCovers/cover27.jpg")`,
-  height: "60px",
-  width: "60px",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover"
-}
+// var trackStyle = {
+//   borderRadius: "10px",
+//   background: `url("http://localhost/dgsm/uploads/albumCovers/cover27.jpg")`,
+//   height: "60px",
+//   width: "60px",
+//   backgroundPosition: "center",
+//   backgroundRepeat: "no-repeat",
+//   backgroundSize: "cover"
+// }
 
 class Tracks extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       trackIndex: null,
-      size: 16,
+      size: 28,
       page: 0
     }
-    this.audio = new Audio();
+    this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
   }
 
   render() {
-    const { tracks, isLoading, error, totalPages } = this.props
+    const { tracks, isLoading, error, totalPages, player } = this.props
     const { page } = this.state
     var items = [];
     tracks.map((track, index) =>
       items.push(<Grid item xs={3} id={index} key={index}>
-        <Grid container>
-          <Grid item xs={2}><div style={trackStyle}></div></Grid>
-          <Grid item xs={10}>
-            <Grid container direction={"column"}>
-              <Grid item>
-                <span>{track.name}</span>
-              </Grid>
-              <Grid item>
-                <Button onClick={() => this.playSong(track.filename, index)} color={"primary"} ><PlayArrowRounded /></Button>
-                <Button color={"primary"} ><AddCircleRounded /></Button>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
+        <SongCard
+          track={track}
+          player={player}
+          playSong={this.playSong}
+          pauseSong={this.pauseSong}
+        />
       </Grid>)
     )
     return (
@@ -74,11 +67,12 @@ class Tracks extends React.Component {
       this.props.dispatch(getTrack(query));
     })
   }
-  playSong = (url, index) => {
-    this.audio.pause();
-    this.audio.src = `${HOST_API}/${url}`
-    this.audio.play();
-    this.setState({ trackIndex: index })
+  playSong = (track) => {
+    this.props.dispatch(playerCurrentTrack({ track }));
+    this.playStopButtonClickHandler(true);
+  }
+  pauseSong = () => {
+    this.playStopButtonClickHandler(false);
   }
   componentDidMount() {
     const { size, page } = this.state
@@ -86,6 +80,13 @@ class Tracks extends React.Component {
       var query = { size, order: 'asc', page: 0 }
       this.props.dispatch(getTrack(query));
     })
+
+    const _this = this;
+    document.body.onkeyup = function (e) {
+      if (e.keyCode === 32) {
+        _this.playStopButtonClickHandler(_this.props.player.isPlaying);
+      }
+    }
   }
   componentWillUnmount() {
     this.props.dispatch(clearTracks());
@@ -97,7 +98,8 @@ class Tracks extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    ...state.tracks
+    ...state.tracks,
+    player: state.player,
   }
 }
 

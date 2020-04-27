@@ -7,3 +7,10 @@ export function getAlbums(data) {
     payload: data
   }
 }
+export function getAlbumWithTrack(data) {
+  return {
+    type: ALBUM.DETAIL_FETCH_START,
+    isLoading: true,
+    payload: data
+  }
+}

@@ -5,7 +5,8 @@ import Player from '../Player'
 
 
 const MyContainer = styled(Container)({
-  paddingBottom: "90px"
+  paddingBottom: "90px",
+  paddingTop: "10px",
 });
 
 

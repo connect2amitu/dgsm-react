@@ -1,27 +1,26 @@
 import React, { Component } from 'react'
 import { Grid, Button } from '@material-ui/core'
-import { PlayArrowRounded, AddCircleRounded } from '@material-ui/icons'
 import { connect } from 'react-redux';
 import { getTrack, clearTracks } from '../../actions/tracks';
 import { NavLink } from 'react-router-dom';
+import Loading from '../../components/Loading';
+import Error from '../../components/Error';
+import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
+import { playStopButtonClickHandler } from '../../shared/funs';
+import SongCard from '../../components/SongCard';
 
 
 
-var trackStyle = {
-  borderRadius: "10px",
-  background: `url("http://localhost/dgsm/uploads/albumCovers/cover27.jpg")`,
-  height: "60px",
-  width: "60px",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
-}
+
 
 
 class TopTracks extends Component {
+  constructor(props) {
+    super(props);
+    this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
+  }
   render() {
-    console.log('this.props tracks=>', this.props.tracks);
-    const { tracks, isLoading } = this.props
+    const { tracks, isLoading, error, player } = this.props
 
     return (
       <div>
@@ -35,30 +34,37 @@ class TopTracks extends Component {
           </Grid>
         </Grid>
         <Grid container spacing={3} >
+          {
+            !isLoading && error && <Error />
+          }
           {!isLoading ?
             tracks.map((track, index) =>
-              <Grid item xs={3} id={index} key={index}>
-                <Grid container>
-                  <Grid item xs={2}><div style={trackStyle}></div></Grid>
-                  <Grid item xs={10}>
-                    <Grid container direction={"column"}>
-                      <Grid item>
-                        <span>{track.name}</span>
-                      </Grid>
-                      <Grid item>
-                        <Button onClick={() => this.playSong(track.filename, index)} color={"primary"} ><PlayArrowRounded /></Button>
-                        <Button color={"primary"} ><AddCircleRounded /></Button>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
+              <Grid item xs={3} key={index}>
+                <SongCard
+                  track={track}
+                  player={player}
+                  playSong={this.playSong}
+                  pauseSong={this.pauseSong}
+                />
               </Grid>
             )
-            : "Loading..."}
+            : <Loading />}
         </Grid>
       </div>
     )
   }
+
+  pauseSong = () => {
+    this.playStopButtonClickHandler(false);
+  }
+
+  playSong = (track) => {
+    const { tracks } = this.props;
+    this.props.dispatch(playerAddTrack(tracks));
+    this.props.dispatch(playerCurrentTrack({ track }));
+    this.playStopButtonClickHandler(true);
+  }
+
   componentDidMount() {
     var query = {
       size: 16,
@@ -74,7 +80,8 @@ class TopTracks extends Component {
 
 const mapStateToProps = state => {
   return {
-    ...state.tracks
+    ...state.tracks,
+    player: state.player,
   }
 }
 

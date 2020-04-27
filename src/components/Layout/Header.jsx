@@ -14,8 +14,8 @@ export default function Header() {
             <Grid item>
               <Button component={NavLink} to={"/browse"} color="inherit">Browse</Button>
               {/* <Button component={NavLink} to={"/bhajans"} color="inherit">Bhajan</Button> */}
-              <Button component={NavLink} to={"/albums"} color="inherit">Albums</Button>
-              <Button component={NavLink} to={"/latest"} color="inherit">Latest</Button>
+              {/* <Button component={NavLink} to={"/albums"} color="inherit">Albums</Button>
+              <Button component={NavLink} to={"/latest"} color="inherit">Latest</Button> */}
             </Grid>
           </Grid>
         </Toolbar>
