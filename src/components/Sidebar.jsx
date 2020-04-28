@@ -2,8 +2,8 @@ import React from 'react';
 import { DeleteRounded } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import icon_512x512 from '../assets/images/icon-512x512.png'
-import { ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, ListSubheader, Grid, Button, Divider, SwipeableDrawer, List, ListItem, ListItemText, Paper } from '@material-ui/core';
-import { playerRemoveTrack, clearPlaylist, playerCurrentTrack, playerPlayPause } from '../actions/player';
+import { ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, ListSubheader, Grid, Button, Divider, SwipeableDrawer, List, ListItem, ListItemText } from '@material-ui/core';
+import { playerRemoveTrack, clearPlaylist, playerCurrentTrack } from '../actions/player';
 import { playStopButtonClickHandler } from '../shared/funs';
 
 var trackStyle = {

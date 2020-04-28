@@ -1,9 +1,7 @@
 import React from 'react'
 import Header from './Header'
-import { Container, styled, CircularProgress, Backdrop } from '@material-ui/core'
+import { Container, styled, } from '@material-ui/core'
 import Player from '../Player'
-import { connect } from 'react-redux';
-
 
 const MyContainer = styled(Container)({
   paddingBottom: "90px",
@@ -11,12 +9,9 @@ const MyContainer = styled(Container)({
 });
 
 
-function Layout({ children, isLoading_tracks, isLoading_albums, isLoading_player }) {
+function Layout({ children }) {
   return (
     <div>
-      {/* <Backdrop style={{ zIndex: 9999 }} open={isLoading_tracks || isLoading_albums || isLoading_player}>
-        <CircularProgress color="inherit" />
-      </Backdrop> */}
       <Header />
       <MyContainer maxWidth={false} fixed={true}>
         {children}
@@ -25,11 +20,5 @@ function Layout({ children, isLoading_tracks, isLoading_albums, isLoading_player
     </div >
   )
 }
-const mapStateToProps = state => {
-  return {
-    isLoading_tracks: state.tracks.isLoading,
-    isLoading_albums: state.albums.isLoading,
-    isLoading_player: state.player.isLoading,
-  }
-}
-export default connect(mapStateToProps)(Layout)
+
+export default Layout

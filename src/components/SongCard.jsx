@@ -1,7 +1,5 @@
 import React from 'react'
 import { Grid, Button } from '@material-ui/core'
-import { PauseCircleFilledRounded, PlayCircleFilledOutlined } from '@material-ui/icons'
-import { playStopButtonClickHandler } from '../shared/funs';
 import PlayPauseButton from './PlayPauseButton';
 
 
