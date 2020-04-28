@@ -22,9 +22,13 @@ export const fmtMSS = (s) => {
 }
 
 export const display = (seconds) => {
-  const format = val => `0${Math.floor(val)}`.slice(-2);
-  const minutes = (seconds % 3600) / 60
-  return [minutes, seconds % 60].map(format).join(':')
+  if (seconds) {
+    const format = val => `0${Math.floor(val)}`.slice(-2);
+    const minutes = (seconds % 3600) / 60
+    return [minutes, seconds % 60].map(format).join(':')
+  } else {
+    return "00:00"
+  }
 }
 
 export async function playStopButtonClickHandler(status) {
@@ -49,7 +53,5 @@ export async function playStopButtonClickHandler(status) {
     if (_this.state) {
       _this.state.intervalId && clearInterval(_this.state.intervalId)
     }
-    console.log('_this.state.intervalId =>', _this.state);
-
   }
 }

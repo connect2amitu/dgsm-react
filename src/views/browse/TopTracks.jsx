@@ -63,6 +63,7 @@ class TopTracks extends Component {
     this.props.dispatch(playerAddTrack(tracks));
     this.props.dispatch(playerCurrentTrack({ track }));
     this.playStopButtonClickHandler(true);
+
   }
 
   componentDidMount() {

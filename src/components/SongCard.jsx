@@ -2,6 +2,7 @@ import React from 'react'
 import { Grid, Button } from '@material-ui/core'
 import { PauseCircleFilledRounded, PlayCircleFilledOutlined } from '@material-ui/icons'
 import { playStopButtonClickHandler } from '../shared/funs';
+import PlayPauseButton from './PlayPauseButton';
 
 
 var trackStyle = {
@@ -36,19 +37,13 @@ export default function SongCard({ track, player, playSong, pauseSong }) {
         </Grid>
       </Grid>
       <Grid item xs={2}>
-        {
-          player.currentTrack.track && player.currentTrack.track.id === track.id && player.isPlaying ?
-            <Button
-              onClick={() => pauseSong()}
-              color={"primary"} >
-              <PauseCircleFilledRounded />
-            </Button> :
-            <Button
-              onClick={() => playSong(track)}
-              color={"primary"} >
-              <PlayCircleFilledOutlined />
-            </Button>
-        }
+        <PlayPauseButton
+          track={track}
+          pauseSong={pauseSong}
+          playSong={playSong}
+          isPlaying={player.isPlaying}
+          currentTrack={player.currentTrack}
+        />
       </Grid>
     </Grid>
   )

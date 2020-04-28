@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Grid, Button, Container } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import { getAlbumWithTrack } from '../../actions/albums';
 import { HOST_API } from '../../shared/constants';
 import { playStopButtonClickHandler } from '../../shared/funs';
-import { PlayCircleFilledOutlined, PauseCircleFilledRounded } from '@material-ui/icons'
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
+import PlayPauseButton from '../../components/PlayPauseButton';
 
 
 var cardStyle = {
@@ -85,19 +85,13 @@ class AlbumsDetail extends React.Component {
                             </Grid>
                           </Grid>
                           <Grid item>
-                            {
-                              player.currentTrack.track && player.currentTrack.track.id === track.id && player.isPlaying ?
-                                <Button
-                                  onClick={() => this.pauseSong()}
-                                  color={"primary"} >
-                                  <PauseCircleFilledRounded />
-                                </Button> :
-                                <Button
-                                  onClick={() => this.playSong(track)}
-                                  color={"primary"} >
-                                  <PlayCircleFilledOutlined />
-                                </Button>
-                            }
+                            <PlayPauseButton
+                              track={track}
+                              pauseSong={this.pauseSong}
+                              playSong={this.playSong}
+                              isPlaying={player.isPlaying}
+                              currentTrack={player.currentTrack}
+                            />
                           </Grid>
                         </Grid>
                       </Grid>

@@ -69,6 +69,9 @@ class Sidebar extends React.Component {
                           <Avatar alt={track.name} src={icon_512x512} />
                         </ListItemAvatar>
                         <ListItemText
+                          primaryTypographyProps={{ style: { fontSize: 14, } }}
+                          secondaryTypographyProps={{ style: { fontSize: 12 } }}
+                          style={{ fontSize: 14 }}
                           primary={track.name}
                           secondary={track.album_name}
                         />

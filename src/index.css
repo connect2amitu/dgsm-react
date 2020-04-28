@@ -10,9 +10,9 @@ body {
     scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #29647359;
+  /* background-color: #29647359; */
 }
 
 header{
-  background-color: #296473 !important;
+  /* background-color: #296473 !important; */
 }

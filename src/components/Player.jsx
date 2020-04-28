@@ -44,7 +44,7 @@ class Player extends React.Component {
     const { anchorEl, open } = this.state
     return (
       <React.Fragment>
-        <MyAppBar color="secondary">
+        <MyAppBar color="primary">
           <Toolbar>
             <Grid container alignItems={"center"}>
               <Grid item>
@@ -90,10 +90,9 @@ class Player extends React.Component {
                   </Grid>
                   <Grid item>
                     <Button
-                      // disabled={!player.currentTrack.track}
                       onClick={() => this.playPauseHandler()}
                       color={"inherit"} >
-                      {player.isPlaying ? <PauseCircleFilledRounded style={{ fontSize: "3rem" }} /> : <PlayCircleFilledOutlined style={{ fontSize: "3rem" }} />}
+                      {player.isPlaying ? <PauseCircleFilledRounded style={{ fontSize: 30 }} /> : <PlayCircleFilledOutlined style={{ fontSize: 30 }} />}
                     </Button>
                   </Grid>
                   <Grid item>

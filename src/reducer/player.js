@@ -10,7 +10,8 @@ const initialState = {
   currentTime: 0,
   durationTime: 0,
   isPlaying: false,
-  isMuted: false
+  isMuted: false,
+  isLoading: false
 };
 
 const actionsMap = {
@@ -69,8 +70,6 @@ const actionsMap = {
   },
 
   [PLAYER.CURRENT_TIME]: (state, action) => {
-    console.log('action =>', action);
-
     return {
       ...state,
       currentTime: action.payload
@@ -88,6 +87,7 @@ const actionsMap = {
     var audioObj = state.audioObj;
     audioObj.src = `${HOST_API}/${action.payload.track.url}`;
     audioObj.play();
+    document.title = `${action.payload.track.name} | DGSM`;
     return {
       ...state,
       isPlaying: true,
@@ -109,6 +109,8 @@ const actionsMap = {
       };
       audioObj.src = `${HOST_API}/${playlist[newIndex].url}`;
       audioObj.play();
+      document.title = `${currentTrack.track.name} | DGSM`;
+
       return {
         ...state,
         currentTrack,
@@ -132,6 +134,8 @@ const actionsMap = {
       };
       audioObj.src = `${HOST_API}/${playlist[newIndex].url}`;
       audioObj.play();
+      document.title = `${currentTrack.track.name} | DGSM`;
+
       return {
         ...state,
         currentTrack,
