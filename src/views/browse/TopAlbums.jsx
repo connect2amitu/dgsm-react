@@ -30,6 +30,7 @@ class TopAlbums extends Component {
       speed: 800,
       slidesToShow: 10,
       slidesToScroll: 10,
+      draggable: false
     };
     return (
       <div>

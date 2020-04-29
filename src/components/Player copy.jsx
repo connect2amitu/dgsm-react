@@ -3,19 +3,16 @@ import React from 'react';
 import { styled } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import {
-  Grid, Button, Menu, MenuItem,
-  DialogActions, DialogContentText, DialogContent, DialogTitle, TextField, Dialog, Slider
-} from '@material-ui/core';
+import { Grid, Button, Menu, MenuItem, TextField } from '@material-ui/core';
 import { FavoriteBorderRounded, MoreHorizRounded, PlayCircleFilledOutlined, PauseCircleFilledRounded, SkipNextRounded, SkipPreviousRounded, QueueMusicRounded } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { playStopButtonClickHandler, display } from '../shared/funs';
-import { playerNextTrack, playerPrevTrack, playerCurrentTime } from '../actions/player';
+import { playerNextTrack, playerPrevTrack } from '../actions/player';
 import Sidebar from './Sidebar';
 import icon_512x512 from '../assets/images/icon-512x512.png'
 import { HOST_API } from '../shared/constants';
 import { RangeSlider } from './Slider';
-import DialogBox from './DialogBox';
+import Dialog from './DialogBox';
 
 const MyAppBar = styled(AppBar)({
   top: 'auto',
@@ -40,14 +37,14 @@ class Player extends React.Component {
     this.state = {
       anchorEl: null,
       open: false,
-      openPlaylist: false,
+      openPlaylistModal: false,
     };
     this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
   }
 
   render() {
     const { player } = this.props;
-    const { anchorEl, open, openPlaylist } = this.state
+    const { anchorEl, open, openPlaylistModal } = this.state
     var backgroundImage = player.currentTrack.track ? {
       backgroundImage: `url(${HOST_API}/${player.currentTrack.track && player.currentTrack.track.cover})`,
       backgroundPosition: "center center",
@@ -92,9 +89,9 @@ class Player extends React.Component {
                       open={Boolean(anchorEl)}
                       onClose={this.handleClose}
                     >
-                      <MenuItem onClick={() => this.openPlaylistModal()}>Add to playlist</MenuItem>
+                      {/* <MenuItem onClick={() => this.handleOpenClose()}>Add to playlist</MenuItem>
                       <MenuItem onClick={this.handleClose}>Share</MenuItem>
-                      <MenuItem onClick={this.handleClose}>View Lyrics</MenuItem>
+                      <MenuItem onClick={this.handleClose}>View Lyrics</MenuItem> */}
                     </Menu>
                   </Grid>
                 </Grid>
@@ -102,9 +99,7 @@ class Player extends React.Component {
               <Grid item>
                 <Grid container spacing={1} alignItems={"center"} direction={"column"}>
                   <Grid item>
-                    <RangeSlider
-                      {...this.props}
-                    />
+                    {/* <RangeSlider /> */}
                   </Grid>
                   <Grid item>
                     <Grid container spacing={1} alignItems={"center"}>
@@ -136,29 +131,8 @@ class Player extends React.Component {
           </Toolbar>
         </MyAppBar>
         <Sidebar open={open} handlePlaylistSidebar={this.handlePlaylistSidebar} />
-
-        <DialogBox
-          handleClose={this.closePlaylistModal}
-          open={openPlaylist}
-          heading={"Create a new playlist"}
-        // description={"Enter new playlist name"}
-        >
-          <TextField autoFocus margin="dense" autoComplete={"off"} id="name" label="Enter playlist name" type="email" fullWidth />
-        </DialogBox>
-      </React.Fragment>
+      </React.Fragment >
     );
-  }
-
-  openPlaylistModal = () => {
-    this.setState({ openPlaylist: true })
-  }
-
-  closePlaylistModal = () => {
-    this.setState({ openPlaylist: false, anchorEl: null });
-  }
-
-  addToPlaylist = () => {
-    alert();
   }
 
   handlePlaylistSidebar = (open) => {

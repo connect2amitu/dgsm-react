@@ -6,6 +6,9 @@ import { ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, ListSubhea
 import { playerRemoveTrack, clearPlaylist, playerCurrentTrack } from '../actions/player';
 import { playStopButtonClickHandler } from '../shared/funs';
 
+
+
+
 var trackStyle = {
   borderRadius: "10px",
   background: `url(${icon_512x512})`,
@@ -27,6 +30,7 @@ class Sidebar extends React.Component {
 
   render() {
     const { open, handlePlaylistSidebar, player: { currentTrack, playlist } } = this.props;
+
     return (
       <React.Fragment >
         <SwipeableDrawer
@@ -52,9 +56,10 @@ class Sidebar extends React.Component {
                           {`Playlist ( ${playlist.length} )`}
                         </Grid>
                         <Grid item>
-                          {playlist.length > 0 && <><Button color={"secondary"} variant={"contained"} onClick={() => this.clearPlaylistHandler()}>Clear</Button><Divider /></>}
+                          {playlist.length > 0 && <><Button color={"secondary"} variant={"contained"} onClick={() => this.clearPlaylist()}>Clear</Button></>}
                         </Grid>
                       </Grid>
+                      <Divider />
                     </ListSubheader>
                   </>
                 }
@@ -64,7 +69,7 @@ class Sidebar extends React.Component {
                   let isActive = currentTrack && currentTrack.track && currentTrack.track.id === track.id
                   return (
                     <List dense={false} style={{ padding: 0 }} key={index}>
-                      <ListItem component={Button} style={{ textTransform: "initial" }} color={isActive ? "secondary" : "default"} variant={isActive ? "contained" : "text"} onClick={() => this.changeSongHandler(track)}>
+                      <ListItem component={Button} style={{ textTransform: "initial" }} color={isActive ? "secondary" : "default"} variant={isActive ? "contained" : "text"} onClick={() => this.changeSong(track)}>
                         <ListItemAvatar>
                           <Avatar alt={track.name} src={icon_512x512} />
                         </ListItemAvatar>
@@ -77,7 +82,7 @@ class Sidebar extends React.Component {
                         />
                         <ListItemSecondaryAction>
                           <IconButton edge="end" aria-label="delete" onClick={() => this.removeTrack(index)}>
-                            <DeleteRounded style={{ color: isActive ? "white" : "red" }} />
+                            <DeleteRounded style={{ color: isActive ? "#009688" : "#ff9100" }} />
                           </IconButton>
                         </ListItemSecondaryAction>
                       </ListItem>
@@ -100,7 +105,7 @@ class Sidebar extends React.Component {
   }
 
 
-  changeSongHandler = (track) => {
+  changeSong = (track) => {
     this.props.dispatch(playerCurrentTrack({ track }));
     this.playStopButtonClickHandler(true);
   }
@@ -109,7 +114,7 @@ class Sidebar extends React.Component {
   removeTrack = (index) => {
     this.props.dispatch(playerRemoveTrack(index));
   }
-  clearPlaylistHandler = () => {
+  clearPlaylist = () => {
     this.props.dispatch(clearPlaylist());
   }
 }

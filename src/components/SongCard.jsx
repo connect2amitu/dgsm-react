@@ -1,11 +1,12 @@
 import React from 'react'
 import { Grid, Button } from '@material-ui/core'
 import PlayPauseButton from './PlayPauseButton';
+import logo from '../assets/images/logo.png'
 
 
 var trackStyle = {
   borderRadius: "10px",
-  background: `url("http://localhost/dgsm/uploads/albumCovers/cover27.jpg")`,
+  background: `url(${logo})`,
   height: "60px",
   width: "60px",
   backgroundPosition: "center",
@@ -24,7 +25,7 @@ export default function SongCard({ track, player, playSong, pauseSong }) {
             {/* <span>{track.name}</span> */}
             <Grid container direction={"column"}>
               <Grid item>
-                <span style={{ fontSize: 14, fontWeight: 500 }}>{track.name}</span>
+                <span style={{ fontSize: 14, fontWeight: 500 }}>{track.name.replace(/\.[^.]*$/, '')}</span>
               </Grid>
               <Grid item>
                 <span style={{ fontSize: 12 }}>{track.album_name} {track.city_name && `(${track.city_name})`}</span>

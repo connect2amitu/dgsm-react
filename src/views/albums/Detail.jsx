@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, Chip } from '@material-ui/core';
 import { getAlbumWithTrack } from '../../actions/albums';
 import { HOST_API } from '../../shared/constants';
 import { playStopButtonClickHandler } from '../../shared/funs';
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
 import PlayPauseButton from '../../components/PlayPauseButton';
+import logo from '../../assets/images/logo.png'
 
 
 var cardStyle = {
@@ -20,7 +21,7 @@ var cardStyle = {
 
 var trackStyle = {
   borderRadius: "10px",
-  background: `url("http://localhost/dgsm/uploads/albumCovers/cover27.jpg")`,
+  background: `url(${logo})`,
   height: "60px",
   width: "60px",
   backgroundPosition: "center",
@@ -55,7 +56,9 @@ class AlbumsDetail extends React.Component {
                     <span>By <b>{albumDetail.artist_name}</b></span>
                   </Grid>
                   <Grid item>
-
+                    <span>{albumDetail.tags.split(", ").map((tag, index) =>
+                      <Chip key={index} color={"secondary"} style={{ borderRadius: 0, marginRight: 2, padding: 0, height: 20 }} label={tag} />
+                    )}</span>
                   </Grid>
                 </Grid>
               </Grid>
@@ -69,7 +72,7 @@ class AlbumsDetail extends React.Component {
                   {
                     albumDetail.tracks.map((track, index) =>
                       <Grid item xs={12} key={index}>
-                        <Grid ref={scroll => this.scrollDiv = scroll} container spacing={1} alignItems={"center"} >
+                        <Grid container spacing={1} alignItems={"center"} >
                           <Grid item style={{ width: "25px" }}>
                             <span >{index + 1}</span>
                           </Grid>
@@ -77,10 +80,10 @@ class AlbumsDetail extends React.Component {
                           <Grid item xs={6} md={2}>
                             <Grid container direction={"column"}>
                               <Grid item>
-                                <span style={{ fontSize: 14, fontWeight: 500 }}>{track.name}</span>
+                                <span style={{ fontSize: 14, fontWeight: 500 }}>{track.name.replace(/\.[^.]*$/, '')}</span>
                               </Grid>
                               <Grid item>
-                                <span style={{ fontSize: 12 }}>{track.album_name} {track.city_name && `(${track.city_name})`}</span>
+                                <span style={{ fontSize: 12 }}>{track.album_name} {track.city_name && `- ${track.city_name}`}</span>
                               </Grid>
                             </Grid>
                           </Grid>

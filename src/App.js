@@ -5,23 +5,58 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Albums from './views/albums/Index';
 import Browse from './views/browse/Index';
 import AlbumsDetail from './views/albums/Detail';
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core';
+import { ThemeProvider, CssBaseline } from '@material-ui/core';
+import { connect } from 'react-redux';
+import {
+  //  green, purple, amber, blue, blueGrey, brown, common, cyan, deepOrange, deepPurple, grey, indigo, red,
+  teal, orange,
+} from '@material-ui/core/colors';
 
 
-function App() {
+var darkTheme = createMuiTheme({
+  palette: {
+    primary: teal,
+    secondary: orange,
+    type: "dark"
+  },
+});
+var theme = createMuiTheme({
+  palette: {
+    primary: teal,
+    secondary: orange
+  },
+});
+darkTheme = responsiveFontSizes(darkTheme);
+theme = responsiveFontSizes(theme);
+
+
+function App({ isDark }) {
   return (
     <BrowserRouter>
-      <Switch>
-        <Layout>
-          <Route exact path="/(|browse)" component={Browse} />
-          <Route exact path="/browse/tracks" component={Tracks} />
-          <Route exact path="/browse/albums" render={() => <h1>Album more</h1>} />
-          <Route exact path="/albums" component={Albums} />
-          <Route exact path="/album/:slug" component={AlbumsDetail} />
-          <Route exact path="/latest" render={() => <h1>Latest</h1>} />
-        </Layout>
-      </Switch>
+      <ThemeProvider theme={isDark ? darkTheme : theme}>
+        <CssBaseline />
+        <Switch>
+          <Layout>
+            <Route exact path="/(|browse)" component={Browse} />
+            <Route exact path="/browse/tracks" component={Tracks} />
+            <Route exact path="/browse/albums" render={() => <h1>Album more</h1>} />
+            <Route exact path="/albums" component={Albums} />
+            <Route exact path="/album/:slug" component={AlbumsDetail} />
+            <Route exact path="/latest" render={() => <h1>Latest</h1>} />
+          </Layout>
+        </Switch>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    isDark: state.global.isDark
+  }
+}
+
+export default connect(mapStateToProps)(App)
+
+

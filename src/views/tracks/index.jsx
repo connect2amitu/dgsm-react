@@ -45,7 +45,7 @@ class Tracks extends React.Component {
       <>
         <Grid container justify={"space-between"}>
           <Grid item>
-            <h1>Tracks</h1>
+            <h1>All Tracks</h1>
           </Grid>
         </Grid>
         <Grid container spacing={3}>
