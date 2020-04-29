@@ -7,6 +7,7 @@ import { playStopButtonClickHandler } from '../../shared/funs';
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
 import PlayPauseButton from '../../components/PlayPauseButton';
 import logo from '../../assets/images/logo.png'
+import { GoogleLogin } from 'react-google-login';
 
 
 var cardStyle = {
@@ -52,7 +53,6 @@ class AlbumsDetail extends React.Component {
                     <h1>{albumDetail.name}</h1>
                   </Grid>
                   <Grid item>
-
                     <span>By <b>{albumDetail.artist_name}</b></span>
                   </Grid>
                   <Grid item>
@@ -128,12 +128,7 @@ class AlbumsDetail extends React.Component {
   componentDidMount() {
     var query = { size: 20, order: 'asc', page: 0 }
     this.props.dispatch(getAlbumWithTrack(this.props.match.params.slug, query))
-    const _this = this;
-    document.body.onkeyup = function (e) {
-      if (e.keyCode === 32) {
-        _this.playStopButtonClickHandler(_this.props.player.isPlaying);
-      }
-    }
+
   }
 
 }

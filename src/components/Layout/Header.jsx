@@ -97,8 +97,10 @@ function Header(props) {
                   <Button component={NavLink} to={"/browse"} color="inherit">Browse</Button>
                 </Grid>
                 <Grid item>
-                  <Button onClick={() => themHandler()} color="inherit">
-                    {props.isDark ? <WbSunnyRounded /> : <NightsStayRounded />}  </Button>
+                  <Button component={NavLink} to={"/browse"} color="inherit">My Playlist</Button>
+                </Grid>
+                <Grid item>
+                  <Button onClick={() => themHandler()} color="inherit"> {props.isDark ? <WbSunnyRounded /> : <NightsStayRounded />}  </Button>
                 </Grid>
               </Grid>
             </Grid>

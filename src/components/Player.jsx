@@ -3,19 +3,17 @@ import React from 'react';
 import { styled } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import {
-  Grid, Button, Menu, MenuItem,
-  DialogActions, DialogContentText, DialogContent, DialogTitle, TextField, Dialog, Slider
-} from '@material-ui/core';
+import { Grid, Button, Menu, MenuItem, TextField } from '@material-ui/core';
 import { FavoriteBorderRounded, MoreHorizRounded, PlayCircleFilledOutlined, PauseCircleFilledRounded, SkipNextRounded, SkipPreviousRounded, QueueMusicRounded } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { playStopButtonClickHandler, display } from '../shared/funs';
-import { playerNextTrack, playerPrevTrack, playerCurrentTime } from '../actions/player';
+import { playerNextTrack, playerPrevTrack } from '../actions/player';
 import Sidebar from './Sidebar';
 import icon_512x512 from '../assets/images/icon-512x512.png'
 import { HOST_API } from '../shared/constants';
 import { RangeSlider } from './Slider';
 import DialogBox from './DialogBox';
+
 
 const MyAppBar = styled(AppBar)({
   top: 'auto',
@@ -109,17 +107,17 @@ class Player extends React.Component {
                   <Grid item>
                     <Grid container spacing={1} alignItems={"center"}>
                       <Grid item>
-                        <Button onClick={() => this.prevSong()} color={"inherit"}><SkipPreviousRounded style={{ fontSize: "3rem" }} /></Button>
+                        <Button onClick={() => this.prevSong()} color={"inherit"}><SkipPreviousRounded style={{ fontSize: "2rem" }} /></Button>
                       </Grid>
                       <Grid item>
                         <Button
                           onClick={() => this.playPause()}
                           color={"inherit"} >
-                          {player.isPlaying ? <PauseCircleFilledRounded style={{ fontSize: 30 }} /> : <PlayCircleFilledOutlined style={{ fontSize: 30 }} />}
+                          {player.isPlaying ? <PauseCircleFilledRounded style={{ fontSize: "3rem" }} /> : <PlayCircleFilledOutlined style={{ fontSize: "3rem" }} />}
                         </Button>
                       </Grid>
                       <Grid item>
-                        <Button onClick={() => this.nextSong()} color={"inherit"}><SkipNextRounded style={{ fontSize: "3rem" }} /></Button>
+                        <Button onClick={() => this.nextSong()} color={"inherit"}><SkipNextRounded style={{ fontSize: "2rem" }} /></Button>
                       </Grid>
                       <Grid item>
                         <div>{`${display(player.currentTime)} / ${display(player.durationTime)}`}</div>
@@ -141,7 +139,7 @@ class Player extends React.Component {
           handleClose={this.closePlaylistModal}
           open={openPlaylist}
           heading={"Create a new playlist"}
-        // description={"Enter new playlist name"}
+          description={""}
         >
           <TextField autoFocus margin="dense" autoComplete={"off"} id="name" label="Enter playlist name" type="email" fullWidth />
         </DialogBox>

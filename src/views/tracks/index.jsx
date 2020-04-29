@@ -81,18 +81,10 @@ class Tracks extends React.Component {
       this.props.dispatch(getTrack(query));
     })
 
-    const _this = this;
-    document.body.onkeyup = function (e) {
-      if (e.keyCode === 32) {
-        _this.playStopButtonClickHandler(_this.props.player.isPlaying);
-      }
-    }
   }
   componentWillUnmount() {
     this.props.dispatch(clearTracks());
   }
-
-
 }
 
 
