@@ -2,7 +2,7 @@ import React from 'react';
 import { DeleteRounded } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import icon_512x512 from '../assets/images/icon-512x512.png'
-import { ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, ListSubheader, Grid, Button, Divider, SwipeableDrawer, List, ListItem, ListItemText } from '@material-ui/core';
+import { ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, ListSubheader, Grid, Button, Divider, SwipeableDrawer, List, ListItem, ListItemText, Paper } from '@material-ui/core';
 import { playerRemoveTrack, clearPlaylist, playerCurrentTrack } from '../actions/player';
 import { playStopButtonClickHandler } from '../shared/funs';
 
@@ -40,7 +40,7 @@ class Sidebar extends React.Component {
           onOpen={() => handlePlaylistSidebar(true)}
         >
           {
-            <div style={{ width: 350 }} role="presentation"
+            <Paper style={{ width: 350 }} role="presentation"
             // onClick={() => this.props.handlePlaylistSidebar(false)} onKeyDown={() => this.props.handlePlaylistSidebar(false)} 
             >
               <List
@@ -97,7 +97,7 @@ class Sidebar extends React.Component {
                   </Grid>
                 }
               </List>
-            </div>
+            </Paper>
           }
         </SwipeableDrawer>
       </React.Fragment >

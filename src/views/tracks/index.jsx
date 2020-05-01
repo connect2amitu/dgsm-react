@@ -5,6 +5,7 @@ import { Button, Grid, CircularProgress } from '@material-ui/core';
 import { playStopButtonClickHandler } from '../../shared/funs';
 import { playerCurrentTrack } from '../../actions/player';
 import SongCard from '../../components/SongCard';
+import { Fade, Grow } from '@material-ui/core';
 
 // var trackStyle = {
 //   borderRadius: "10px",
@@ -32,14 +33,18 @@ class Tracks extends React.Component {
     const { page } = this.state
     var items = [];
     tracks.map((track, index) =>
-      items.push(<Grid item xs={3} id={index} key={index}>
-        <SongCard
-          track={track}
-          player={player}
-          playSong={this.playSong}
-          pauseSong={this.pauseSong}
-        />
-      </Grid>)
+      items.push(
+        <Fade in={true}>
+          <Grid item xs={3} id={index} key={index}>
+            <SongCard
+              track={track}
+              player={player}
+              playSong={this.playSong}
+              pauseSong={this.pauseSong}
+            />
+          </Grid>
+        </Fade>
+      )
     )
     return (
       <>

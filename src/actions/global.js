@@ -6,3 +6,15 @@ export function changeTheme(data) {
     payload: data
   }
 }
+export function addAuthUser(data) {
+  return {
+    type: GLOBAL.AUTH_USER_START,
+    payload: data
+  }
+}
+
+export function logout() {
+  return {
+    type: GLOBAL.LOGOUT,
+  }
+}

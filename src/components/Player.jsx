@@ -3,7 +3,7 @@ import React from 'react';
 import { styled } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { Grid, Button, Menu, MenuItem, TextField } from '@material-ui/core';
+import { Grid, Button, Menu, MenuItem, TextField, Tooltip, CircularProgress, List, ListItemText, ListItem, ListItemIcon, ListItemAvatar, Avatar } from '@material-ui/core';
 import { FavoriteBorderRounded, MoreHorizRounded, PlayCircleFilledOutlined, PauseCircleFilledRounded, SkipNextRounded, SkipPreviousRounded, QueueMusicRounded } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { playStopButtonClickHandler, display } from '../shared/funs';
@@ -13,6 +13,9 @@ import icon_512x512 from '../assets/images/icon-512x512.png'
 import { HOST_API } from '../shared/constants';
 import { RangeSlider } from './Slider';
 import DialogBox from './DialogBox';
+import GoogleLogin from 'react-google-login';
+import { addAuthUser } from '../actions/global';
+import { createPlaylist, getPlaylists, addToPlaylist } from '../actions/playlist';
 
 
 const MyAppBar = styled(AppBar)({
@@ -39,34 +42,35 @@ class Player extends React.Component {
       anchorEl: null,
       open: false,
       openPlaylist: false,
+      openLoginBox: false,
+      playlistName: "",
     };
     this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
   }
 
   render() {
-    const { player } = this.props;
-    const { anchorEl, open, openPlaylist } = this.state
+    const { player, isLoadingPlaylist, playlists } = this.props;
+    const { anchorEl, open, openPlaylist, openLoginBox, playlistName } = this.state
     var backgroundImage = player.currentTrack.track ? {
       backgroundImage: `url(${HOST_API}/${player.currentTrack.track && player.currentTrack.track.cover})`,
       backgroundPosition: "center center",
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",
     } : {}
+    const isActiveActionBtn = player.currentTrack.track !== null ? false : true;
+    console.log('playlists =>', playlists);
+    console.log('isLoadingPlaylist =>', isLoadingPlaylist);
+
+
     return (
       <React.Fragment>
         <MyAppBar color="primary" style={backgroundImage} >
-          <Toolbar
-            style={{
-              '-webkit-backdrop-filter': 'blur(255px)',
-              'backdrop-filter': 'blur(255px)',
-              'background-color': 'rgba(255, 255, 255, 0.1)',
-            }}
-          >
+          <Toolbar style={{ '-webkit-backdrop-filter': 'blur(255px)', 'backdrop-filter': 'blur(255px)', 'background-color': 'rgba(255, 255, 255, 0.1)', }} >
             <Grid container alignItems={"center"}>
               <Grid item>
                 <Grid container spacing={1}>
                   <Grid item>
-                    <div style={trackStyle}></div>
+                    <div style={trackStyle} />
                   </Grid>
                   <Grid item style={{ width: "190px" }}>
                     <Grid container direction={"column"}>
@@ -79,10 +83,17 @@ class Player extends React.Component {
                     </Grid>
                   </Grid>
                   <Grid item>
-                    <Button color={"inherit"}><FavoriteBorderRounded /></Button>
+                    <Button disabled={isActiveActionBtn} color={"inherit"}> <FavoriteBorderRounded /> </Button>
                   </Grid>
                   <Grid item>
-                    <Button aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleClick} color={"inherit"}><MoreHorizRounded /></Button>
+                    <Button
+                      disabled={isActiveActionBtn}
+                      onClick={this.handleClick} color={"inherit"}
+                      aria-controls="simple-menu"
+                      aria-haspopup="true"
+                    >
+                      <MoreHorizRounded />
+                    </Button>
                     <Menu
                       id="simple-menu"
                       anchorEl={anchorEl}
@@ -99,64 +110,152 @@ class Player extends React.Component {
               </Grid>
               <Grid item>
                 <Grid container spacing={1} alignItems={"center"} direction={"column"}>
-                  <Grid item>
-                    <RangeSlider
-                      {...this.props}
-                    />
-                  </Grid>
+                  <Grid item> <RangeSlider {...this.props} /> </Grid>
                   <Grid item>
                     <Grid container spacing={1} alignItems={"center"}>
                       <Grid item>
-                        <Button onClick={() => this.prevSong()} color={"inherit"}><SkipPreviousRounded style={{ fontSize: "2rem" }} /></Button>
+                        <Tooltip title={"Previous"} placement="top">
+                          <Button
+                            disabled={isActiveActionBtn}
+                            onClick={() => this.prevSong()} color={"inherit"}>
+                            <SkipPreviousRounded style={{ fontSize: "2rem" }} />
+                          </Button>
+                        </Tooltip>
                       </Grid>
                       <Grid item>
-                        <Button
-                          onClick={() => this.playPause()}
-                          color={"inherit"} >
-                          {player.isPlaying ? <PauseCircleFilledRounded style={{ fontSize: "3rem" }} /> : <PlayCircleFilledOutlined style={{ fontSize: "3rem" }} />}
-                        </Button>
+                        <Tooltip title={player.currentTrack.track !== null ? player.isPlaying ? "Pause" : "Play" : "Select track"} placement="top">
+                          <Button
+                            disabled={isActiveActionBtn}
+                            onClick={() => this.playPause()}
+                            color={"inherit"} >
+                            {player.isPlaying ? <PauseCircleFilledRounded style={{ fontSize: "3rem" }} /> : <PlayCircleFilledOutlined style={{ fontSize: "3rem" }} />}
+                          </Button>
+                        </Tooltip>
                       </Grid>
                       <Grid item>
-                        <Button onClick={() => this.nextSong()} color={"inherit"}><SkipNextRounded style={{ fontSize: "2rem" }} /></Button>
+                        <Tooltip title={"Next"} placement="top">
+                          <Button
+                            disabled={isActiveActionBtn}
+                            onClick={() => this.nextSong()} color={"inherit"}>
+                            <SkipNextRounded style={{ fontSize: "2rem" }} />
+                          </Button>
+                        </Tooltip>
                       </Grid>
                       <Grid item>
                         <div>{`${display(player.currentTime)} / ${display(player.durationTime)}`}</div>
                       </Grid>
                       <Grid item>
-                        <Button onClick={() => this.handlePlaylistSidebar(!open)} color={"inherit"}><QueueMusicRounded style={{ fontSize: "3rem" }} /></Button>
+                        <Tooltip title={"Open Playlist"} placement="top">
+                          <Button
+                            onClick={() => this.handlePlaylistSidebar(!open)} color={"inherit"}>
+                            <QueueMusicRounded style={{ fontSize: "3rem" }} />
+                          </Button>
+                        </Tooltip>
                       </Grid>
                     </Grid>
                   </Grid>
-
                 </Grid>
               </Grid>
             </Grid>
           </Toolbar>
         </MyAppBar>
+
         <Sidebar open={open} handlePlaylistSidebar={this.handlePlaylistSidebar} />
 
-        <DialogBox
-          handleClose={this.closePlaylistModal}
-          open={openPlaylist}
-          heading={"Create a new playlist"}
-          description={""}
-        >
-          <TextField autoFocus margin="dense" autoComplete={"off"} id="name" label="Enter playlist name" type="email" fullWidth />
+        <DialogBox handleClose={this.closePlaylistModal} onSubmit={this.createNewPlaylist} open={openPlaylist} heading={"ADDED TO PLAYLIST"} description={""} >
+          <List dense={true}>
+            {
+              playlists.map((playlist, index) =>
+                <ListItem key={index} button onClick={() => this.addToPlaylistHandler(playlist.id)}>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <QueueMusicRounded />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={playlist.name}
+                  />
+                </ListItem>
+              )
+            }
+          </List>
+          <TextField onChange={(e) => this.setState({ playlistName: e.target.value })} value={playlistName} margin="dense" autoComplete={"off"} id="name" label="Enter playlist name" type="email" fullWidth />
+          {isLoadingPlaylist && <CircularProgress />}
         </DialogBox>
+
+        <DialogBox handleClose={this.closePlaylistModal} open={openLoginBox} heading={"Login with gmail"} description={""} hideActionBtn={true} >
+          <GoogleLogin
+            clientId="770715490238-ft20jtu5vio0krq5c83nih44p48rg715.apps.googleusercontent.com"
+            buttonText="Login with Google"
+            onSuccess={this.responseGoogle}
+            onFailure={this.responseGoogle}
+            cookiePolicy={'single_host_origin'}
+          />
+        </DialogBox>
+
       </React.Fragment>
     );
   }
 
+
+  addToPlaylistHandler = (playlist_id) => {
+    const { dispatch, player, user } = this.props;
+    var formdata = new FormData();
+    console.log('addToPlaylistHandler user =>', user);
+    console.log('addToPlaylistHandler player.currentTrack.track.id =>', player.currentTrack.track.id);
+    console.log('addToPlaylistHandler playlist_id =>', playlist_id);
+    formdata.append('user_id', user.id);
+    formdata.append('track_id', player.currentTrack.track.id);
+    formdata.append('playlist_id', playlist_id);
+    dispatch(addToPlaylist(formdata));
+    this.closePlaylistModal();
+  }
+
+
+
+
+
+
+  responseGoogle = (response) => {
+    const { dispatch } = this.props;
+    var resp = JSON.parse(JSON.stringify(response));
+    var formdata = new FormData();
+    formdata.append('oauth_provider', resp.tokenObj.idpId);
+    formdata.append('oauth_uid', resp.profileObj.googleId);
+    formdata.append('name', resp.profileObj.name);
+    formdata.append('email', resp.profileObj.email);
+    formdata.append('picture', resp.profileObj.imageUrl);
+    dispatch(addAuthUser(formdata));
+    this.closePlaylistModal();
+  }
+
+
   openPlaylistModal = () => {
-    this.setState({ openPlaylist: true })
+    const { isLoggedIn } = this.props
+    if (!isLoggedIn) {
+      this.setState({ openLoginBox: true, anchorEl: null });
+    } else {
+      this.setState({ openPlaylist: true, anchorEl: null });
+    }
   }
 
   closePlaylistModal = () => {
-    this.setState({ openPlaylist: false, anchorEl: null });
+    this.setState({ openPlaylist: false, openLoginBox: false, anchorEl: null });
   }
 
-  addToPlaylist = () => {
-    alert();
+  createNewPlaylist = () => {
+    this.setState({ openPlaylist: false });
+    const { dispatch, user, player } = this.props;
+    const { playlistName } = this.state;
+
+    var formdata = new FormData();
+    formdata.append('name', playlistName);
+    formdata.append('user_id', user.id);
+    formdata.append('track_id', player.currentTrack.track.id);
+
+    this.setState({ playlistName: "" }, () => {
+      dispatch(createPlaylist(formdata));
+    })
   }
 
   handlePlaylistSidebar = (open) => {
@@ -202,6 +301,14 @@ class Player extends React.Component {
 
 
   componentDidMount() {
+    const { isLoggedIn, user } = this.props;
+    if (isLoggedIn) {
+      let query = {
+        user_id: user.id
+      }
+      this.props.dispatch(getPlaylists(query));
+    }
+
     const _this = this;
     navigator.mediaSession.setActionHandler('previoustrack', function () {
       _this.props.dispatch(playerPrevTrack());
@@ -253,6 +360,8 @@ class Player extends React.Component {
       });
     } catch (error) {
     }
+
+
   }
 
   updatePositionState = () => {
@@ -266,7 +375,6 @@ class Player extends React.Component {
     }
   }
 
-
 }
 
 const mapStateToProps = state => {
@@ -274,6 +382,10 @@ const mapStateToProps = state => {
     albumDetail: state.albums.albumDetail,
     isLoading: state.albums.isLoading,
     player: state.player,
+    playlists: state.playlist.playlists,
+    isLoadingPlaylist: state.playlist.isLoading,
+    user: state.global.user,
+    isLoggedIn: state.global.isLoggedIn,
   }
 }
 export default connect(mapStateToProps)(Player)

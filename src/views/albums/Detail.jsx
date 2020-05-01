@@ -1,14 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Grid, Button, Chip } from '@material-ui/core';
+import { Grid, Button, Chip, Fade, Grow, Zoom } from '@material-ui/core';
 import { getAlbumWithTrack } from '../../actions/albums';
 import { HOST_API } from '../../shared/constants';
 import { playStopButtonClickHandler } from '../../shared/funs';
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
 import PlayPauseButton from '../../components/PlayPauseButton';
 import logo from '../../assets/images/logo.png'
-import { GoogleLogin } from 'react-google-login';
-
 
 var cardStyle = {
   borderRadius: "10px",
@@ -45,7 +43,9 @@ class AlbumsDetail extends React.Component {
           <>
             <Grid container spacing={2}>
               <Grid item >
-                <div><Button style={{ ...cardStyle, background: `url(${HOST_API}/${albumDetail.cover}) center center / cover no-repeat` }} /></div>
+                <Fade in={true}>
+                  <div><Button style={{ ...cardStyle, background: `url(${HOST_API}/${albumDetail.cover}) center center / cover no-repeat` }} /></div>
+                </Fade>
               </Grid>
               <Grid item>
                 <Grid container direction={"column"}>
@@ -71,33 +71,35 @@ class AlbumsDetail extends React.Component {
                 <Grid container spacing={1}>
                   {
                     albumDetail.tracks.map((track, index) =>
-                      <Grid item xs={12} key={index}>
-                        <Grid container spacing={1} alignItems={"center"} >
-                          <Grid item style={{ width: "25px" }}>
-                            <span >{index + 1}</span>
-                          </Grid>
-                          <Grid item><Button style={trackStyle}></Button></Grid>
-                          <Grid item xs={6} md={2}>
-                            <Grid container direction={"column"}>
-                              <Grid item>
-                                <span style={{ fontSize: 14, fontWeight: 500 }}>{track.name.replace(/\.[^.]*$/, '')}</span>
-                              </Grid>
-                              <Grid item>
-                                <span style={{ fontSize: 12 }}>{track.album_name} {track.city_name && `- ${track.city_name}`}</span>
+                      <Fade in={true}>
+                        <Grid item xs={12} key={index}>
+                          <Grid container spacing={1} alignItems={"center"} >
+                            <Grid item style={{ width: "25px" }}>
+                              <span >{index + 1}</span>
+                            </Grid>
+                            <Grid item><Button style={trackStyle}></Button></Grid>
+                            <Grid item xs={6} md={2}>
+                              <Grid container direction={"column"}>
+                                <Grid item>
+                                  <span style={{ fontSize: 14, fontWeight: 500 }}>{track.name.replace(/\.[^.]*$/, '')}</span>
+                                </Grid>
+                                <Grid item>
+                                  <span style={{ fontSize: 12 }}>{track.album_name} {track.city_name && `- ${track.city_name}`}</span>
+                                </Grid>
                               </Grid>
                             </Grid>
-                          </Grid>
-                          <Grid item>
-                            <PlayPauseButton
-                              track={track}
-                              pauseSong={this.pauseSong}
-                              playSong={this.playSong}
-                              isPlaying={player.isPlaying}
-                              currentTrack={player.currentTrack}
-                            />
+                            <Grid item>
+                              <PlayPauseButton
+                                track={track}
+                                pauseSong={this.pauseSong}
+                                playSong={this.playSong}
+                                isPlaying={player.isPlaying}
+                                currentTrack={player.currentTrack}
+                              />
+                            </Grid>
                           </Grid>
                         </Grid>
-                      </Grid>
+                      </Fade>
                     )}
                 </Grid>
               </Grid>

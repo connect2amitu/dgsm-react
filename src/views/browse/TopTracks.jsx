@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Button } from '@material-ui/core'
+import { Grid, Button, Fade } from '@material-ui/core'
 import { connect } from 'react-redux';
 import { getTrack, clearTracks } from '../../actions/tracks';
 import { NavLink } from 'react-router-dom';
@@ -39,14 +39,16 @@ class TopTracks extends Component {
           }
           {!isLoading ?
             tracks.map((track, index) =>
-              <Grid item xs={3} key={index}>
-                <SongCard
-                  track={track}
-                  player={player}
-                  playSong={this.playSong}
-                  pauseSong={this.pauseSong}
-                />
-              </Grid>
+              <Fade in={true}>
+                <Grid item xs={3} key={index}>
+                  <SongCard
+                    track={track}
+                    player={player}
+                    playSong={this.playSong}
+                    pauseSong={this.pauseSong}
+                  />
+                </Grid>
+              </Fade>
             )
             : <Loading />}
         </Grid>

@@ -1,11 +1,11 @@
 import React from 'react'
-import { DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Button, Dialog } from '@material-ui/core';
+import { DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Dialog } from '@material-ui/core';
 
 export default function DialogBox(props) {
-  const { handleClose, open = false, heading = "heading", description = "", children } = props;
+  const { handleClose, open = false, heading = "heading", description = "", children, hideActionBtn = false, onSubmit } = props;
   return (
     <div>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog fullWidth maxWidth={"sm"} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">{heading}</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -14,8 +14,13 @@ export default function DialogBox(props) {
           {children}
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => handleClose()} color="primary"> Cancel </Button>
-          <Button onClick={() => handleClose()} color="primary"> Create </Button>
+          {
+            !hideActionBtn &&
+            <>
+              <Button onClick={handleClose} color="primary"> Cancel </Button>
+              <Button onClick={onSubmit} color="primary"> Create </Button>
+            </>
+          }
         </DialogActions>
       </Dialog>
     </div>

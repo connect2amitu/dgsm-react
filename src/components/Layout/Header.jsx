@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppBar, Toolbar, Button, Grid, Typography, makeStyles, fade, InputBase } from '@material-ui/core'
+import { AppBar, Toolbar, Button, Grid, Typography, makeStyles, fade, InputBase, Avatar } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
 import { NightsStayRounded, WbSunnyRounded, SearchRounded } from '@material-ui/icons'
 import { changeTheme } from '../../actions/global'
@@ -67,6 +67,8 @@ function Header(props) {
     props.dispatch(changeTheme())
   }
   const classes = useStyles();
+  const { user, isLoggedIn } = props;
+  console.log('user =>', user);
 
   return (
     <>
@@ -102,6 +104,12 @@ function Header(props) {
                 <Grid item>
                   <Button onClick={() => themHandler()} color="inherit"> {props.isDark ? <WbSunnyRounded /> : <NightsStayRounded />}  </Button>
                 </Grid>
+                {
+                  isLoggedIn &&
+                  <Grid item>
+                    <Avatar src={user.picture} />
+                  </Grid>
+                }
               </Grid>
             </Grid>
           </Grid>
@@ -113,7 +121,9 @@ function Header(props) {
 }
 const mapStateToProps = state => {
   return {
-    isDark: state.global.isDark
+    isDark: state.global.isDark,
+    user: state.global.user,
+    isLoggedIn: state.global.isLoggedIn,
   }
 }
 

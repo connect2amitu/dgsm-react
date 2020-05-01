@@ -36,7 +36,7 @@ class TopAlbums extends Component {
       <div>
         <Grid container justify={"space-between"}>
           <Grid item>
-            <h1>Top albums</h1>
+            <h1>Top Albums</h1>
           </Grid>
           <Grid item>
             <Button component={NavLink} to="/browse/albums" color={"primary"} variant={"contained"}>View more</Button>
