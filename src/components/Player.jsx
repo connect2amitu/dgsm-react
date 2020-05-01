@@ -58,8 +58,6 @@ class Player extends React.Component {
       backgroundSize: "cover",
     } : {}
     const isActiveActionBtn = player.currentTrack.track !== null ? false : true;
-    console.log('playlists =>', playlists);
-    console.log('isLoadingPlaylist =>', isLoadingPlaylist);
 
 
     return (
@@ -162,7 +160,7 @@ class Player extends React.Component {
 
         <Sidebar open={open} handlePlaylistSidebar={this.handlePlaylistSidebar} />
 
-        <DialogBox handleClose={this.closePlaylistModal} onSubmit={this.createNewPlaylist} open={openPlaylist} heading={"ADDED TO PLAYLIST"} description={""} >
+        <DialogBox size={"md"} handleClose={this.closePlaylistModal} onSubmit={this.createNewPlaylist} open={openPlaylist} heading={"ADDED TO PLAYLIST"} description={""} >
           <List dense={true}>
             {
               playlists.map((playlist, index) =>
@@ -183,13 +181,14 @@ class Player extends React.Component {
           {isLoadingPlaylist && <CircularProgress />}
         </DialogBox>
 
-        <DialogBox handleClose={this.closePlaylistModal} open={openLoginBox} heading={"Login with gmail"} description={""} hideActionBtn={true} >
+        <DialogBox size={"xs"} fullWidth={false} handleClose={this.closePlaylistModal} open={openLoginBox} heading={"Login with gmail"} description={""} hideActionBtn={true} >
           <GoogleLogin
             clientId="770715490238-ft20jtu5vio0krq5c83nih44p48rg715.apps.googleusercontent.com"
             buttonText="Login with Google"
             onSuccess={this.responseGoogle}
             onFailure={this.responseGoogle}
             cookiePolicy={'single_host_origin'}
+            theme={"dark"}
           />
         </DialogBox>
 
@@ -201,9 +200,6 @@ class Player extends React.Component {
   addToPlaylistHandler = (playlist_id) => {
     const { dispatch, player, user } = this.props;
     var formdata = new FormData();
-    console.log('addToPlaylistHandler user =>', user);
-    console.log('addToPlaylistHandler player.currentTrack.track.id =>', player.currentTrack.track.id);
-    console.log('addToPlaylistHandler playlist_id =>', playlist_id);
     formdata.append('user_id', user.id);
     formdata.append('track_id', player.currentTrack.track.id);
     formdata.append('playlist_id', playlist_id);

@@ -31,7 +31,6 @@ class Tracks extends React.Component {
   render() {
     const { tracks, isLoading, error, hasMore, totalPages, player } = this.props
     const { page } = this.state
-    console.log('player.hasMore =>', this.props.hasMore);
 
     var items = [];
     tracks.map((track, index) =>
@@ -93,7 +92,6 @@ class Tracks extends React.Component {
     );
   }
   loadMore = (_page) => {
-    console.log('_page =>', _page);
     const { page, size } = this.state
     this.setState({ page: page + 1 }, () => {
       var query = { size, order: 'asc', page: page * size }

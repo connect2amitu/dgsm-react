@@ -2,10 +2,10 @@ import React from 'react'
 import { DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Dialog } from '@material-ui/core';
 
 export default function DialogBox(props) {
-  const { handleClose, open = false, heading = "heading", description = "", children, hideActionBtn = false, onSubmit } = props;
+  const { handleClose, open = false, heading = "heading", size = "sm", fullWidth = true, description = "", children, hideActionBtn = false, onSubmit } = props;
   return (
     <div>
-      <Dialog fullWidth maxWidth={"sm"} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog fullWidth={fullWidth} maxWidth={size} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">{heading}</DialogTitle>
         <DialogContent>
           <DialogContentText>

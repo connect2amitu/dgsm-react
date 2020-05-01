@@ -7,8 +7,6 @@ function fetchAllPlaylist() {
   return function* (options) {
     try {
       const data = yield call(() => getAll(options.payload));
-      console.log('fetchAllPlaylist data =>', data);
-
       const action = { type: PLAYLIST.FETCH_SUCCESS, data }
       yield put(action);
     } catch (error) {

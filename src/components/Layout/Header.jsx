@@ -68,7 +68,6 @@ function Header(props) {
   }
   const classes = useStyles();
   const { user, isLoggedIn } = props;
-  console.log('user =>', user);
 
   return (
     <>
