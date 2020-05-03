@@ -14,3 +14,11 @@ export function getAlbumWithTrack(data) {
     payload: data
   }
 }
+
+export function clearAlbums(data) {
+  return {
+    type: ALBUM.CLEAR_ALL,
+    isLoading: true,
+    payload: data
+  }
+}

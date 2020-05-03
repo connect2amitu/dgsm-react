@@ -41,7 +41,7 @@ function App({ isDark }) {
           <Layout>
             <Route exact path="/(|browse)" component={Browse} />
             <Route exact path="/browse/tracks" component={Tracks} />
-            <Route exact path="/browse/albums" render={() => <h1>Album more</h1>} />
+            <Route exact path="/browse/albums" component={Albums} />
             <Route exact path="/albums" component={Albums} />
             <Route exact path="/my-playlist" component={MyPlaylist} />
             <Route exact path="/album/:slug" component={AlbumsDetail} />

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Grid, Button } from '@material-ui/core'
 import CarouselSlider from "react-slick";
 import { connect } from 'react-redux';
-import { getAlbums } from '../../actions/albums';
+import { getAlbums, clearAlbums } from '../../actions/albums';
 import { HOST_API } from '../../shared/constants';
 import { NavLink } from 'react-router-dom';
 import Loading from '../../components/Loading';
@@ -30,7 +30,32 @@ class TopAlbums extends Component {
       speed: 800,
       slidesToShow: 10,
       slidesToScroll: 10,
-      draggable: false
+      draggable: false,
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            initialSlide: 3
+          }
+        },
+        {
+          breakpoint: 425,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            initialSlide: 2
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ]
     };
     return (
       <div>
@@ -50,7 +75,7 @@ class TopAlbums extends Component {
             {
               albums.map((album, index) =>
                 <Grid container key={index} style={{ height: "210px", width: "210px", backgroundColor: "black", padding: "10px", margin: "10px" }}>
-                  <NavLink to={`album/${album.slug}`}><Button style={{ ...cardStyle, background: `url(${HOST_API}/${album.cover}) center center / cover no-repeat` }}></Button></NavLink>
+                  <NavLink to={`/album/${album.slug}`}><Button style={{ ...cardStyle, background: `url(${HOST_API}/${album.cover}) center center / cover no-repeat` }}></Button></NavLink>
                   <p>{album.name}</p>
                 </Grid>
               )
@@ -67,6 +92,10 @@ class TopAlbums extends Component {
       page: 0
     }
     this.props.dispatch(getAlbums(query))
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(clearAlbums());
   }
 
 }

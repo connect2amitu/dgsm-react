@@ -35,7 +35,8 @@ class Tracks extends React.Component {
     tracks.map((track, index) =>
       items.push(
         <Fade in={true} key={index}>
-          <Grid item xs={3} id={index}>
+          <Grid item xs={12} sm={8} md={6} lg={4} xl={3}>
+            {/* <Grid item xs={3} id={index}> */}
             <SongCard
               track={track}
               player={player}
@@ -56,7 +57,7 @@ class Tracks extends React.Component {
         <Grid container spacing={3}>
           {items}
           <Grid item xs={12} style={{ textAlign: "center" }}>
-            {!isLoading && !error && (page < totalPages) && <Button color={"secondary"} variant={"contained"} onClick={() => this.loadMore()}>Load more</Button>}
+            {!isLoading && !error && (page < totalPages) && <Button color={"secondary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
             {isLoading && !error && <CircularProgress />}
             {error && "Something went wrong"}
           </Grid>
@@ -65,7 +66,7 @@ class Tracks extends React.Component {
       </>
     );
   }
-  loadMore = () => {
+  loadData = () => {
     const { page, size } = this.state
     this.setState({ page: page + 1 }, () => {
       var query = { size, order: 'asc', page: page * size }
@@ -80,12 +81,7 @@ class Tracks extends React.Component {
     this.playStopButtonClickHandler(false);
   }
   componentDidMount() {
-    const { size, page } = this.state
-    this.setState({ page: page + 1 }, () => {
-      var query = { size, order: 'asc', page: 0 }
-      this.props.dispatch(getTrack(query));
-    })
-
+    this.loadData()
   }
   componentWillUnmount() {
     this.props.dispatch(clearTracks());

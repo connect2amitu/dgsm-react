@@ -22,6 +22,7 @@ const MyAppBar = styled(AppBar)({
   top: 'auto',
   bottom: 0,
   position: "fixed",
+
 });
 
 var trackStyle = {

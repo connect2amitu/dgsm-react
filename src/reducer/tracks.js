@@ -20,6 +20,7 @@ const actionsMap = {
       ...state,
       tracks: [],
       totalPages: 0,
+      error: false,
     }
   },
   [TRACK.FETCH_ALL_SUCCESS]: (state, action) => {

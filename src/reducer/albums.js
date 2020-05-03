@@ -10,6 +10,14 @@ const initialState = {
 };
 
 const actionsMap = {
+  [ALBUM.CLEAR_ALL]: (state, action) => {
+    return {
+      ...state,
+      albums: [],
+      totalPages: 0,
+      error: false,
+    }
+  },
   [ALBUM.FETCH_START]: (state, action) => {
     return {
       ...state,
@@ -17,11 +25,11 @@ const actionsMap = {
     }
   },
   [ALBUM.FETCH_SUCCESS]: (state, action) => {
-
     return {
       ...state,
       isLoading: false,
-      albums: action.data.data,
+      albums: [...state.albums, ...action.data.data],
+      totalPages: action.data.totalPages,
     }
   },
   [ALBUM.FETCH_ERROR]: (state, action) => {

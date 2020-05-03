@@ -1,9 +1,95 @@
 import React from 'react'
+import { connect } from 'react-redux';
+import { getAlbums, clearAlbums } from '../../actions/albums';
+import { Button, Grid, CircularProgress } from '@material-ui/core';
+import { playerCurrentTrack } from '../../actions/player';
+import SongCard from '../../components/SongCard';
+import { Fade } from '@material-ui/core';
+import { NavLink } from 'react-router-dom';
+import { HOST_API } from '../../shared/constants';
 
-export default function Albums() {
-  return (
-    <div>
-      <h1>Albums</h1>
-    </div>
-  )
+
+var cardStyle = {
+  borderRadius: "10px",
+  height: "150px",
+  width: "150px",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+  objectFit: "contain"
 }
+
+
+class Albums extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      size: 8,
+      page: 0
+    }
+  }
+
+  render() {
+    const { albums, isLoading, error, totalPages, } = this.props
+    const { page } = this.state
+    var items = [];
+    albums.map((album, index) =>
+      items.push(
+        <Fade in={true} key={index}>
+          <Grid container key={index} style={{ height: "210px", width: "210px", padding: "10px", margin: "10px" }}>
+            <NavLink to={`/album/${album.slug}`}><Button style={{ ...cardStyle, background: `url(${HOST_API}/${album.cover}) center center / cover no-repeat` }}></Button></NavLink>
+            <p>{album.name}</p>
+          </Grid>
+        </Fade>
+      )
+    )
+    return (
+      <>
+        <Grid container justify={"space-between"}>
+          <Grid item>
+            <h1>All Albums</h1>
+          </Grid>
+        </Grid>
+        <Grid container spacing={3}>
+          {items}
+          <Grid item xs={12} style={{ textAlign: "center" }}>
+            {!isLoading && !error && (page < totalPages) && <Button color={"secondary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
+            {isLoading && !error && <CircularProgress />}
+            {error && "Something went wrong"}
+          </Grid>
+        </Grid>
+
+      </>
+    );
+  }
+  loadData = () => {
+    const { page, size } = this.state
+    this.setState({ page: page + 1 }, () => {
+      var query = { size, order: 'asc', page: page * size }
+      this.props.dispatch(getAlbums(query));
+    })
+  }
+
+  componentDidMount() {
+    this.loadData();
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(clearAlbums());
+  }
+
+}
+
+
+const mapStateToProps = state => {
+  return {
+    albums: state.albums.albums,
+    totalPages: state.albums.totalPages,
+    isLoading: state.albums.isLoading,
+  }
+}
+
+
+var _Albums = connect(mapStateToProps)(Albums)
+export default _Albums
+
