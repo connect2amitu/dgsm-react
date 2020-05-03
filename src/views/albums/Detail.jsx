@@ -44,7 +44,7 @@ class AlbumsDetail extends React.Component {
             <Grid container spacing={2}>
               <Grid item >
                 <Fade in={true}>
-                  <div><Button style={{ ...cardStyle, background: `url(${HOST_API}/${albumDetail.cover}) center center / cover no-repeat` }} /></div>
+                  <div><Button style={{ ...cardStyle, background: `url(${HOST_API}/${albumDetail.cover}) center center / cover no-repeat` }}></Button></div>
                 </Fade>
               </Grid>
               <Grid item>

@@ -23,9 +23,11 @@ const actionsMap = {
   },
 
   [PLAYER.MUTE]: (state, action) => {
+    var audioObj = state.audioObj;
+    audioObj.muted = !state.isMuted;
     return {
       ...state,
-      isMuted: action.payload
+      isMuted: !state.isMuted
     }
   },
 

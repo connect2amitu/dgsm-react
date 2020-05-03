@@ -3,14 +3,14 @@ import React from 'react';
 import { styled } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { Grid, Button, Menu, MenuItem, TextField, Tooltip, CircularProgress, List, ListItemText, ListItem, ListItemIcon, ListItemAvatar, Avatar } from '@material-ui/core';
-import { FavoriteBorderRounded, MoreHorizRounded, PlayCircleFilledOutlined, PauseCircleFilledRounded, SkipNextRounded, SkipPreviousRounded, QueueMusicRounded } from '@material-ui/icons';
+import { Grid, Button, Menu, MenuItem, TextField, Tooltip, CircularProgress, List, ListItemText, ListItem, ListItemAvatar, Avatar } from '@material-ui/core';
+import { FavoriteBorderRounded, MoreHorizRounded, PlayCircleFilledRounded, PauseCircleFilledRounded, SkipNextRounded, SkipPreviousRounded, QueueMusicRounded, VolumeOffRounded, VolumeUpRounded } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { playStopButtonClickHandler, display } from '../shared/funs';
-import { playerNextTrack, playerPrevTrack } from '../actions/player';
+import { playerNextTrack, playerPrevTrack, playerMuteUnMute } from '../actions/player';
 import Sidebar from './Sidebar';
 import icon_512x512 from '../assets/images/icon-512x512.png'
-import { HOST_API } from '../shared/constants';
+import { HOST_API, GOOGLE_CLIENT_ID } from '../shared/constants';
 import { RangeSlider } from './Slider';
 import DialogBox from './DialogBox';
 import GoogleLogin from 'react-google-login';
@@ -63,10 +63,10 @@ class Player extends React.Component {
     return (
       <React.Fragment>
         <MyAppBar color="primary" style={backgroundImage} >
-          <Toolbar style={{ '-webkit-backdrop-filter': 'blur(255px)', 'backdrop-filter': 'blur(255px)', 'background-color': 'rgba(255, 255, 255, 0.1)', }} >
+          <Toolbar style={{ 'WebkitBackdropFilter': 'blur(255px)', 'backdropFilter': 'blur(255px)', 'backgroundColor': 'rgba(255, 255, 255, 0.1)', }} >
             <Grid container alignItems={"center"}>
               <Grid item>
-                <Grid container spacing={1}>
+                <Grid container spacing={1} alignItems={"center"}>
                   <Grid item>
                     <div style={trackStyle} />
                   </Grid>
@@ -80,12 +80,12 @@ class Player extends React.Component {
                       </Grid>
                     </Grid>
                   </Grid>
+                  {/* 
                   <Grid item>
                     <Button disabled={isActiveActionBtn} color={"inherit"}> <FavoriteBorderRounded /> </Button>
                   </Grid>
                   <Grid item>
                     <Button
-                      disabled={isActiveActionBtn}
                       onClick={this.handleClick} color={"inherit"}
                       aria-controls="simple-menu"
                       aria-haspopup="true"
@@ -103,7 +103,7 @@ class Player extends React.Component {
                       <MenuItem onClick={this.handleClose}>Share</MenuItem>
                       <MenuItem onClick={this.handleClose}>View Lyrics</MenuItem>
                     </Menu>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </Grid>
               <Grid item>
@@ -112,43 +112,52 @@ class Player extends React.Component {
                   <Grid item>
                     <Grid container spacing={1} alignItems={"center"}>
                       <Grid item>
-                        <Tooltip title={"Previous"} placement="top">
-                          <Button
-                            disabled={isActiveActionBtn}
-                            onClick={() => this.prevSong()} color={"inherit"}>
-                            <SkipPreviousRounded style={{ fontSize: "2rem" }} />
-                          </Button>
-                        </Tooltip>
+                        {/* <Tooltip title={"Previous"} placement="top"> */}
+                        <Button
+                          disabled={isActiveActionBtn}
+                          onClick={() => this.prevSong()} color={"inherit"}>
+                          <SkipPreviousRounded style={{ fontSize: "2rem" }} />
+                        </Button>
+                        {/* </Tooltip> */}
                       </Grid>
                       <Grid item>
-                        <Tooltip title={player.currentTrack.track !== null ? player.isPlaying ? "Pause" : "Play" : "Select track"} placement="top">
-                          <Button
-                            disabled={isActiveActionBtn}
-                            onClick={() => this.playPause()}
-                            color={"inherit"} >
-                            {player.isPlaying ? <PauseCircleFilledRounded style={{ fontSize: "3rem" }} /> : <PlayCircleFilledOutlined style={{ fontSize: "3rem" }} />}
-                          </Button>
-                        </Tooltip>
+                        {/* <Tooltip title={player.currentTrack.track !== null ? player.isPlaying ? "Pause" : "Play" : "Select track"} placement="top"> */}
+                        <Button
+                          disabled={isActiveActionBtn}
+                          onClick={() => this.playPause()}
+                          color={"inherit"} >
+                          {player.isPlaying ? <PauseCircleFilledRounded style={{ fontSize: "3rem" }} /> : <PlayCircleFilledRounded style={{ fontSize: "3rem" }} />}
+                        </Button>
+                        {/* </Tooltip> */}
                       </Grid>
                       <Grid item>
-                        <Tooltip title={"Next"} placement="top">
-                          <Button
-                            disabled={isActiveActionBtn}
-                            onClick={() => this.nextSong()} color={"inherit"}>
-                            <SkipNextRounded style={{ fontSize: "2rem" }} />
-                          </Button>
-                        </Tooltip>
+                        {/* <Tooltip title={"Next"} placement="top"> */}
+                        <Button
+                          disabled={isActiveActionBtn}
+                          onClick={() => this.nextSong()} color={"inherit"}>
+                          <SkipNextRounded style={{ fontSize: "2rem" }} />
+                        </Button>
+                        {/* </Tooltip> */}
+                      </Grid>
+                      <Grid item>
+                        {/* <Tooltip title={player.isMuted ? "Unmute" : "Mute"} placement="top"> */}
+                        <Button
+                          disabled={isActiveActionBtn}
+                          onClick={() => this.muteHandler()} color={"inherit"}>
+                          {player.isMuted ? <VolumeOffRounded /> : <VolumeUpRounded />}
+                        </Button>
+                        {/* </Tooltip> */}
                       </Grid>
                       <Grid item>
                         <div>{`${display(player.currentTime)} / ${display(player.durationTime)}`}</div>
                       </Grid>
                       <Grid item>
-                        <Tooltip title={"Open Playlist"} placement="top">
-                          <Button
-                            onClick={() => this.handlePlaylistSidebar(!open)} color={"inherit"}>
-                            <QueueMusicRounded style={{ fontSize: "3rem" }} />
-                          </Button>
-                        </Tooltip>
+                        {/* <Tooltip title={"Open Playlist"} placement="top"> */}
+                        <Button
+                          onClick={() => this.handlePlaylistSidebar(!open)} color={"inherit"}>
+                          <QueueMusicRounded style={{ fontSize: "3rem" }} />
+                        </Button>
+                        {/* </Tooltip> */}
                       </Grid>
                     </Grid>
                   </Grid>
@@ -177,13 +186,13 @@ class Player extends React.Component {
               )
             }
           </List>
-          <TextField onChange={(e) => this.setState({ playlistName: e.target.value })} value={playlistName} margin="dense" autoComplete={"off"} id="name" label="Enter playlist name" type="email" fullWidth />
+          <TextField autoFocus onChange={(e) => this.setState({ playlistName: e.target.value })} value={playlistName} margin="dense" autoComplete={"off"} id="name" label="Enter playlist name" type="email" fullWidth />
           {isLoadingPlaylist && <CircularProgress />}
         </DialogBox>
 
-        <DialogBox size={"xs"} fullWidth={false} handleClose={this.closePlaylistModal} open={openLoginBox} heading={"Login with gmail"} description={""} hideActionBtn={true} >
+        <DialogBox size={"xs"} fullWidth={false} handleClose={this.closePlaylistModal} open={openLoginBox} heading={"Login with Gmail"} description={""} hideActionBtn={true} >
           <GoogleLogin
-            clientId="770715490238-ft20jtu5vio0krq5c83nih44p48rg715.apps.googleusercontent.com"
+            clientId={GOOGLE_CLIENT_ID}
             buttonText="Login with Google"
             onSuccess={this.responseGoogle}
             onFailure={this.responseGoogle}
@@ -196,6 +205,9 @@ class Player extends React.Component {
     );
   }
 
+  muteHandler = () => {
+    this.props.dispatch(playerMuteUnMute())
+  };
 
   addToPlaylistHandler = (playlist_id) => {
     const { dispatch, player, user } = this.props;

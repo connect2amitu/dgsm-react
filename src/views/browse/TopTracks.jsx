@@ -39,8 +39,8 @@ class TopTracks extends Component {
           }
           {!isLoading ?
             tracks.map((track, index) =>
-              <Fade in={true}>
-                <Grid item xs={3} key={index}>
+              <Fade in={true} key={index}>
+                <Grid item xs={3} >
                   <SongCard
                     track={track}
                     player={player}

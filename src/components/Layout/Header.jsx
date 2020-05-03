@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppBar, Toolbar, Button, Grid, Typography, makeStyles, fade, InputBase, Avatar } from '@material-ui/core'
+import { AppBar, Toolbar, Button, Grid, Typography, makeStyles, fade, InputBase, Avatar, Tooltip } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
 import { NightsStayRounded, WbSunnyRounded, SearchRounded } from '@material-ui/icons'
 import { changeTheme } from '../../actions/global'
@@ -79,7 +79,7 @@ function Header(props) {
             </Grid>
             <Grid item>
               <Grid container spacing={1}>
-                <Grid item>
+                {/* <Grid item>
                   <div className={classes.search}>
                     <div className={classes.searchIcon}>
                       <SearchRounded />
@@ -93,15 +93,19 @@ function Header(props) {
                       inputProps={{ 'aria-label': 'search' }}
                     />
                   </div>
-                </Grid>
+                </Grid> */}
                 <Grid item>
                   <Button component={NavLink} to={"/browse"} color="inherit">Browse</Button>
                 </Grid>
+                {/* <Grid item>
+                  <Tooltip title={"Coming Soon"} placement="top">
+                    <Button disabled={true} component={NavLink} to={"/my-playlist"} color="inherit">My Playlist</Button>
+                  </Tooltip>
+                </Grid> */}
                 <Grid item>
-                  <Button component={NavLink} to={"/browse"} color="inherit">My Playlist</Button>
-                </Grid>
-                <Grid item>
-                  <Button onClick={() => themHandler()} color="inherit"> {props.isDark ? <WbSunnyRounded /> : <NightsStayRounded />}  </Button>
+                  <Tooltip title={"Theme"} placement="bottom">
+                    <Button onClick={() => themHandler()} color="inherit"> {props.isDark ? <WbSunnyRounded /> : <NightsStayRounded />}  </Button>
+                  </Tooltip>
                 </Grid>
                 {
                   isLoggedIn &&

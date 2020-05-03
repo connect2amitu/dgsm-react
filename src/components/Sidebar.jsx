@@ -91,7 +91,7 @@ class Sidebar extends React.Component {
                 }
                 ) :
                   <Grid container alignItems={"center"} direction={"column"}>
-                    <Grid item><Button style={trackStyle} /></Grid>
+                    <Grid item><Button style={trackStyle}></Button></Grid>
                     <Grid item><h4>Playlist is empty!</h4></Grid>
                     <Grid item><p>Add a song to build your playlist.</p></Grid>
                   </Grid>

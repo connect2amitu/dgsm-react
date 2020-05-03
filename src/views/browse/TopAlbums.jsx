@@ -50,7 +50,7 @@ class TopAlbums extends Component {
             {
               albums.map((album, index) =>
                 <Grid container key={index} style={{ height: "210px", width: "210px", backgroundColor: "black", padding: "10px", margin: "10px" }}>
-                  <NavLink to={`album/${album.slug}`}><Button style={{ ...cardStyle, background: `url(${HOST_API}/${album.cover}) center center / cover no-repeat` }} /></NavLink>
+                  <NavLink to={`album/${album.slug}`}><Button style={{ ...cardStyle, background: `url(${HOST_API}/${album.cover}) center center / cover no-repeat` }}></Button></NavLink>
                   <p>{album.name}</p>
                 </Grid>
               )

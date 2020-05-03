@@ -18,7 +18,7 @@ export default function SongCard({ track, player, playSong, pauseSong }) {
 
   return (
     <Grid container>
-      <Grid item xs={2}><Button style={trackStyle} /></Grid>
+      <Grid item xs={2}><Button style={trackStyle}></Button></Grid>
       <Grid item xs={8}>
         <Grid container direction={"column"}>
           <Grid item>

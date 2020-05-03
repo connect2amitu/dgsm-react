@@ -19,7 +19,7 @@ const actionsMap = {
     return {
       ...state,
       isLoading: false,
-      playlists: [...state.playlists, ...action.data.data],
+      playlists: action.data.data,
       totalPages: action.data.totalPages,
     }
   },

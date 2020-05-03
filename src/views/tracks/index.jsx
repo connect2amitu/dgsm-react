@@ -34,8 +34,8 @@ class Tracks extends React.Component {
     var items = [];
     tracks.map((track, index) =>
       items.push(
-        <Fade in={true}>
-          <Grid item xs={3} id={index} key={index}>
+        <Fade in={true} key={index}>
+          <Grid item xs={3} id={index}>
             <SongCard
               track={track}
               player={player}
