@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { getAlbums, clearAlbums } from '../../actions/albums';
-import { Button, Grid, CircularProgress } from '@material-ui/core';
+import { Button, Grid, CircularProgress, Typography } from '@material-ui/core';
 import { playerCurrentTrack } from '../../actions/player';
 import SongCard from '../../components/SongCard';
 import { Fade } from '@material-ui/core';
@@ -11,8 +11,8 @@ import { HOST_API } from '../../shared/constants';
 
 var cardStyle = {
   borderRadius: "10px",
-  height: "150px",
-  width: "150px",
+  height: "180px",
+  width: "180px",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
@@ -37,8 +37,12 @@ class Albums extends React.Component {
       items.push(
         <Fade in={true} key={index}>
           <Grid container key={index} style={{ height: "210px", width: "210px", padding: "10px", margin: "10px" }}>
-            <NavLink to={`/album/${album.slug}`}><Button style={{ ...cardStyle, background: `url(${HOST_API}/${album.cover}) center center / cover no-repeat` }}></Button></NavLink>
-            <p>{album.name}</p>
+            <Grid item xs={12}>
+              <NavLink to={`/album/${album.slug}`}><Button style={{ ...cardStyle, background: `url(${HOST_API}/${album.cover}) center center / cover no-repeat` }}></Button></NavLink>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant={"body1"}>{album.name}</Typography>
+            </Grid>
           </Grid>
         </Fade>
       )
@@ -50,7 +54,7 @@ class Albums extends React.Component {
             <h1>All Albums</h1>
           </Grid>
         </Grid>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} style={{ textAlign: "center" }} >
           {items}
           <Grid item xs={12} style={{ textAlign: "center" }}>
             {!isLoading && !error && (page < totalPages) && <Button color={"secondary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
@@ -84,6 +88,7 @@ class Albums extends React.Component {
 const mapStateToProps = state => {
   return {
     albums: state.albums.albums,
+    error : state.albums.error,
     totalPages: state.albums.totalPages,
     isLoading: state.albums.isLoading,
   }

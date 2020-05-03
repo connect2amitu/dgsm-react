@@ -51,7 +51,7 @@ class Player extends React.Component {
 
   render() {
     const { player, isLoadingPlaylist, playlists } = this.props;
-    const { anchorEl, open, openPlaylist, openLoginBox, playlistName } = this.state
+    const { open, openPlaylist, openLoginBox, playlistName } = this.state
     var backgroundImage = player.currentTrack.track ? {
       backgroundImage: `url(${HOST_API}/${player.currentTrack.track && player.currentTrack.track.cover})`,
       backgroundPosition: "center center",

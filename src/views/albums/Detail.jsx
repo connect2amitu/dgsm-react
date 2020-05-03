@@ -7,11 +7,13 @@ import { playStopButtonClickHandler } from '../../shared/funs';
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
 import PlayPauseButton from '../../components/PlayPauseButton';
 import logo from '../../assets/images/logo.png'
+import { PlayCircleFilledRounded, PauseCircleFilledRounded } from '@material-ui/icons';
+
 
 var cardStyle = {
   borderRadius: "10px",
-  height: "160px",
-  width: "160px",
+  height: "180px",
+  width: "180px",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
@@ -31,12 +33,15 @@ var trackStyle = {
 class AlbumsDetail extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      init: true
+    };
     this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
   }
 
   render() {
     const { albumDetail, isLoading, player } = this.props;
+    const { init } = this.state
     return (
       <div style={{ marginTop: 10 }}>
         {!isLoading && albumDetail &&
@@ -48,17 +53,28 @@ class AlbumsDetail extends React.Component {
                 </Fade>
               </Grid>
               <Grid item>
-                <Grid container direction={"column"}>
+                <Grid container direction={"column"} spacing={1}>
                   <Grid item>
                     <h1>{albumDetail.name}</h1>
                   </Grid>
                   <Grid item>
                     <span>By <b>{albumDetail.artist_name}</b></span>
-                  </Grid>
-                  <Grid item>
+                    <br />
                     <span>{albumDetail.tags.split(", ").map((tag, index) =>
                       <Chip key={index} color={"secondary"} style={{ borderRadius: 0, marginRight: 2, padding: 0, height: 20 }} label={tag} />
                     )}</span>
+                  </Grid>
+                  <Grid item>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      color={"primary"}
+                      variant={"contained"}
+                      onClick={() => player.isPlaying && !init ? this.pauseSong() : this.playSong(albumDetail.tracks[0])}
+                    >
+                      {player.isPlaying && !init ? <PauseCircleFilledRounded /> : <PlayCircleFilledRounded />}
+                        &nbsp;{player.isPlaying && !init ? `Pause` : `Play All`}
+                    </Button>
                   </Grid>
                 </Grid>
               </Grid>
@@ -111,14 +127,25 @@ class AlbumsDetail extends React.Component {
   }
 
   playSong = (track) => {
-    const { tracks } = this.props.albumDetail;
-    this.props.dispatch(playerAddTrack(tracks));
-    this.props.dispatch(playerCurrentTrack({ track }));
-    this.playStopButtonClickHandler(true);
+    this.setState({
+      init: false
+    }, () => {
+      const { tracks } = this.props.albumDetail;
+      this.props.dispatch(playerAddTrack(tracks));
+      this.props.dispatch(playerCurrentTrack({ track }));
+      this.playStopButtonClickHandler(true);
+    })
   }
 
   pauseSong = () => {
-    this.playStopButtonClickHandler(false);
+    const { player: { isPlaying } } = this.props;
+
+    if (!isPlaying) {
+      const { tracks } = this.props.albumDetail;
+      this.props.dispatch(playerAddTrack(tracks));
+    }
+    this.playStopButtonClickHandler(!isPlaying);
+
   }
 
   static getDerivedStateFromProps(props, state) {

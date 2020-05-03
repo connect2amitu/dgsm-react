@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Button } from '@material-ui/core'
+import { Grid, Button, Typography } from '@material-ui/core'
 import CarouselSlider from "react-slick";
 import { connect } from 'react-redux';
 import { getAlbums, clearAlbums } from '../../actions/albums';
@@ -70,18 +70,23 @@ class TopAlbums extends Component {
         {
           !isLoading && error && <Error />
         }
-        {!isLoading ? <Grid container style={{ backgroundColor: "", padding: "30px" }} spacing={1} justify={"flex-start"}>
+        {!isLoading ? <Grid container style={{ backgroundColor: "", padding: "30px", textAlign: "center" }} spacing={1} justify={"flex-start"}>
           <CarouselSlider style={{ width: "100%" }} className="slider" {...settings}>
             {
               albums.map((album, index) =>
-                <Grid container key={index} style={{ height: "210px", width: "210px", backgroundColor: "black", padding: "10px", margin: "10px" }}>
-                  <NavLink to={`/album/${album.slug}`}><Button style={{ ...cardStyle, background: `url(${HOST_API}/${album.cover}) center center / cover no-repeat` }}></Button></NavLink>
-                  <p>{album.name}</p>
+                <Grid container direction={"column"} key={index} style={{ height: "210px", width: "210px", padding: "10px", margin: "10px" }}>
+                  <Grid item>
+                    <NavLink to={`/album/${album.slug}`}><Button style={{ ...cardStyle, background: `url(${HOST_API}/${album.cover}) center center / cover no-repeat` }}></Button></NavLink>
+                  </Grid>
+                  <Grid item>
+                    <Typography variant={"body1"}>{album.name}</Typography>
+                  </Grid>
                 </Grid>
               )
             }
           </CarouselSlider>
-        </Grid> : <Loading />}
+        </Grid> : <Loading />
+        }
       </div>
     )
   }
