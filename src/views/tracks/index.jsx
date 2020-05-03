@@ -57,7 +57,7 @@ class Tracks extends React.Component {
         <Grid container spacing={3}>
           {items}
           <Grid item xs={12} style={{ textAlign: "center" }}>
-            {!isLoading && !error && (page < totalPages) && <Button color={"secondary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
+            {!isLoading && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
             {isLoading && !error && <CircularProgress />}
             {error && "Something went wrong"}
           </Grid>

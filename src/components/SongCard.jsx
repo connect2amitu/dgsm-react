@@ -1,7 +1,8 @@
 import React from 'react'
-import { Grid, Button } from '@material-ui/core'
+import { Grid, Button, Typography } from '@material-ui/core'
 import PlayPauseButton from './PlayPauseButton';
 import logo from '../assets/images/logo.png'
+import { NavLink } from 'react-router-dom';
 
 
 var trackStyle = {
@@ -15,6 +16,8 @@ var trackStyle = {
 }
 
 export default function SongCard({ track, player, playSong, pauseSong }) {
+  console.log('track =>', track);
+
 
   return (
     <Grid container>
@@ -28,7 +31,7 @@ export default function SongCard({ track, player, playSong, pauseSong }) {
                 <span style={{ fontSize: 14, fontWeight: 500 }}>{track.name.replace(/\.[^.]*$/, '')}</span>
               </Grid>
               <Grid item>
-                <span style={{ fontSize: 12 }}>{track.album_name} {track.city_name && `(${track.city_name})`}</span>
+                <Typography color={"inherit"} component={NavLink} to={`/album/${track.album_slug}`} variant={"caption"} style={{ fontSize: 12 }}>{track.album_name} {track.city_name && `(${track.city_name})`}</Typography>
               </Grid>
 
             </Grid>

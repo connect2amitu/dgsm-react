@@ -69,7 +69,12 @@ class Albums extends React.Component {
   loadData = () => {
     const { page, size } = this.state
     this.setState({ page: page + 1 }, () => {
-      var query = { size, order: 'asc', page: page * size }
+      var query = { size, order: 'asc', page: page * size };
+      console.log('this.props.history.match =>', this.props.match.params.search);
+
+      if (this.props.match.params.search) {
+        query.q = this.props.match.params.search
+      }
       this.props.dispatch(getAlbums(query));
     })
   }
@@ -88,7 +93,7 @@ class Albums extends React.Component {
 const mapStateToProps = state => {
   return {
     albums: state.albums.albums,
-    error : state.albums.error,
+    error: state.albums.error,
     totalPages: state.albums.totalPages,
     isLoading: state.albums.isLoading,
   }

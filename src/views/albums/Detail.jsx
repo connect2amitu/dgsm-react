@@ -8,6 +8,7 @@ import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
 import PlayPauseButton from '../../components/PlayPauseButton';
 import logo from '../../assets/images/logo.png'
 import { PlayCircleFilledRounded, PauseCircleFilledRounded } from '@material-ui/icons';
+import { NavLink } from 'react-router-dom';
 
 
 var cardStyle = {
@@ -61,7 +62,7 @@ class AlbumsDetail extends React.Component {
                     <span>By <b>{albumDetail.artist_name}</b></span>
                     <br />
                     <span>{albumDetail.tags.split(", ").map((tag, index) =>
-                      <Chip key={index} color={"secondary"} style={{ borderRadius: 0, marginRight: 2, padding: 0, height: 20 }} label={tag} />
+                      <Chip component={NavLink} key={index} to={`/albums/${tag}`} color={"secondary"} style={{ borderRadius: 0, cursor: "pointer", marginRight: 2, padding: 0, height: 20 }} label={tag} />
                     )}</span>
                   </Grid>
                   <Grid item>
