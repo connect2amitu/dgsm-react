@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppBar, Toolbar, Button, Grid, Typography, makeStyles, fade, InputBase, Avatar, Tooltip } from '@material-ui/core'
+import { AppBar, Toolbar, Button, Grid, Typography, makeStyles, fade, InputBase, Avatar, Tooltip, IconButton } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
 import { NightsStayRounded, WbSunnyRounded, SearchRounded } from '@material-ui/icons'
 import { changeTheme } from '../../actions/global'
@@ -73,12 +73,12 @@ function Header(props) {
     <>
       <AppBar position="fixed">
         <Toolbar>
-          <Grid container justify={"space-between"}>
+          <Grid container justify={"space-between"} alignItems={"center"}>
             <Grid item>
               <Typography variant="h6" component={NavLink} to={"/"} color={"inherit"} style={{ textDecoration: "none" }} > DGSM </Typography>
             </Grid>
             <Grid item>
-              <Grid container spacing={1}>
+              <Grid container spacing={1} alignItems={"center"}>
                 {/* <Grid item>
                   <div className={classes.search}>
                     <div className={classes.searchIcon}>
@@ -104,13 +104,13 @@ function Header(props) {
                 </Grid> */}
                 <Grid item>
                   <Tooltip title={"Theme"} placement="bottom">
-                    <Button onClick={() => themHandler()} color="inherit"> {props.isDark ? <WbSunnyRounded /> : <NightsStayRounded />}  </Button>
+                    <IconButton onClick={() => themHandler()} color="inherit"> {props.isDark ? <WbSunnyRounded /> : <NightsStayRounded />}  </IconButton>
                   </Tooltip>
                 </Grid>
                 {
                   isLoggedIn &&
                   <Grid item>
-                    <Avatar src={user.picture} />
+                    <IconButton><Avatar src={user.picture} /></IconButton>
                   </Grid>
                 }
               </Grid>

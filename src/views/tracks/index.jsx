@@ -6,6 +6,7 @@ import { playStopButtonClickHandler } from '../../shared/funs';
 import { playerCurrentTrack } from '../../actions/player';
 import SongCard from '../../components/SongCard';
 import { Fade, Grow } from '@material-ui/core';
+import classes from '../../assets/css/track.module.scss';
 
 // var trackStyle = {
 //   borderRadius: "10px",
@@ -35,8 +36,7 @@ class Tracks extends React.Component {
     tracks.map((track, index) =>
       items.push(
         <Fade in={true} key={index}>
-          <Grid item xs={12} sm={8} md={6} lg={4} xl={3}>
-            {/* <Grid item xs={3} id={index}> */}
+          <Grid item xs={12} md={6} lg={4} xl={3}>
             <SongCard
               track={track}
               player={player}
@@ -48,13 +48,13 @@ class Tracks extends React.Component {
       )
     )
     return (
-      <>
-        <Grid container justify={"space-between"}>
+      <div className={classes.track}>
+        <Grid container className={classes.heading}>
           <Grid item>
             <h1>All Tracks</h1>
           </Grid>
         </Grid>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} className={classes.container}>
           {items}
           <Grid item xs={12} style={{ textAlign: "center" }}>
             {!isLoading && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
@@ -63,7 +63,7 @@ class Tracks extends React.Component {
           </Grid>
         </Grid>
 
-      </>
+      </div>
     );
   }
   loadData = () => {

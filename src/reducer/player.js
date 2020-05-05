@@ -1,4 +1,5 @@
 import { PLAYER, HOST_API } from '../shared/constants';
+import { removeExt } from '../shared/funs';
 
 const initialState = {
   playlist: [],
@@ -89,7 +90,7 @@ const actionsMap = {
     var audioObj = state.audioObj;
     audioObj.src = `${HOST_API}/${action.payload.track.url}`;
     audioObj.play();
-    document.title = `${action.payload.track.name} | DGSM`;
+    document.title = `${removeExt(action.payload.track.name)} | DGSM`;
     return {
       ...state,
       isPlaying: true,
@@ -111,7 +112,7 @@ const actionsMap = {
       };
       audioObj.src = `${HOST_API}/${playlist[newIndex].url}`;
       audioObj.play();
-      document.title = `${currentTrack.track.name} | DGSM`;
+      document.title = `${removeExt(currentTrack.track.name)} | DGSM`;
 
       return {
         ...state,
@@ -136,7 +137,7 @@ const actionsMap = {
       };
       audioObj.src = `${HOST_API}/${playlist[newIndex].url}`;
       audioObj.play();
-      document.title = `${currentTrack.track.name} | DGSM`;
+      document.title = `${removeExt(currentTrack.track.name)} | DGSM`;
 
       return {
         ...state,

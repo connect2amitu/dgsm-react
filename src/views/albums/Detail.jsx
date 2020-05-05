@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { Grid, Button, Chip, Fade, Grow, Zoom } from '@material-ui/core';
 import { getAlbumWithTrack } from '../../actions/albums';
 import { HOST_API } from '../../shared/constants';
-import { playStopButtonClickHandler } from '../../shared/funs';
+import { playStopButtonClickHandler, removeExt } from '../../shared/funs';
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
 import PlayPauseButton from '../../components/PlayPauseButton';
 import logo from '../../assets/images/logo.png'
 import { PlayCircleFilledRounded, PauseCircleFilledRounded } from '@material-ui/icons';
 import { NavLink } from 'react-router-dom';
+import Snackbar from '../../components/Snackbar';
 
 
 var cardStyle = {
@@ -35,14 +36,16 @@ class AlbumsDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      init: true
+      init: true,
+      openSnack: false,
+      msg: "",
     };
     this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
   }
 
   render() {
     const { albumDetail, isLoading, player } = this.props;
-    const { init } = this.state
+    const { init, openSnack, msg } = this.state
     return (
       <div style={{ marginTop: 10 }}>
         {!isLoading && albumDetail &&
@@ -98,7 +101,7 @@ class AlbumsDetail extends React.Component {
                             <Grid item xs={6} md={2}>
                               <Grid container direction={"column"}>
                                 <Grid item>
-                                  <span style={{ fontSize: 14, fontWeight: 500 }}>{track.name.replace(/\.[^.]*$/, '')}</span>
+                                  <span style={{ fontSize: 14, fontWeight: 500 }}>{removeExt(track.name)}</span>
                                 </Grid>
                                 <Grid item>
                                   <span style={{ fontSize: 12 }}>{track.album_name} {track.city_name && `- ${track.city_name}`}</span>
@@ -121,6 +124,7 @@ class AlbumsDetail extends React.Component {
                 </Grid>
               </Grid>
             </Grid>
+            <Snackbar openSnack={openSnack} msg={msg} />
           </>
         }
       </div>
@@ -135,6 +139,7 @@ class AlbumsDetail extends React.Component {
       this.props.dispatch(playerAddTrack(tracks));
       this.props.dispatch(playerCurrentTrack({ track }));
       this.playStopButtonClickHandler(true);
+      this.setState({ openSnack: true, msg: "track Added in queue" });
     })
   }
 

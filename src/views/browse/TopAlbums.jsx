@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Grid, Button, Typography } from '@material-ui/core'
+import { Grid, Button, Typography, IconButton, Tooltip } from '@material-ui/core'
+import { MoreVertRounded } from '@material-ui/icons'
 import CarouselSlider from "react-slick";
 import { connect } from 'react-redux';
 import { getAlbums, clearAlbums } from '../../actions/albums';
@@ -7,6 +8,8 @@ import { HOST_API } from '../../shared/constants';
 import { NavLink } from 'react-router-dom';
 import Loading from '../../components/Loading';
 import Error from '../../components/Error';
+import classes from '../../assets/css/album.module.scss';
+import ViewMoreBtn from '../../components/ViewMoreBtn';
 
 
 
@@ -58,18 +61,16 @@ class TopAlbums extends Component {
       ]
     };
     return (
-      <div>
-        <Grid container justify={"space-between"}>
+      <div className={classes.album}>
+        <Grid container justify={"space-between"} className={classes.heading}>
           <Grid item>
             <h1>Top Albums</h1>
           </Grid>
           <Grid item>
-            <Button component={NavLink} to="/browse/albums" color={"primary"} variant={"contained"}>View more</Button>
+            <ViewMoreBtn to={"/browse/albums"} />
           </Grid>
         </Grid>
-        {
-          !isLoading && error && <Error />
-        }
+        {!isLoading && error && <Error />}
         {!isLoading ? <Grid container style={{ backgroundColor: "", padding: "30px", textAlign: "center" }} spacing={1} justify={"flex-start"}>
           <CarouselSlider style={{ width: "100%" }} className="slider" {...settings}>
             {

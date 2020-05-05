@@ -1,0 +1,56 @@
+.track {
+  .heading {
+    align-items: center;
+  }
+
+  .trackCard {
+    .cover {
+      border-radius      : 10px;
+      background         : url('../images/logo.png');
+      height             : 60px;
+      width              : 60px;
+      background-position: center;
+      background-repeat  : no-repeat;
+      background-size    : cover;
+    }
+  }
+
+  .trackDetail {
+    padding: 0 10px;
+
+    .name {
+      font-size  : 14;
+      font-weight: 500;
+    }
+
+  }
+
+  @media screen and (max-width: 480px) {
+    .track {
+      .container {
+        justify-content: center;
+
+        .trackCard {
+          .cover {
+            border-radius      : 10px;
+            background         : url('../images/logo.png');
+            height             : 60px;
+            width              : 60px;
+            background-position: center;
+            background-repeat  : no-repeat;
+            background-size    : cover;
+          }
+        }
+
+        .trackDetail {
+          padding: 0 10px;
+
+          .name {
+            font-size  : 14px;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+}

@@ -7,6 +7,8 @@ import SongCard from '../../components/SongCard';
 import { Fade } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import { HOST_API } from '../../shared/constants';
+import classes from '../../assets/css/album.module.scss';
+import AlbumCard from '../../components/AlbumCard';
 
 
 var cardStyle = {
@@ -24,46 +26,45 @@ class Albums extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      size: 8,
+      size: 12,
       page: 0
     }
   }
 
   render() {
-    const { albums, isLoading, error, totalPages, } = this.props
+    const { albums, isLoading, error, totalPages, match: { params: { search } } } = this.props
     const { page } = this.state
     var items = [];
     albums.map((album, index) =>
       items.push(
         <Fade in={true} key={index}>
-          <Grid container key={index} style={{ height: "210px", width: "210px", padding: "10px", margin: "10px" }}>
-            <Grid item xs={12}>
-              <NavLink to={`/album/${album.slug}`}><Button style={{ ...cardStyle, background: `url(${HOST_API}/${album.cover}) center center / cover no-repeat` }}></Button></NavLink>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant={"body1"}>{album.name}</Typography>
-            </Grid>
+          <Grid item xs={12} sm={4} md={3} lg={2}>
+            <AlbumCard
+              name={album.name}
+              slug={album.slug}
+              cover={album.cover}
+            />
           </Grid>
         </Fade>
       )
     )
     return (
-      <>
+      <div className={classes.album}>
         <Grid container justify={"space-between"}>
           <Grid item>
-            <h1>All Albums</h1>
+            <h1>{search ? `Searched for #${search}` : `All Albums`}</h1>
           </Grid>
         </Grid>
-        <Grid container spacing={3} style={{ textAlign: "center" }} >
+        <Grid container spacing={4} justify={"center"} alignItems={"center"} className={classes.container} >
           {items}
           <Grid item xs={12} style={{ textAlign: "center" }}>
-            {!isLoading && !error && (page < totalPages) && <Button color={"secondary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
+            {!isLoading && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
             {isLoading && !error && <CircularProgress />}
             {error && "Something went wrong"}
           </Grid>
         </Grid>
 
-      </>
+      </div>
     );
   }
   loadData = () => {

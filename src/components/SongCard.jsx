@@ -3,6 +3,8 @@ import { Grid, Button, Typography } from '@material-ui/core'
 import PlayPauseButton from './PlayPauseButton';
 import logo from '../assets/images/logo.png'
 import { NavLink } from 'react-router-dom';
+import { removeExt } from '../shared/funs';
+import classes from '../assets/css/track.module.scss';
 
 
 var trackStyle = {
@@ -16,19 +18,17 @@ var trackStyle = {
 }
 
 export default function SongCard({ track, player, playSong, pauseSong }) {
-  console.log('track =>', track);
-
 
   return (
     <Grid container>
-      <Grid item xs={2}><Button style={trackStyle} /></Grid>
-      <Grid item xs={8}>
+      <Grid item xs={2} className={classes.trackCard} ><Button className={classes.cover} /></Grid>
+      <Grid item xs={8} className={classes.trackDetail}>
         <Grid container direction={"column"}>
           <Grid item>
             {/* <span>{track.name}</span> */}
             <Grid container direction={"column"}>
               <Grid item>
-                <span style={{ fontSize: 14, fontWeight: 500 }}>{track.name.replace(/\.[^.]*$/, '')}</span>
+                <span className={classes.name}>{removeExt(track.name)}</span>
               </Grid>
               <Grid item>
                 <Typography color={"inherit"} component={NavLink} to={`/album/${track.album_slug}`} variant={"caption"} style={{ fontSize: 12 }}>{track.album_name} {track.city_name && `(${track.city_name})`}</Typography>

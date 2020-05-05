@@ -3,7 +3,7 @@ import React from 'react';
 import { styled } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { Grid, Button, Menu, MenuItem, TextField, Tooltip, CircularProgress, List, ListItemText, ListItem, ListItemAvatar, Avatar, IconButton } from '@material-ui/core';
+import { Grid, Button, Menu, MenuItem, TextField, Tooltip, CircularProgress, List, ListItemText, ListItem, ListItemAvatar, Avatar } from '@material-ui/core';
 import { FavoriteBorderRounded, MoreHorizRounded, PlayCircleFilledRounded, PauseCircleFilledRounded, SkipNextRounded, SkipPreviousRounded, QueueMusicRounded, VolumeOffRounded, VolumeUpRounded } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { playStopButtonClickHandler, display, removeExt } from '../shared/funs';
@@ -16,7 +16,8 @@ import DialogBox from './DialogBox';
 import GoogleLogin from 'react-google-login';
 import { addAuthUser } from '../actions/global';
 import { createPlaylist, getPlaylists, addToPlaylist } from '../actions/playlist';
-import FullScreenPlayer from './FullScreenPlayer';
+import classes from '../assets/css/player.module.scss';
+import TemporaryDrawer from './PlayerDetail';
 
 
 const MyAppBar = styled(AppBar)({
@@ -55,19 +56,16 @@ class Player extends React.Component {
     const { open, openPlaylist, openLoginBox, playlistName, anchorEl } = this.state
     var backgroundImage = player.currentTrack.track ? {
       backgroundImage: `url(${HOST_API}/${player.currentTrack.track && player.currentTrack.track.cover})`,
-      backgroundPosition: "center center",
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "cover",
     } : {}
     const isActiveActionBtn = player.currentTrack.track !== null ? false : true;
 
 
     return (
       <React.Fragment>
-        <MyAppBar color="primary" style={backgroundImage} >
+        <MyAppBar color="primary" style={backgroundImage} className={classes.player}  >
           <Toolbar style={{ 'WebkitBackdropFilter': 'blur(255px)', 'backdropFilter': 'blur(255px)', 'backgroundColor': 'rgba(255, 255, 255, 0.1)', }} >
-            {/* <Grid container alignItems={"center"}>
-              <Grid item>
+            <Grid container alignItems={"center"}>
+              <Grid item className={classes.albumDetail}>
                 <Grid container spacing={1} alignItems={"center"}>
                   <Grid item>
                     <div style={trackStyle} />
@@ -82,17 +80,18 @@ class Player extends React.Component {
                       </Grid>
                     </Grid>
                   </Grid>
+                  {/* {/*  */}
                   <Grid item>
-                    <IconButton disabled={isActiveActionBtn} color={"inherit"}> <FavoriteBorderRounded /> </IconButton>
+                    <Button disabled={isActiveActionBtn} color={"inherit"}> <FavoriteBorderRounded /> </Button>
                   </Grid>
                   <Grid item>
-                    <IconButton
+                    <Button
                       onClick={this.handleClick} color={"inherit"}
                       aria-controls="simple-menu"
                       aria-haspopup="true"
                     >
                       <MoreHorizRounded />
-                    </IconButton>
+                    </Button>
                     <Menu
                       id="simple-menu"
                       anchorEl={anchorEl}
@@ -109,59 +108,75 @@ class Player extends React.Component {
               </Grid>
               <Grid item>
                 <Grid container spacing={1} alignItems={"center"} direction={"column"}>
-                  <Grid item> <RangeSlider {...this.props} /> </Grid>
+                  <Grid item>
+                    <RangeSlider {...this.props} classes={classes} />
+                  </Grid>
                   <Grid item>
                     <Grid container spacing={1} alignItems={"center"}>
                       <Grid item>
                         <Tooltip title={"Previous"} placement="top">
-                          <IconButton
+                          <Button
+                            className={classes.playerActionBtn}
                             disabled={isActiveActionBtn}
                             onClick={() => this.prevSong()} color={"inherit"}>
-                            <SkipPreviousRounded style={{ fontSize: "2rem" }} />
-                          </IconButton>
+                            <SkipPreviousRounded />
+                          </Button>
                         </Tooltip>
                       </Grid>
                       <Grid item>
                         <Tooltip title={player.currentTrack.track !== null ? player.isPlaying ? "Pause" : "Play" : "Select track"} placement="top">
-                          <IconButton edge="start" color="inherit"
+                          <Button
+                            className={classes.playerActionBtn}
                             disabled={isActiveActionBtn}
-                            onClick={() => this.playPause()}>
-                            {player.isPlaying ? <PauseCircleFilledRounded style={{ fontSize: "3rem" }} /> : <PlayCircleFilledRounded style={{ fontSize: "3rem" }} />}
-                          </IconButton>
+                            onClick={() => this.playPause()}
+                            color={"inherit"} >
+                            {player.isPlaying ? <PauseCircleFilledRounded /> : <PlayCircleFilledRounded />}
+                          </Button>
                         </Tooltip>
                       </Grid>
                       <Grid item>
                         <Tooltip title={"Next"} placement="top">
-                          <IconButton
+                          <Button
+                            className={classes.playerActionBtn}
                             disabled={isActiveActionBtn}
                             onClick={() => this.nextSong()} color={"inherit"}>
-                            <SkipNextRounded style={{ fontSize: "2rem" }} />
-                          </IconButton>
+                            <SkipNextRounded />
+                          </Button>
                         </Tooltip>
                       </Grid>
-                      <Grid item>
+                      <Grid item className={classes.muteBtn}>
                         <Tooltip title={player.isMuted ? "Unmute" : "Mute"} placement="top">
-                          <IconButton
+                          <Button
                             disabled={isActiveActionBtn}
                             onClick={() => this.muteHandler()} color={"inherit"}>
                             {player.isMuted ? <VolumeOffRounded /> : <VolumeUpRounded />}
-                          </IconButton>
+                          </Button>
                         </Tooltip>
                       </Grid>
                       <Grid item>
                         <div>{`${display(player.currentTime)} / ${display(player.durationTime)}`}</div>
                       </Grid>
-                      <Grid item>
-                        <Tooltip title={"Open Playlist"} placement="top">
-                          <IconButton
-                            onClick={() => this.handlePlaylistSidebar(!open)} color={"inherit"}>
-                            <QueueMusicRounded style={{ fontSize: "2rem" }} />
-                          </IconButton>
-                        </Tooltip>
+                      <Grid item className={classes.moreDetail}>
+                        <Grid container direction={"row"} alignItems={"center"}>
+                          <Grid item >
+                            <Tooltip title={"Open Playlist"} placement="top">
+                              <TemporaryDrawer
+                                player={player}
+                                classes={classes}
+                              />
+                            </Tooltip>
+                          </Grid>
+                          <Grid item >
+                            <QueueMusicRounded onClick={() => this.handlePlaylistSidebar(!open)} style={{ fontSize: "1.3rem" }} />
+                          </Grid>
+                        </Grid>
                       </Grid>
-                      <Grid item>
+                      <Grid item className={classes.playlistsBtn} >
                         <Tooltip title={"Open Playlist"} placement="top">
-                          <FullScreenPlayer disabled={isActiveActionBtn} player={player} />
+                          <Button
+                            onClick={() => this.handlePlaylistSidebar(!open)} color={"inherit"}>
+                            <QueueMusicRounded style={{ fontSize: "3rem" }} />
+                          </Button>
                         </Tooltip>
                       </Grid>
                     </Grid>
@@ -169,7 +184,6 @@ class Player extends React.Component {
                 </Grid>
               </Grid>
             </Grid>
-         */}
           </Toolbar>
         </MyAppBar>
 

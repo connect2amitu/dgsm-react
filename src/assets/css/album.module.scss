@@ -1,0 +1,45 @@
+.album {
+  .heading {
+    align-items: center;
+  }
+
+  .container {
+
+    .albumCard {
+      height    : 200px;
+      width     : 200px;
+      margin    : 0 auto;
+      text-align: center;
+
+      .cover {
+        border-radius      : 10px;
+        height             : 180px;
+        width              : 180px;
+        background-position: center;
+        background-repeat  : no-repeat;
+        background-size    : cover;
+        object-fit         : contai;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .albumCard {
+        height    : 200px;
+        width     : 200px;
+        margin    : 0 auto;
+        text-align: center;
+
+        .cover {
+          border-radius      : 10px;
+          height             : 180px;
+          width              : 180px;
+          background-position: center;
+          background-repeat  : no-repeat;
+          background-size    : cover;
+          object-fit         : contai;
+        }
+      }
+
+    }
+  }
+}

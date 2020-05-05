@@ -1,0 +1,48 @@
+.player {
+  background-position: center center;
+  background-repeat  : no-repeat;
+  background-size    : cover;
+
+  .moreDetail {
+    display: none;
+  }
+
+  @media screen and (max-width: 480px) {
+
+    .playlistsBtn,
+    .albumDetail,
+    .muteBtn {
+      display: none;
+    }
+
+    .slider {
+      position: absolute;
+      top     : -21px;
+      left    : 50px;
+      width   : 340px;
+    }
+
+    .moreDetail {
+      display: block;
+    }
+
+
+
+    .playerActionBtn {
+      padding: 0;
+
+      svg {
+        font-size: 2.5rem;
+      }
+    }
+
+  }
+
+  .albumCover {
+    background: red;
+
+    button {
+      margin-top: 100px;
+    }
+  }
+}

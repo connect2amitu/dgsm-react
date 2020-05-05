@@ -31,6 +31,10 @@ export const display = (seconds) => {
   }
 }
 
+export const removeExt = (str) => {
+  return str.replace(/\.[^.]*$/, '');
+}
+
 export async function playStopButtonClickHandler(status) {
 
 

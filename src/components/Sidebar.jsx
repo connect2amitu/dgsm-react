@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import icon_512x512 from '../assets/images/icon-512x512.png'
 import { ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, ListSubheader, Grid, Button, Divider, SwipeableDrawer, List, ListItem, ListItemText, Paper } from '@material-ui/core';
 import { playerRemoveTrack, clearPlaylist, playerCurrentTrack } from '../actions/player';
-import { playStopButtonClickHandler } from '../shared/funs';
+import { playStopButtonClickHandler, removeExt } from '../shared/funs';
 import { HOST_API } from '../shared/constants';
 
 
@@ -72,13 +72,13 @@ class Sidebar extends React.Component {
                     <List dense={false} style={{ padding: 0 }} key={index}>
                       <ListItem component={Button} style={{ textTransform: "initial" }} color={isActive ? "secondary" : "default"} variant={isActive ? "contained" : "text"} onClick={() => this.changeSong(track)}>
                         <ListItemAvatar>
-                          <Avatar alt={track.name} src={`${HOST_API}/${track.cover}`} />
+                          <Avatar alt={removeExt(track.name)} src={`${HOST_API}/${track.cover}`} />
                         </ListItemAvatar>
                         <ListItemText
                           primaryTypographyProps={{ style: { fontSize: 14, } }}
                           secondaryTypographyProps={{ style: { fontSize: 12 } }}
                           style={{ fontSize: 14 }}
-                          primary={track.name}
+                          primary={removeExt(track.name)}
                           secondary={track.album_name}
                         />
                         <ListItemSecondaryAction>
