@@ -17,6 +17,8 @@ import GoogleLogin from 'react-google-login';
 import { addAuthUser } from '../actions/global';
 import { createPlaylist, getPlaylists, addToPlaylist } from '../actions/playlist';
 import FullScreenPlayer from './FullScreenPlayer';
+import classes from '../assets/css/player.module.scss';
+import Snackbar from './Snackbar';
 
 
 const MyAppBar = styled(AppBar)({
@@ -46,28 +48,28 @@ class Player extends React.Component {
       openPlaylist: false,
       openLoginBox: false,
       playlistName: "",
+      snackbar: false,
+      message: "",
     };
     this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
   }
 
   render() {
     const { player, isLoadingPlaylist, playlists } = this.props;
-    const { open, openPlaylist, openLoginBox, playlistName, anchorEl } = this.state
+    const { open, openPlaylist, openLoginBox, playlistName, anchorEl, snackbar, message } = this.state
     var backgroundImage = player.currentTrack.track ? {
       backgroundImage: `url(${HOST_API}/${player.currentTrack.track && player.currentTrack.track.cover})`,
-      backgroundPosition: "center center",
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "cover",
+
     } : {}
     const isActiveActionBtn = player.currentTrack.track !== null ? false : true;
 
 
     return (
-      <React.Fragment>
-        <MyAppBar color="primary" style={backgroundImage} >
-          <Toolbar style={{ 'WebkitBackdropFilter': 'blur(255px)', 'backdropFilter': 'blur(255px)', 'backgroundColor': 'rgba(255, 255, 255, 0.1)', }} >
-            {/* <Grid container alignItems={"center"}>
-              <Grid item>
+      <div className={classes.player} >
+        <MyAppBar color="primary" style={backgroundImage} className={classes.appBar} >
+          <Toolbar className={classes.toolBar} >
+            <Grid container alignItems={"center"} className={classes.container} >
+              <Grid item className={classes.playerDetail}>
                 <Grid container spacing={1} alignItems={"center"}>
                   <Grid item>
                     <div style={trackStyle} />
@@ -83,10 +85,11 @@ class Player extends React.Component {
                     </Grid>
                   </Grid>
                   <Grid item>
-                    <IconButton disabled={isActiveActionBtn} color={"inherit"}> <FavoriteBorderRounded /> </IconButton>
+                    <IconButton disabled={true} color={"inherit"}> <FavoriteBorderRounded /> </IconButton>
                   </Grid>
                   <Grid item>
                     <IconButton
+                      disabled={isActiveActionBtn}
                       onClick={this.handleClick} color={"inherit"}
                       aria-controls="simple-menu"
                       aria-haspopup="true"
@@ -107,9 +110,9 @@ class Player extends React.Component {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item>
+              <Grid item className={classes.playerAction}>
                 <Grid container spacing={1} alignItems={"center"} direction={"column"}>
-                  <Grid item> <RangeSlider {...this.props} /> </Grid>
+                  <Grid item> <RangeSlider  {...this.props} /> </Grid>
                   <Grid item>
                     <Grid container spacing={1} alignItems={"center"}>
                       <Grid item>
@@ -148,10 +151,10 @@ class Player extends React.Component {
                           </IconButton>
                         </Tooltip>
                       </Grid>
-                      <Grid item>
+                      <Grid item className={classes.duration}>
                         <div>{`${display(player.currentTime)} / ${display(player.durationTime)}`}</div>
                       </Grid>
-                      <Grid item>
+                      <Grid item className={classes.playlistIcon}>
                         <Tooltip title={"Open Playlist"} placement="top">
                           <IconButton
                             onClick={() => this.handlePlaylistSidebar(!open)} color={"inherit"}>
@@ -159,7 +162,7 @@ class Player extends React.Component {
                           </IconButton>
                         </Tooltip>
                       </Grid>
-                      <Grid item>
+                      <Grid item className={classes.playlistDetail}>
                         <Tooltip title={"Open Playlist"} placement="top">
                           <FullScreenPlayer disabled={isActiveActionBtn} player={player} />
                         </Tooltip>
@@ -169,7 +172,6 @@ class Player extends React.Component {
                 </Grid>
               </Grid>
             </Grid>
-         */}
           </Toolbar>
         </MyAppBar>
 
@@ -207,12 +209,18 @@ class Player extends React.Component {
           />
         </DialogBox>
 
-      </React.Fragment>
+        <Snackbar open={snackbar} message={message} onClose={this.closeSnackbar} />
+
+      </div>
     );
   }
 
   muteHandler = () => {
     this.props.dispatch(playerMuteUnMute())
+  };
+
+  closeSnackbar = () => {
+    this.setState({ snackbar: false, message: "" });
   };
 
   addToPlaylistHandler = (playlist_id) => {
@@ -223,6 +231,7 @@ class Player extends React.Component {
     formdata.append('playlist_id', playlist_id);
     dispatch(addToPlaylist(formdata));
     this.closePlaylistModal();
+    this.setState({ snackbar: true, message: "Track added in playlist" });
   }
 
 

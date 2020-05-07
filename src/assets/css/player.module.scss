@@ -1,4 +1,52 @@
 .player {
+  background: red;
+
+  .appBar {
+    background-position: center center;
+    background-repeat  : no-repeat;
+    background-size    : cover;
+
+    .toolBar {
+      -webkit-backdrop-filter: blur(255px);
+      backdrop-filter        : blur(255px);
+      background-color       : rgba(255, 255, 255, 0.1);
+
+      .container {
+        @media screen and (max-width: 480px) {
+
+          .playerDetail,
+          .playlistIcon {
+            display: none;
+          }
+
+          .playerAction {
+            button {
+              svg {
+                font-size: 1.5rem;
+              }
+            }
+
+            .slider {
+              top : -22px !important;
+              left: 39px !important;
+            }
+
+            .duration {
+              font-size: 12px;
+            }
+
+          }
+
+          .playlistDetail {
+            .dialogbox {}
+
+          }
+        }
+
+      }
+    }
+  }
+
   background-position: center center;
   background-repeat  : no-repeat;
   background-size    : cover;
@@ -36,13 +84,56 @@
       }
     }
 
+    .blurBg {
+      .albumCover {
+        backdrop-filter: blur(10px);
+
+        button {
+          margin-top: 100px;
+        }
+      }
+    }
+
+    .dialogbox {}
+
+
   }
 
-  .albumCover {
-    background: red;
 
-    button {
-      margin-top: 100px;
+
+
+}
+
+body {
+  .blurBg {
+    height               : 100vh !important;
+    background-repeat    : no-repeat;
+    background-size      : cover;
+    background-position  : center;
+    background-attachment: fixed;
+
+    .albumDetail {
+      backdrop-filter: blur(100px);
+      height         : 100vh;
+      width          : 100%;
+      position       : absolute;
+      top            : 0;
+      padding        : 13px;
+
+      .cover {
+        border-radius      : 10px;
+        height             : 180px;
+        width              : 180px;
+        background-position: center;
+        background-repeat  : no-repeat;
+        background-size    : cover;
+        object-fit         : contain
+      }
+
+      .closeBtn {
+        margin-right: 15px;
+        margin-left : auto;
+      }
     }
   }
 }

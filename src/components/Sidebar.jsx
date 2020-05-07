@@ -1,5 +1,5 @@
 import React from 'react';
-import { DeleteRounded } from '@material-ui/icons';
+import { DeleteRounded, ClearAllRounded } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import icon_512x512 from '../assets/images/icon-512x512.png'
 import { ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, ListSubheader, Grid, Button, Divider, SwipeableDrawer, List, ListItem, ListItemText, Paper } from '@material-ui/core';
@@ -49,7 +49,7 @@ class Sidebar extends React.Component {
                 subheader={
                   <>
                     <ListSubheader component="h1" style={{
-                      background: "#ffffff", textAlign: "center", fontWeight: 700,
+                      background: "#ffffff", margin: 0, textAlign: "center", fontWeight: 700,
                       fontSize: "18px"
                     }} color={"primary"} id="nested-list-subheader">
                       <Grid container justify={"space-between"}>
@@ -57,7 +57,7 @@ class Sidebar extends React.Component {
                           {`Playlist ( ${playlist.length} )`}
                         </Grid>
                         <Grid item>
-                          {playlist.length > 0 && <><Button color={"secondary"} variant={"contained"} onClick={() => this.clearPlaylist()}>Clear</Button></>}
+                          {playlist.length > 0 && <IconButton color={"secondary"} variant={"contained"} onClick={() => this.clearPlaylist()}><ClearAllRounded /></IconButton>}
                         </Grid>
                       </Grid>
                       <Divider />

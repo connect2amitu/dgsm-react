@@ -9,18 +9,8 @@ import PlayPauseButton from '../../components/PlayPauseButton';
 import logo from '../../assets/images/logo.png'
 import { PlayCircleFilledRounded, PauseCircleFilledRounded } from '@material-ui/icons';
 import { NavLink } from 'react-router-dom';
-import Snackbar from '../../components/Snackbar';
+import classes from '../../assets/css/album.module.scss';
 
-
-var cardStyle = {
-  borderRadius: "10px",
-  height: "180px",
-  width: "180px",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
-  objectFit: "contain"
-}
 
 var trackStyle = {
   borderRadius: "10px",
@@ -37,36 +27,40 @@ class AlbumsDetail extends React.Component {
     super(props);
     this.state = {
       init: true,
-      openSnack: false,
-      msg: "",
     };
     this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
   }
 
   render() {
     const { albumDetail, isLoading, player } = this.props;
-    const { init, openSnack, msg } = this.state
+    const { init, } = this.state;
+
     return (
-      <div style={{ marginTop: 10 }}>
+      <div className={classes.albumDetail}>
         {!isLoading && albumDetail &&
           <>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} className={classes.albumContainer}>
               <Grid item >
                 <Fade in={true}>
-                  <div><Button style={{ ...cardStyle, background: `url(${HOST_API}/${albumDetail.cover}) center center / cover no-repeat` }}></Button></div>
+                  <div><Button className={classes.cover} style={{ backgroundImage: `url(${HOST_API}/${albumDetail.cover})` }}></Button></div>
                 </Fade>
               </Grid>
               <Grid item>
-                <Grid container direction={"column"} spacing={1}>
+                <Grid container direction={"column"} spacing={1} className={classes.albumMeta}>
                   <Grid item>
-                    <h1>{albumDetail.name}</h1>
+                    <h1 className={classes.albumName}>{albumDetail.name}</h1>
                   </Grid>
                   <Grid item>
-                    <span>By <b>{albumDetail.artist_name}</b></span>
-                    <br />
-                    <span>{albumDetail.tags.split(", ").map((tag, index) =>
-                      <Chip component={NavLink} key={index} to={`/albums/${tag}`} color={"secondary"} style={{ borderRadius: 0, cursor: "pointer", marginRight: 2, padding: 0, height: 20 }} label={tag} />
-                    )}</span>
+                    <Grid container direction={"column"} justify={"center"} spacing={1} className={classes.tags} >
+                      <Grid item>
+                        <span>By <b>{albumDetail.artist_name}</b></span>
+                      </Grid>
+                      <Grid item>
+                        {albumDetail.tags.split(", ").map((tag, index) =>
+                          <Chip className={classes.tags} component={NavLink} key={index} to={`/albums/${tag}`} color={"secondary"} style={{ borderRadius: 0, cursor: "pointer", marginRight: 2, padding: 0, height: 20 }} label={tag} />
+                        )}
+                      </Grid>
+                    </Grid>
                   </Grid>
                   <Grid item>
                   </Grid>
@@ -91,8 +85,8 @@ class AlbumsDetail extends React.Component {
                 <Grid container spacing={1}>
                   {
                     albumDetail.tracks.map((track, index) =>
-                      <Fade in={true}>
-                        <Grid item xs={12} key={index}>
+                      <Fade in={true} key={index}>
+                        <Grid item xs={12} >
                           <Grid container spacing={1} alignItems={"center"} >
                             <Grid item style={{ width: "25px" }}>
                               <span >{index + 1}</span>
@@ -124,7 +118,6 @@ class AlbumsDetail extends React.Component {
                 </Grid>
               </Grid>
             </Grid>
-            <Snackbar openSnack={openSnack} msg={msg} />
           </>
         }
       </div>
@@ -139,7 +132,6 @@ class AlbumsDetail extends React.Component {
       this.props.dispatch(playerAddTrack(tracks));
       this.props.dispatch(playerCurrentTrack({ track }));
       this.playStopButtonClickHandler(true);
-      this.setState({ openSnack: true, msg: "track Added in queue" });
     })
   }
 

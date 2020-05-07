@@ -3,6 +3,7 @@ import Slider from '@material-ui/core/Slider';
 import { connect } from 'react-redux';
 import { display } from '../shared/funs';
 import { playerCurrentTime } from '../actions/player';
+import classes from '../assets/css/player.module.scss';
 
 function valuetext(value) {
   return `${display(value)}`;
@@ -19,7 +20,7 @@ export class RangeSlider extends React.Component {
   render() {
     const { player } = this.props
     return (
-      <div style={{ position: "absolute", top: -14, left: 410, width: 340 }}>
+      <div style={{ position: "absolute", top: -14, left: 410, width: 340 }} className={classes.slider}>
         <Slider
           value={player.currentTime}
           onChange={this.seekTrackbar}

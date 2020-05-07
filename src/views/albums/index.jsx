@@ -55,7 +55,7 @@ class Albums extends React.Component {
             <h1>{search ? `Searched for #${search}` : `All Albums`}</h1>
           </Grid>
         </Grid>
-        <Grid container spacing={4} justify={"center"} alignItems={"center"} className={classes.container} >
+        <Grid container spacing={4} justify={"flex-start"} alignItems={"center"} className={classes.container} >
           {items}
           <Grid item xs={12} style={{ textAlign: "center" }}>
             {!isLoading && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
