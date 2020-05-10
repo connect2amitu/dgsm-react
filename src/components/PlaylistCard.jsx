@@ -1,6 +1,5 @@
 import React from 'react'
 import { Grid, Button, Typography } from '@material-ui/core'
-import PlayPauseButton from './PlayPauseButton';
 import logo from '../assets/images/logo.png'
 import { NavLink } from 'react-router-dom';
 

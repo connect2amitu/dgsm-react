@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Button, Typography, IconButton, Tooltip } from '@material-ui/core'
-import { MoreVertRounded } from '@material-ui/icons'
+import { Grid, Button, Typography } from '@material-ui/core'
 import CarouselSlider from "react-slick";
 import { connect } from 'react-redux';
 import { getAlbums, clearAlbums } from '../../actions/albums';

@@ -1,11 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { getTrack, clearTracks } from '../../actions/tracks';
 import { Button, Grid, CircularProgress } from '@material-ui/core';
 import { playStopButtonClickHandler } from '../../shared/funs';
-import { playerCurrentTrack } from '../../actions/player';
-import SongCard from '../../components/SongCard';
-import { Fade, Grow } from '@material-ui/core';
+import { Fade } from '@material-ui/core';
 import PlaylistCard from '../../components/PlaylistCard';
 import { getPlaylists } from '../../actions/playlist';
 
@@ -35,8 +32,6 @@ class MyPlaylist extends React.Component {
         </Fade>
       )
     )
-    console.log('playlist =>', playlists);
-
     return (
       <>
         <Grid container justify={"space-between"} alignItems={"center"} >
@@ -60,7 +55,6 @@ class MyPlaylist extends React.Component {
 
   componentDidMount() {
     const { user, isLoggedIn } = this.props;
-    console.log('user =>', user);
     if (isLoggedIn) {
       const query = { user_id: user.id };
       this.props.dispatch(getPlaylists(query));

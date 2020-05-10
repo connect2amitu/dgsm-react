@@ -1,15 +1,11 @@
 import React, { Component } from 'react'
-import { Grid, Button, Fade, CircularProgress, IconButton, Tooltip } from '@material-ui/core'
+import { Grid, Fade, CircularProgress } from '@material-ui/core'
 import { connect } from 'react-redux';
 import { getTrack, clearTracks } from '../../actions/tracks';
-import { NavLink } from 'react-router-dom';
-import Loading from '../../components/Loading';
-import Error from '../../components/Error';
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
 import { playStopButtonClickHandler } from '../../shared/funs';
 import SongCard from '../../components/SongCard';
 import classes from '../../assets/css/track.module.scss';
-import { MoreVertRounded } from '@material-ui/icons';
 import ViewMoreBtn from '../../components/ViewMoreBtn';
 
 

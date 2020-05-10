@@ -5,6 +5,7 @@ const initialState = {
   isLoading: false,
   error: false,
   playlists: [],
+  playlist: null,
   totalPages: 0,
 };
 
@@ -30,6 +31,31 @@ const actionsMap = {
       error: action.error.message,
     }
   },
+
+
+  [PLAYLIST.FETCH_TRACKS_START]: (state, action) => {
+    return {
+      ...state,
+      isLoading: true
+    }
+  },
+  [PLAYLIST.FETCH_TRACKS_SUCCESS]: (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      playlist: action.data.data,
+      totalPages: action.data.totalPages,
+    }
+  },
+  [PLAYLIST.FETCH_TRACKS_ERROR]: (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: action.error.message,
+    }
+  },
+
+
   [PLAYLIST.CREATE_START]: (state, action) => {
     return {
       ...state,

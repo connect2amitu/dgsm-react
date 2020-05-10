@@ -5,7 +5,7 @@ import { Button, Grid, CircularProgress } from '@material-ui/core';
 import { playStopButtonClickHandler } from '../../shared/funs';
 import { playerCurrentTrack } from '../../actions/player';
 import SongCard from '../../components/SongCard';
-import { Fade, Grow } from '@material-ui/core';
+import { Fade } from '@material-ui/core';
 import classes from '../../assets/css/track.module.scss';
 
 // var trackStyle = {

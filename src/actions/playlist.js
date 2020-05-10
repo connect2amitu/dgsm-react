@@ -8,6 +8,14 @@ export function getPlaylists(data) {
   }
 }
 
+export function getPlaylistTrack(data) {
+  return {
+    type: PLAYLIST.FETCH_TRACKS_START,
+    isLoading: true,
+    payload: data
+  }
+}
+
 export function createPlaylist(data) {
   return {
     type: PLAYLIST.CREATE_START,

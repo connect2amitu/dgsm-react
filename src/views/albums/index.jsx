@@ -1,26 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { getAlbums, clearAlbums } from '../../actions/albums';
-import { Button, Grid, CircularProgress, Typography } from '@material-ui/core';
-import { playerCurrentTrack } from '../../actions/player';
-import SongCard from '../../components/SongCard';
+import { Button, Grid, CircularProgress } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
-import { NavLink } from 'react-router-dom';
-import { HOST_API } from '../../shared/constants';
 import classes from '../../assets/css/album.module.scss';
 import AlbumCard from '../../components/AlbumCard';
-
-
-var cardStyle = {
-  borderRadius: "10px",
-  height: "180px",
-  width: "180px",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
-  objectFit: "contain"
-}
-
 
 class Albums extends React.Component {
   constructor(props) {
@@ -48,11 +32,13 @@ class Albums extends React.Component {
         </Fade>
       )
     )
+    var searchString = "";
+    search && search.split(" ").map(a => searchString += `#${a} `)
     return (
       <div className={classes.album}>
         <Grid container justify={"space-between"}>
           <Grid item>
-            <h1>{search ? `Searched for #${search}` : `All Albums`}</h1>
+            <h1>{search ? `Searched for ${searchString}` : `All Albums`}</h1>
           </Grid>
         </Grid>
         <Grid container spacing={4} justify={"flex-start"} alignItems={"center"} className={classes.container} >
@@ -71,8 +57,6 @@ class Albums extends React.Component {
     const { page, size } = this.state
     this.setState({ page: page + 1 }, () => {
       var query = { size, order: 'asc', page: page * size };
-      console.log('this.props.history.match =>', this.props.match.params.search);
-
       if (this.props.match.params.search) {
         query.q = this.props.match.params.search
       }

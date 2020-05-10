@@ -1,21 +1,9 @@
 import React from 'react'
 import { Grid, Button, Typography } from '@material-ui/core'
 import PlayPauseButton from './PlayPauseButton';
-import logo from '../assets/images/logo.png'
 import { NavLink } from 'react-router-dom';
 import { removeExt } from '../shared/funs';
 import classes from '../assets/css/track.module.scss';
-
-
-var trackStyle = {
-  borderRadius: "10px",
-  background: `url(${logo})`,
-  height: "60px",
-  width: "60px",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
-}
 
 export default function SongCard({ track, player, playSong, pauseSong }) {
 

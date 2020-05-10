@@ -1,15 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Grid, Button, Chip, Fade } from '@material-ui/core';
-import { getAlbumWithTrack } from '../../actions/albums';
-import { HOST_API } from '../../shared/constants';
+import { Grid, Button, Fade } from '@material-ui/core';
 import { playStopButtonClickHandler, removeExt } from '../../shared/funs';
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
 import PlayPauseButton from '../../components/PlayPauseButton';
 import logo from '../../assets/images/logo.png'
-import { PlayCircleFilledRounded, PauseCircleFilledRounded } from '@material-ui/icons';
-import { NavLink } from 'react-router-dom';
 import classes from '../../assets/css/album.module.scss';
+import { getPlaylistTrack } from '../../actions/playlist';
 
 
 var trackStyle = {
@@ -22,7 +19,7 @@ var trackStyle = {
   backgroundSize: "cover",
 }
 
-class AlbumsDetail extends React.Component {
+class PlaylistDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,67 +29,44 @@ class AlbumsDetail extends React.Component {
   }
 
   render() {
-    const { albumDetail, isLoading, player } = this.props;
-    const { init, } = this.state;
+    const { playlist, isLoading, player } = this.props;
 
     return (
       <div className={classes.albumDetail}>
-        {!isLoading && albumDetail &&
+        {!isLoading &&
           <>
             <Grid container spacing={2} className={classes.albumContainer}>
               <Grid item >
                 <Fade in={true}>
-                  <div><Button className={classes.cover} style={{ backgroundImage: `url(${HOST_API}/${albumDetail.cover})` }}></Button></div>
+                  <div><Button className={classes.cover} style={{ backgroundImage: `url(${logo})` }}></Button></div>
                 </Fade>
               </Grid>
               <Grid item>
                 <Grid container direction={"column"} spacing={1} className={classes.albumMeta}>
                   <Grid item>
-                    <h1 className={classes.albumName}>{albumDetail.name}</h1>
+                    <h1 className={classes.albumName}>{playlist && playlist.name}</h1>
                   </Grid>
                   <Grid item>
-                    <Grid container direction={"column"} justify={"center"} spacing={1} className={classes.tags} >
-                      <Grid item>
-                        <span>By <b>{albumDetail.artist_name}</b></span>
-                      </Grid>
-                      <Grid item>
-                        {albumDetail.tags.split(", ").map((tag, index) =>
-                          <Chip
-                            className={classes.tags}
-                            component={NavLink}
-                            key={index}
-                            to={`/albums/${tag}`}
-                            color={"secondary"}
-                            style={{ borderRadius: 0, cursor: "pointer", marginRight: 2, padding: 0, height: 20 }}
-                            label={tag}
-                          />
-                        )}
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                  <Grid item>
-                  </Grid>
-                  {albumDetail && albumDetail.tracks && albumDetail.tracks.length > 0 && <Grid item>
-                    <Button
+                    {/* <Button
                       color={"primary"}
                       variant={"contained"}
                       onClick={() => player.isPlaying && !init ? this.pauseSong() : this.playSong(albumDetail.tracks[0])}
                     >
                       {player.isPlaying && !init ? <PauseCircleFilledRounded /> : <PlayCircleFilledRounded />}
                         &nbsp;{player.isPlaying && !init ? `Pause` : `Play All`}
-                    </Button>
-                  </Grid>}
+                    </Button> */}
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
             <Grid container direction={"column"}>
               <Grid item xs={12} sm={8} md={10}>
-                <h3>Tracks ({albumDetail.tracks.length})</h3>
+                <h3>Tracks</h3>
               </Grid>
               <Grid item xs={12}>
                 <Grid container spacing={1}>
                   {
-                    albumDetail.tracks.map((track, index) =>
+                    playlist && playlist.tracks.length > 0 && playlist.tracks.map((track, index) =>
                       <Fade in={true} key={index}>
                         <Grid item xs={12} >
                           <Grid container spacing={1} alignItems={"center"} >
@@ -136,7 +110,7 @@ class AlbumsDetail extends React.Component {
     this.setState({
       init: false
     }, () => {
-      const { tracks } = this.props.albumDetail;
+      const { playlist: { tracks } } = this.props;
       this.props.dispatch(playerAddTrack(tracks));
       this.props.dispatch(playerCurrentTrack({ track }));
       this.playStopButtonClickHandler(true);
@@ -154,15 +128,10 @@ class AlbumsDetail extends React.Component {
 
   }
 
-  static getDerivedStateFromProps(props, state) {
-
-    return state;
-  }
-
-
   componentDidMount() {
-    var query = { size: 20, order: 'asc', page: 0 }
-    this.props.dispatch(getAlbumWithTrack(this.props.match.params.slug, query))
+    const { dispatch, user, match } = this.props;
+    var query = { size: 20, order: 'asc', page: 0, user_id: user.id, playlist_id: match.params.id }
+    dispatch(getPlaylistTrack(query))
 
   }
 
@@ -171,12 +140,16 @@ class AlbumsDetail extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    albumDetail: state.albums.albumDetail,
-    isLoading: state.albums.isLoading,
+    isLoading: state.playlist.isLoading,
+    totalPages: state.playlist.totalPages,
+    error: state.playlist.error,
+    playlist: state.playlist.playlist,
     player: state.player,
+    user: state.global.user,
+
   }
 }
 
-export default connect(mapStateToProps)(AlbumsDetail)
+export default connect(mapStateToProps)(PlaylistDetail)
 
 

@@ -6,6 +6,7 @@ import Albums from './views/albums/Index';
 import Browse from './views/browse/Index';
 import AlbumsDetail from './views/albums/Detail';
 import MyPlaylist from './views/playlist/Index';
+import MyPlaylistDetail from './views/playlist/Detail';
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core';
 import { ThemeProvider, CssBaseline } from '@material-ui/core';
 import { connect } from 'react-redux';
@@ -34,7 +35,7 @@ theme = responsiveFontSizes(theme);
 
 function App({ isDark }) {
   return (
-    <BrowserRouter >
+    <BrowserRouter basename="/dgsmsg">
       <ThemeProvider theme={isDark ? darkTheme : theme}>
         <CssBaseline />
         <Switch>
@@ -44,6 +45,7 @@ function App({ isDark }) {
             <Route exact path="/browse/albums" component={Albums} />
             <Route exact path="/albums/:search?" component={Albums} />
             <Route exact path="/my-playlist" component={MyPlaylist} />
+            <Route exact path="/my-playlist/:id" component={MyPlaylistDetail} />
             <Route exact path="/album/:slug" component={AlbumsDetail} />
             <Route exact path="/latest" render={() => <h1>Latest</h1>} />
           </Layout>

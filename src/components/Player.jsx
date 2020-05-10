@@ -3,7 +3,7 @@ import React from 'react';
 import { styled } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { Grid, Button, Menu, MenuItem, TextField, Tooltip, CircularProgress, List, ListItemText, ListItem, ListItemAvatar, Avatar, IconButton } from '@material-ui/core';
+import { Grid, Menu, MenuItem, TextField, Tooltip, CircularProgress, List, ListItemText, ListItem, ListItemAvatar, Avatar, IconButton } from '@material-ui/core';
 import { FavoriteBorderRounded, MoreHorizRounded, PlayCircleFilledRounded, PauseCircleFilledRounded, SkipNextRounded, SkipPreviousRounded, QueueMusicRounded, VolumeOffRounded, VolumeUpRounded } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { playStopButtonClickHandler, display, removeExt } from '../shared/funs';
@@ -142,7 +142,7 @@ class Player extends React.Component {
                           </IconButton>
                         </Tooltip>
                       </Grid>
-                      <Grid item>
+                      <Grid item className={classes.muteIcon}>
                         <Tooltip title={player.isMuted ? "Unmute" : "Mute"} placement="top">
                           <IconButton
                             disabled={isActiveActionBtn}

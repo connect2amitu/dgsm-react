@@ -11,6 +11,15 @@ export const getAll = (query = {}) => {
   return callApi(_URL, options);
 }
 
+export const getPlaylistTrack = (query = {}) => {
+  var _URL = URL + "/tracks";
+  _URL = generateURL(_URL, query);
+  let options = {
+    method: 'GET',
+  }
+  return callApi(_URL, options);
+}
+
 export const create = (data) => {
   var _URL = `${URL}/createPlaylist`;
   let options = {

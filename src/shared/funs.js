@@ -45,13 +45,17 @@ export async function playStopButtonClickHandler(status) {
   audioObj.play();
   if (status) {
     audioObj.play();
-    audioObj.ontimeupdate = function () {
+    var intervalId = setInterval(() => {
       if (audioObj.ended) {
         _this.props.dispatch(playerNextTrack());
       }
       _this.props.dispatch(playerDurationTime(audioObj.duration));
       _this.props.dispatch(playerCurrentTime(audioObj.currentTime));
-    };
+
+    }, 1000);
+    // audioObj.ontimeupdate = function () {
+    // };
+    this.setState({ intervalId });
   } else {
     audioObj.pause();
     if (_this.state) {

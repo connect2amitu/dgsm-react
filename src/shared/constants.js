@@ -1,4 +1,4 @@
-export const HOST_API = "http://localhost/dgsm"
+export const HOST_API = "http://13.233.171.45/dgsm"
 export const SESSION_EXPIRED_URL = '/404';
 export const OK_STATUS = 200;
 export const BAD_REQUEST = 400;
@@ -8,9 +8,6 @@ export const MEDIA_ERROR_STATUS = 415;
 export const VALIDATION_FAILURE_STATUS = 417;
 export const DATABASE_ERROR_STATUS = 422;
 export const INTERNAL_SERVER_ERROR = 500;
-export const DIRECTION = ['left', 'right', 'top', 'bottom'];
-
-
 export const GOOGLE_CLIENT_ID = "770715490238-ft20jtu5vio0krq5c83nih44p48rg715.apps.googleusercontent.com";
 
 
@@ -46,6 +43,10 @@ export const PLAYLIST = {
   FETCH_START: 'PLAYLIST_FETCH_START',
   FETCH_SUCCESS: 'PLAYLIST_FETCH_SUCCESS',
   FETCH_ERROR: 'PLAYLIST_FETCH_ERROR',
+
+  FETCH_TRACKS_START: 'PLAYLIST_TRACKS_FETCH_START',
+  FETCH_TRACKS_SUCCESS: 'PLAYLIST_TRACKS_FETCH_SUCCESS',
+  FETCH_TRACKS_ERROR: 'PLAYLIST_TRACKS_FETCH_ERROR',
 
   CREATE_START: 'PLAYLIST_CREATE_START',
   CREATE_SUCCESS: 'PLAYLIST_CREATE_SUCCESS',
