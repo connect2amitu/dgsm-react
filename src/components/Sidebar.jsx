@@ -1,5 +1,5 @@
 import React from 'react';
-import { DeleteRounded, ClearAllRounded } from '@material-ui/icons';
+import { DeleteRounded, ClearAllRounded, CloseRounded, ArrowForwardIosRounded } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import icon_512x512 from '../assets/images/icon-512x512.png'
 import { ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, ListSubheader, Grid, Button, Divider, SwipeableDrawer, List, ListItem, ListItemText, Paper } from '@material-ui/core';
@@ -52,7 +52,10 @@ class Sidebar extends React.Component {
                       background: "#ffffff", margin: 0, textAlign: "center", fontWeight: 700,
                       fontSize: "18px"
                     }} color={"primary"} id="nested-list-subheader">
-                      <Grid container justify={"space-between"}>
+                      <Grid container justify={"space-between"} alignItems={"center"}>
+                        <Grid item>
+                          <IconButton color={"secondary"} variant={"contained"}><ArrowForwardIosRounded onClick={() => handlePlaylistSidebar(false)} /></IconButton>
+                        </Grid>
                         <Grid item>
                           {`Playlist ( ${playlist.length} )`}
                         </Grid>
@@ -70,7 +73,13 @@ class Sidebar extends React.Component {
                   let isActive = currentTrack && currentTrack.track && currentTrack.track.id === track.id
                   return (
                     <List dense={false} style={{ padding: 0 }} key={index}>
-                      <ListItem component={Button} style={{ textTransform: "initial" }} color={isActive ? "secondary" : "default"} variant={isActive ? "contained" : "text"} onClick={() => this.changeSong(track)}>
+                      <ListItem
+                        component={Button}
+                        style={{ textTransform: "initial" }}
+                        color={isActive ? "secondary" : "default"}
+                        variant={isActive ? "contained" : "text"}
+                        onClick={() => this.changeSong(track)}
+                      >
                         <ListItemAvatar>
                           <Avatar alt={removeExt(track.name)} src={`${HOST_API}/${track.cover}`} />
                         </ListItemAvatar>

@@ -6,20 +6,28 @@
     background-repeat  : no-repeat;
     background-size    : cover;
 
-    @supports ((-webkit-backdrop-filter: blur(2em)) or (backdrop-filter: blur(2em))) {
-      .toolBar {
-        background-color       : rgba(255, 255, 255, .5);
-        -webkit-backdrop-filter: blur(255px);
-        backdrop-filter        : blur(255px);
-      }
+    @media screen and (max-width: 480px) {
+      // background:transparent !important
     }
 
     .toolBar {
-      // -webkit-backdrop-filter: blur(255px);
-      // backdrop-filter        : blur(255px);
+      backdrop-filter : blur(25px);
       background-color: rgba(255, 255, 255, 0.1);
 
       .container {
+        .playerAction {
+          position: relative;
+
+          .slider {
+            top     : -15px !important;
+            left    : 39px !important;
+            position: absolute;
+            top     : -14px;
+            left    : 410px;
+            width   : 340px;
+          }
+        }
+
         @media screen and (max-width: 480px) {
 
           .playerDetail,
@@ -36,8 +44,9 @@
             }
 
             .slider {
-              top : -22px !important;
-              left: 39px !important;
+              top  : -22px !important;
+              width: 100%;
+              left : 20px !important;
             }
 
             .duration {
@@ -115,22 +124,26 @@
 
 body {
   .blurBg {
-    height               : 100vh !important;
+    height               : 100% !important;
     background-repeat    : no-repeat;
     background-attachment: fixed;
+    background-position  : center;
+    background-size      : cover;
 
     .albumDetail {
-      backdrop-filter: blur(100px);
-      height         : 100vh;
+      backdrop-filter: blur(50px);
       width          : 100%;
       position       : absolute;
       top            : 0;
+      bottom         : 0;
       padding        : 13px;
+      justify-content: center;
+      align-items    : flex-end;
 
       .cover {
         border-radius      : 10px;
-        height             : 180px;
-        width              : 180px;
+        height             : 250px;
+        width              : 250px;
         background-position: center;
         background-repeat  : no-repeat;
         background-size    : cover;
@@ -138,14 +151,49 @@ body {
       }
 
       .closeBtn {
-        margin-right: 15px;
-        margin-left : auto;
+        position: absolute;
+        right   : 20px;
+        top     : 20px;
+        button{
+          svg{
+            font-size: 30px;
+          }
+        }
       }
 
       .tags {
         text-transform: capitalize;
       }
 
+      .slider {
+        position: relative;
+        width   : 95%;
+        margin  : 0 auto;
+
+        .leftDuration {
+          position : absolute;
+          left     : 13px;
+          top      : 30px;
+          font-size: 12px;
+        }
+
+        .rightDuration {
+          position : absolute;
+          right    : 13px;
+          top      : 30px;
+          font-size: 12px;
+        }
+      }
+
+      .trackName {
+        text-align: center;
+        font-size : 22px;
+        margin    : 0;
+      }
+
+      .playerAction {
+        width: 95%;
+      }
     }
   }
 }

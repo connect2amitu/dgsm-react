@@ -20,7 +20,7 @@ export class RangeSlider extends React.Component {
   render() {
     const { player } = this.props
     return (
-      <div style={{ position: "absolute", top: -14, left: 410, width: 340 }} className={classes.slider}>
+      <div className={classes.slider}>
         <Slider
           value={player.currentTime}
           onChange={this.seekTrackbar}

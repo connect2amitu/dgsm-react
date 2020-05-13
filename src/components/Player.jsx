@@ -11,7 +11,7 @@ import { playerNextTrack, playerPrevTrack, playerMuteUnMute } from '../actions/p
 import Sidebar from './Sidebar';
 import icon_512x512 from '../assets/images/icon-512x512.png'
 import { HOST_API, GOOGLE_CLIENT_ID } from '../shared/constants';
-import { RangeSlider } from './Slider';
+import RangeSlider from './Slider';
 import DialogBox from './DialogBox';
 import GoogleLogin from 'react-google-login';
 import { addAuthUser } from '../actions/global';
@@ -19,6 +19,7 @@ import { createPlaylist, getPlaylists, addToPlaylist } from '../actions/playlist
 import FullScreenPlayer from './FullScreenPlayer';
 import classes from '../assets/css/player.module.scss';
 import Snackbar from './Snackbar';
+import _ from 'lodash';
 
 
 const MyAppBar = styled(AppBar)({
@@ -164,7 +165,22 @@ class Player extends React.Component {
                       </Grid>
                       <Grid item className={classes.playlistDetail}>
                         <Tooltip title={"Open Playlist"} placement="top">
-                          <FullScreenPlayer disabled={isActiveActionBtn} player={player} />
+                          <FullScreenPlayer
+                            prevSong={this.prevSong}
+                            playPause={this.playPause}
+                            nextSong={this.nextSong}
+                            muteHandler={this.muteHandler}
+                            handlePlaylistSidebar={this.handlePlaylistSidebar}
+                            isActiveActionBtn={isActiveActionBtn}
+                            disabled={isActiveActionBtn}
+                            openPlaylist={open}
+                            player={player}
+                            openPlaylistModal={this.openPlaylistModal}
+                            closeMenu={this.handleClose}
+                            anchorEl={anchorEl}
+                            handleClick={this.handleClick}
+                            {...this.props}
+                          />
                         </Tooltip>
                       </Grid>
                     </Grid>
@@ -250,6 +266,7 @@ class Player extends React.Component {
     formdata.append('picture', resp.profileObj.imageUrl);
     dispatch(addAuthUser(formdata));
     this.closePlaylistModal();
+    this.setState({ openPlaylist: true, anchorEl: null });
   }
 
 
@@ -312,9 +329,9 @@ class Player extends React.Component {
     const { player } = props;
     // eslint-disable-next-line no-undef
     navigator.mediaSession.metadata = new MediaMetadata({
-      title: player.currentTrack && player.currentTrack.track && player.currentTrack.track.name,
-      artist: player.currentTrack && player.currentTrack.track && player.currentTrack.track.artist_name,
-      album: player.currentTrack && player.currentTrack.track && player.currentTrack.track.artist_name,
+      title: removeExt(_.get(player, "currentTrack.track.name", "")),
+      artist: _.get(player, "currentTrack.track.artist_name", ""),
+      album: _.get(player, "currentTrack.track.artist_name", ""),
       artwork: [
         { src: `https://chauhanamit.info/static/media/profile.652bae8c.jpg`, sizes: '512x512', type: 'image/png' },
       ]
