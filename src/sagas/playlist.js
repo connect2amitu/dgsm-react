@@ -1,6 +1,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { getAll, create, add, getPlaylistTrack } from '../api/playlist';
-import { PLAYLIST } from '../shared/constants';
+import { PLAYLIST, GLOBAL } from '../shared/constants';
 
 
 function fetchAllPlaylist() {
@@ -10,7 +10,9 @@ function fetchAllPlaylist() {
       const action = { type: PLAYLIST.FETCH_SUCCESS, data }
       yield put(action);
     } catch (error) {
-      const action = { type: PLAYLIST.FETCH_ERROR, error }
+      const action = { type: PLAYLIST.FETCH_ERROR, error };
+      const unauthorizationAction = { type: GLOBAL.AUTH_USER_ERROR, error };
+      yield put(unauthorizationAction);
       yield put(action);
     }
   }
@@ -23,7 +25,11 @@ function fetchPlaylistTracks() {
       const action = { type: PLAYLIST.FETCH_TRACKS_SUCCESS, data }
       yield put(action);
     } catch (error) {
+      console.log('AMItu =>', error);
+
       const action = { type: PLAYLIST.FETCH_TRACKS_ERROR, error }
+      const unauthorizationAction = { type: GLOBAL.AUTH_USER_ERROR, error };
+      yield put(unauthorizationAction);
       yield put(action);
     }
   }

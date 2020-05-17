@@ -3,9 +3,10 @@ import { GLOBAL, JWT_SECRET } from '../shared/constants'
 import jwt from 'jsonwebtoken'
 
 var isDark = JSON.parse(localStorage.getItem("theme")) ? true : false
-var user = localStorage.getItem("user") ? localStorage.getItem("user") : "";
+var user = localStorage.getItem('token') ? localStorage.getItem('token') : "";
 var decodedUser = {};
 var isLoggedIn = false;
+
 if (user) {
   try {
     decodedUser = jwt.verify(user, JWT_SECRET);
@@ -14,8 +15,6 @@ if (user) {
     isLoggedIn = false;
   }
 }
-console.log('decodedUser =>', decodedUser);
-
 const initialState = {
   isDark,
   user: decodedUser,
@@ -39,27 +38,25 @@ const actionsMap = {
     }
   },
   [GLOBAL.AUTH_USER_SUCCESS]: (state, action) => {
-    var token = jwt.sign(action.data.data, JWT_SECRET);
-    console.log('token =>', token);
-
-    localStorage.setItem('user', token)
+    localStorage.setItem('token', action.data.token)
     return {
       ...state,
-      user: action.data.data,
+      user: jwt.decode(action.data.token, JWT_SECRET),
       isLoggedIn: true,
       isLoading: false
     }
   },
   [GLOBAL.AUTH_USER_ERROR]: (state, action) => {
-    localStorage.removeItem('user')
+    localStorage.removeItem('token')
     return {
       ...state,
       user: null,
+      isLoggedIn: false,
       isLoading: false
     }
   },
   [GLOBAL.LOGOUT]: (state, action) => {
-    localStorage.removeItem('user');
+    localStorage.removeItem('token');
     return {
       ...state,
       user: null,

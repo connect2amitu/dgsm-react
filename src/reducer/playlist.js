@@ -28,6 +28,7 @@ const actionsMap = {
     return {
       ...state,
       isLoading: false,
+      playlists: [],
       error: action.error.message,
     }
   },

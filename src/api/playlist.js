@@ -1,5 +1,5 @@
 import { callApi } from "./index";
-import { generateURL } from "../shared/funs";
+import { generateURL, getHeaders } from "../shared/funs";
 
 const URL = "api/playlists";
 
@@ -8,7 +8,7 @@ export const getAll = (query = {}) => {
   let options = {
     method: 'GET',
   }
-  return callApi(_URL, options);
+  return callApi(_URL, options, getHeaders());
 }
 
 export const getPlaylistTrack = (query = {}) => {
@@ -17,7 +17,7 @@ export const getPlaylistTrack = (query = {}) => {
   let options = {
     method: 'GET',
   }
-  return callApi(_URL, options);
+  return callApi(_URL, options, getHeaders());
 }
 
 export const create = (data) => {
@@ -26,7 +26,7 @@ export const create = (data) => {
     method: 'POST',
     data
   }
-  return callApi(_URL, options);
+  return callApi(_URL, options, getHeaders());
 }
 
 export const add = (data) => {
@@ -35,6 +35,6 @@ export const add = (data) => {
     method: 'POST',
     data
   }
-  return callApi(_URL, options);
+  return callApi(_URL, options, getHeaders());
 }
 

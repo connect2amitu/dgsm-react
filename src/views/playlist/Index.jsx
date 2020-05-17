@@ -1,16 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Button, Grid, CircularProgress, List, ListItem, ListItemAvatar, Avatar, ListItemText, TextField } from '@material-ui/core';
+import { Button, Grid, CircularProgress, TextField } from '@material-ui/core';
 import { playStopButtonClickHandler } from '../../shared/funs';
 import { Fade } from '@material-ui/core';
 import PlaylistCard from '../../components/PlaylistCard';
 import { getPlaylists, createPlaylist } from '../../actions/playlist';
 import DialogBox from '../../components/DialogBox';
 import GoogleLogin from 'react-google-login';
-import { GOOGLE_CLIENT_ID, JWT_SECRET } from '../../shared/constants';
+import { GOOGLE_CLIENT_ID } from '../../shared/constants';
 import { addAuthUser } from '../../actions/global';
-import { QueueMusicRounded } from '@material-ui/icons';
-import jwt from 'jsonwebtoken'
 
 
 class MyPlaylist extends React.Component {
@@ -89,8 +87,6 @@ class MyPlaylist extends React.Component {
   createNewPlaylist = () => {
     this.setState({ openPlaylist: false });
     const { dispatch, user } = this.props;
-    console.log('user =>', user);
-
     const { playlistName } = this.state;
     var formdata = new FormData();
     formdata.append('name', playlistName);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AppBar, Toolbar, Button, Grid, Typography, Avatar, Tooltip, IconButton, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, ListSubheader } from '@material-ui/core'
+import { AppBar, Toolbar, Button, Grid, Typography, Avatar, Tooltip, IconButton, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
 import { NightsStayRounded, WbSunnyRounded, MenuRounded } from '@material-ui/icons'
 import { changeTheme } from '../../actions/global'

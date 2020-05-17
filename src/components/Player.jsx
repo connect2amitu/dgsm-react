@@ -242,7 +242,6 @@ class Player extends React.Component {
   addToPlaylistHandler = (playlist_id) => {
     const { dispatch, player, user } = this.props;
     var formdata = new FormData();
-    formdata.append('user_id', user.id);
     formdata.append('track_id', player.currentTrack.track.id);
     formdata.append('playlist_id', playlist_id);
     dispatch(addToPlaylist(formdata));
@@ -285,12 +284,11 @@ class Player extends React.Component {
 
   createNewPlaylist = () => {
     this.setState({ openPlaylist: false });
-    const { dispatch, user, player } = this.props;
+    const { dispatch, player } = this.props;
     const { playlistName } = this.state;
 
     var formdata = new FormData();
     formdata.append('name', playlistName);
-    formdata.append('user_id', user.id);
     formdata.append('track_id', player.currentTrack.track.id);
 
     this.setState({ playlistName: "" }, () => {
@@ -341,12 +339,9 @@ class Player extends React.Component {
 
 
   componentDidMount() {
-    const { isLoggedIn, user } = this.props;
+    const { isLoggedIn } = this.props;
     if (isLoggedIn) {
-      let query = {
-        user_id: user.id
-      }
-      this.props.dispatch(getPlaylists(query));
+      this.props.dispatch(getPlaylists());
     }
 
     const _this = this;

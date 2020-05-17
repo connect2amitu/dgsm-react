@@ -34,6 +34,10 @@ export const display = (seconds) => {
 export const removeExt = (str) => {
   return str.replace(/\.[^.]*$/, '');
 }
+export const getHeaders = () => {
+  let headers = { Authorization: localStorage.getItem('token') };
+  return headers
+}
 
 export async function playStopButtonClickHandler(status) {
 

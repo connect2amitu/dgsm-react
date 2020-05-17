@@ -7,8 +7,6 @@ import PlayPauseButton from '../../components/PlayPauseButton';
 import logo from '../../assets/images/logo.png'
 import classes from '../../assets/css/album.module.scss';
 import { getPlaylistTrack } from '../../actions/playlist';
-import jwt from 'jsonwebtoken'
-import { JWT_SECRET } from '../../shared/constants';
 
 
 var trackStyle = {

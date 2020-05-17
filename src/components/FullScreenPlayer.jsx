@@ -1,7 +1,7 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button, Dialog, IconButton, Slide, Grid, Fade, Chip, Tooltip, Menu, MenuItem } from '@material-ui/core';
-import { MoreVertRounded, ExpandMoreRounded, SkipPreviousRounded, PauseCircleFilledRounded, PlayCircleFilledRounded, SkipNextRounded, RepeatOneRounded, RepeatRounded, VolumeOffRounded, VolumeUpRounded, QueueMusicRounded, MoreHorizRounded } from '@material-ui/icons';
+import { MoreVertRounded, ExpandMoreRounded, SkipPreviousRounded, PauseCircleFilledRounded, PlayCircleFilledRounded, SkipNextRounded, VolumeOffRounded, VolumeUpRounded, QueueMusicRounded, MoreHorizRounded } from '@material-ui/icons';
 import { HOST_API } from '../shared/constants';
 import { removeExt, display } from '../shared/funs';
 import classes from '../assets/css/player.module.scss';
@@ -18,7 +18,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function FullScreenPlayer(props) {
   const [open, setOpen] = useState(false);
-  const [showLyrics, setShowLyrics] = useState(false);
   const { player, disabled, isActiveActionBtn, prevSong, nextSong, muteHandler, handlePlaylistSidebar, playPause, openPlaylist, openPlaylistModal, closeMenu, anchorEl, handleClick } = props;
 
   const handleClickOpen = () => {
@@ -29,19 +28,14 @@ export default function FullScreenPlayer(props) {
     setOpen(false);
   };
 
-  useEffect(() => {
-    return () => {
-      setShowLyrics(false);
-    };
-  }, []);
   const tags = _.get(player, "currentTrack.track.tags", "").split(", ");
   // const tags = [];
   const lyrics = _.get(player, 'currentTrack.track.lyrics', false)
 
   return (
     <div>
-      <IconButton disabled={disabled} onClick={() => { handleClickOpen(); setShowLyrics(false) }} color={"inherit"}><MoreVertRounded /></IconButton>
-      <Dialog fullScreen open={open} onClose={() => { handleClickOpen(); setShowLyrics(false) }} TransitionComponent={Transition} className={classes.dialogbox}>
+      <IconButton disabled={disabled} onClick={handleClickOpen} color={"inherit"}><MoreVertRounded /></IconButton>
+      <Dialog fullScreen open={open} onClose={handleClickOpen} TransitionComponent={Transition} className={classes.dialogbox}>
         <div style={{ backgroundImage: `url(${HOST_API}/${_.get(player, 'currentTrack.track.cover')})` }} className={classes.blurBg}>
 
           <Grid container alignItems={"center"} className={classes.albumDetail}>
