@@ -142,8 +142,8 @@ body {
 
       .cover {
         border-radius      : 10px;
-        height             : 250px;
-        width              : 250px;
+        height             : 200px;
+        width              : 200px;
         background-position: center;
         background-repeat  : no-repeat;
         background-size    : cover;
@@ -172,14 +172,14 @@ body {
 
         .leftDuration {
           position : absolute;
-          left     : 13px;
+          left     : 0px;
           top      : 30px;
           font-size: 12px;
         }
 
         .rightDuration {
           position : absolute;
-          right    : 13px;
+          right    : 0px;
           top      : 30px;
           font-size: 12px;
         }
@@ -190,7 +190,10 @@ body {
         font-size : 22px;
         margin    : 0;
       }
-
+      
+      .lyricsBody{
+        text-align: center;
+      }
       .playerAction {
         width: 95%;
       }

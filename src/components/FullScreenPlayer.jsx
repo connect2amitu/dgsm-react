@@ -86,18 +86,20 @@ export default function FullScreenPlayer(props) {
               </Grid>
             </Grid>
             <Grid item xs={12}>
-              <Scrollbars autoHide autoHeight={true} autoHeightMin={0} style={{ width: "100%", height: 150, autoHeightMin: 150 }}>
+              {lyrics && <Scrollbars className={classes.lyricsBody} autoHide autoHeight={true} autoHeightMin={0} style={{ width: "100%", height: 150, autoHeightMin: 150 }}>
                 <pre style={{ paddingBottom: 44 }}>
                   {lyrics}
                 </pre>
-              </Scrollbars>
+              </Scrollbars>}
             </Grid>
             <Grid item xs={12} className={classes.playerAction}>
               <Grid container alignItems={"center"} spacing={1}>
                 <Grid item xs={12} className={classes.slider}>
-                  <RangeSlider  {...props} />
-                  <div className={classes.leftDuration}>{display(player.currentTime)}</div>
-                  <div className={classes.rightDuration}>{display(player.durationTime)}</div>
+                  <RangeSlider  {...props} >
+                    <div className={classes.leftDuration}>{display(player.currentTime)}</div>
+                    <div className={classes.rightDuration}>{display(player.durationTime)}</div>
+                  </RangeSlider>
+
                 </Grid>
                 <Grid item xs={12} className={classes.playlistIcon}>
                   <Grid container alignItems={"center"} justify={"flex-end"} spacing={1}>
@@ -134,7 +136,7 @@ export default function FullScreenPlayer(props) {
                   </Grid>
                 </Grid>
                 <Grid item xs={12}>
-                  <Grid container spacing={1} alignItems={"center"} justify={"space-evenly"}>
+                  <Grid container spacing={1} alignItems={"center"} justify={"center"}>
                     <Grid item>
                       <Tooltip title={"Previous"} placement="top">
                         <IconButton
@@ -168,12 +170,6 @@ export default function FullScreenPlayer(props) {
                           disabled={isActiveActionBtn}
                           onClick={() => muteHandler()} color={"inherit"}>
                           {player.isMuted ? <VolumeOffRounded /> : <VolumeUpRounded />}
-                        </IconButton>
-                      </Tooltip>
-                    </Grid>
-                    <Grid item className={classes.playlistIcon}>
-                      <Tooltip title={"Repeat One"} placement="top">
-                        <IconButton > <RepeatOneRounded style={{ fontSize: "2rem" }} />
                         </IconButton>
                       </Tooltip>
                     </Grid>

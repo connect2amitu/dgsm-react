@@ -18,7 +18,7 @@ export class RangeSlider extends React.Component {
     }
   }
   render() {
-    const { player } = this.props
+    const { player, children } = this.props
     return (
       <div className={classes.slider}>
         <Slider
@@ -31,6 +31,7 @@ export class RangeSlider extends React.Component {
           max={Math.floor(player.durationTime)}
           valueLabelFormat={valuetext}
         />
+        {children}
       </div>
     );
   }

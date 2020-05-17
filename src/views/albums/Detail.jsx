@@ -15,8 +15,8 @@ import classes from '../../assets/css/album.module.scss';
 var trackStyle = {
   borderRadius: "10px",
   background: `url(${logo})`,
-  height: "60px",
-  width: "60px",
+  height: "50px",
+  width: "50px",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",

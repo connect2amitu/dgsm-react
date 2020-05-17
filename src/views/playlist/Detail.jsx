@@ -73,7 +73,7 @@ class PlaylistDetail extends React.Component {
                             <Grid item style={{ width: "25px" }}>
                               <span >{index + 1}</span>
                             </Grid>
-                            <Grid item><Button style={trackStyle}></Button></Grid>
+                            {/* <Grid item><Button style={trackStyle}></Button></Grid> */}
                             <Grid item xs={6} md={2}>
                               <Grid container direction={"column"}>
                                 <Grid item>
