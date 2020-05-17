@@ -1,13 +1,25 @@
 // import { Map } from 'immutable';
-import { GLOBAL } from '../shared/constants'
+import { GLOBAL, JWT_SECRET } from '../shared/constants'
+import jwt from 'jsonwebtoken'
 
 var isDark = JSON.parse(localStorage.getItem("theme")) ? true : false
-var user = JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")) : null
+var user = localStorage.getItem("user") ? localStorage.getItem("user") : "";
+var decodedUser = {};
+var isLoggedIn = false;
+if (user) {
+  try {
+    decodedUser = jwt.verify(user, JWT_SECRET);
+    isLoggedIn = Object.keys(decodedUser).length > 0 ? true : false;
+  } catch (error) {
+    isLoggedIn = false;
+  }
+}
+console.log('decodedUser =>', decodedUser);
 
 const initialState = {
   isDark,
-  user,
-  isLoggedIn: user ? true : false,
+  user: decodedUser,
+  isLoggedIn,
   isLoading: false
 };
 
@@ -22,23 +34,27 @@ const actionsMap = {
   [GLOBAL.AUTH_USER_START]: (state, action) => {
     return {
       ...state,
-      user: action.payload,
+      // user: action.payload,
       isLoading: true
     }
   },
   [GLOBAL.AUTH_USER_SUCCESS]: (state, action) => {
-    localStorage.setItem('user', JSON.stringify(action.data.data))
+    var token = jwt.sign(action.data.data, JWT_SECRET);
+    console.log('token =>', token);
+
+    localStorage.setItem('user', token)
     return {
       ...state,
-      user: action.data,
+      user: action.data.data,
       isLoggedIn: true,
       isLoading: false
     }
   },
   [GLOBAL.AUTH_USER_ERROR]: (state, action) => {
-    localStorage.setItem('user', action.payload)
+    localStorage.removeItem('user')
     return {
       ...state,
+      user: null,
       isLoading: false
     }
   },

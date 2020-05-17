@@ -11,7 +11,7 @@ export const VALIDATION_FAILURE_STATUS = 417;
 export const DATABASE_ERROR_STATUS = 422;
 export const INTERNAL_SERVER_ERROR = 500;
 export const GOOGLE_CLIENT_ID = "770715490238-ft20jtu5vio0krq5c83nih44p48rg715.apps.googleusercontent.com";
-
+export const JWT_SECRET = "amintu";
 
 
 export const TRACK = {

@@ -7,9 +7,10 @@ import PlaylistCard from '../../components/PlaylistCard';
 import { getPlaylists, createPlaylist } from '../../actions/playlist';
 import DialogBox from '../../components/DialogBox';
 import GoogleLogin from 'react-google-login';
-import { GOOGLE_CLIENT_ID } from '../../shared/constants';
+import { GOOGLE_CLIENT_ID, JWT_SECRET } from '../../shared/constants';
 import { addAuthUser } from '../../actions/global';
 import { QueueMusicRounded } from '@material-ui/icons';
+import jwt from 'jsonwebtoken'
 
 
 class MyPlaylist extends React.Component {
@@ -108,13 +109,15 @@ class MyPlaylist extends React.Component {
     formdata.append('name', resp.profileObj.name);
     formdata.append('email', resp.profileObj.email);
     formdata.append('picture', resp.profileObj.imageUrl);
+    console.log('before dispatch =>');
     dispatch(addAuthUser(formdata));
+    console.log('after dispatch =>', this.props);
     this.closePlaylistModal();
-    this.setState({ openPlaylist: onlyLogin }, () => {
-      const { user } = this.props;
-      const query = { user_id: user.id };
-      this.props.dispatch(getPlaylists(query));
-    });
+    // this.setState({ openPlaylist: onlyLogin }, () => {
+    //   const { user } = this.props;
+    //   const query = { user_id: user.id };
+    //   // this.props.dispatch(getPlaylists(query));
+    // });
   }
 
   componentDidMount() {
@@ -148,8 +151,6 @@ const mapStateToProps = state => {
     isLoggedIn: state.global.isLoggedIn,
     playlists: state.playlist.playlists,
     isLoadingPlaylist: state.playlist.isLoading,
-
-
   }
 }
 

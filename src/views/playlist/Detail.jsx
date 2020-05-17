@@ -7,6 +7,8 @@ import PlayPauseButton from '../../components/PlayPauseButton';
 import logo from '../../assets/images/logo.png'
 import classes from '../../assets/css/album.module.scss';
 import { getPlaylistTrack } from '../../actions/playlist';
+import jwt from 'jsonwebtoken'
+import { JWT_SECRET } from '../../shared/constants';
 
 
 var trackStyle = {
@@ -73,7 +75,7 @@ class PlaylistDetail extends React.Component {
                             <Grid item style={{ width: "25px" }}>
                               <span >{index + 1}</span>
                             </Grid>
-                            {/* <Grid item><Button style={trackStyle}></Button></Grid> */}
+                            <Grid item><Button style={trackStyle}></Button></Grid>
                             <Grid item xs={6} md={2}>
                               <Grid container direction={"column"}>
                                 <Grid item>
