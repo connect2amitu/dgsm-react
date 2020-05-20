@@ -38,3 +38,12 @@ export const add = (data) => {
   return callApi(_URL, options, getHeaders());
 }
 
+export const remove = (data) => {
+  var _URL = `${URL}/removeTrack`;
+  let options = {
+    method: 'POST',
+    data
+  }
+  return callApi(_URL, options, getHeaders());
+}
+

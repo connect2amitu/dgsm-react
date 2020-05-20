@@ -31,3 +31,12 @@ export function addToPlaylist(data) {
     payload: data
   }
 }
+
+export function removeTrackFromPlaylist(data, trackId) {
+  return {
+    type: PLAYLIST.REMOVE_TRACK_START,
+    isLoading: true,
+    payload: data,
+    trackId,
+  }
+}

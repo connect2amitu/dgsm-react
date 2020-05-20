@@ -22,7 +22,6 @@ var darkTheme = createMuiTheme({
     secondary: orange,
     type: "dark"
   },
-  direction: 'rtl',
 });
 var theme = createMuiTheme({
   palette: {

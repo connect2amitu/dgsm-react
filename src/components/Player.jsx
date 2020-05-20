@@ -240,7 +240,7 @@ class Player extends React.Component {
   };
 
   addToPlaylistHandler = (playlist_id) => {
-    const { dispatch, player, user } = this.props;
+    const { dispatch, player } = this.props;
     var formdata = new FormData();
     formdata.append('track_id', player.currentTrack.track.id);
     formdata.append('playlist_id', playlist_id);

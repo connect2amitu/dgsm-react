@@ -46,6 +46,7 @@ function Header(props) {
   const { user, isLoggedIn } = props;
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = useState(false);
+  console.log('user =>', user);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -91,22 +92,23 @@ function Header(props) {
                 onOpen={handleDrawerToggle}
               >
                 <List>
-                  <ListItem disabled={true} button component={NavLink} to={"/browse"} onClick={handleDrawerToggle}>
+                  <ListItem style={{ textAlign: "center" }} disabled={true} button component={NavLink} to={"/browse"} onClick={handleDrawerToggle}>
                     <ListItemText primary={"DGSM"} />
                   </ListItem>
+                  {
+                    isLoggedIn &&
+                    <ListItem button style={{ display: "flex", flexDirection: "column" }}>
+                      <ListItemIcon><Avatar src={user.picture} style={{ height: 70, width: 70 }} /></ListItemIcon>
+                      <ListItemText primary={user.name || "DGSM"} />
+                    </ListItem>
+                  }
                   <ListItem button component={NavLink} to={"/browse"} onClick={handleDrawerToggle}>
                     <ListItemText primary={"Browse"} />
                   </ListItem>
                   <ListItem button component={NavLink} to={"/my-playlist"} onClick={handleDrawerToggle}>
                     <ListItemText primary={"My Playlist"} />
                   </ListItem>
-                  {
-                    isLoggedIn &&
-                    <ListItem button>
-                      <ListItemIcon><Avatar src={user.picture} style={{ height: 70, width: 70 }} /></ListItemIcon>
-                      <ListItemText primary={user.name || "DGSM"} />
-                    </ListItem>
-                  }
+
 
                   <ListItem button onClick={() => { themHandler(); handleDrawerToggle() }} >
                     <ListItemText primary={props.isDark ? <WbSunnyRounded /> : <NightsStayRounded />} />

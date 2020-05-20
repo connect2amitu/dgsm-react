@@ -96,6 +96,32 @@ const actionsMap = {
       error: action.error.message,
     }
   },
+
+
+  [PLAYLIST.REMOVE_TRACK_START]: (state, action) => {
+    return {
+      ...state,
+      // isLoading: true
+    }
+  },
+  [PLAYLIST.REMOVE_TRACK_SUCCESS]: (state, action) => {
+    let filter = state.playlist.tracks.filter(data => data.id !== action.trackId);
+    return {
+      ...state,
+      isLoading: false,
+      playlist: {
+        ...state.playlist,
+        tracks: filter
+      }
+    }
+  },
+  [PLAYLIST.REMOVE_TRACK_ERROR]: (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: action.error.message,
+    }
+  },
 }
 
 export default function reducer(state = initialState, action = {}) {

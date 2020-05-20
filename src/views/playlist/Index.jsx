@@ -86,11 +86,10 @@ class MyPlaylist extends React.Component {
 
   createNewPlaylist = () => {
     this.setState({ openPlaylist: false });
-    const { dispatch, user } = this.props;
+    const { dispatch } = this.props;
     const { playlistName } = this.state;
     var formdata = new FormData();
     formdata.append('name', playlistName);
-    formdata.append('user_id', user.id);
     this.setState({ playlistName: "" }, () => {
       dispatch(createPlaylist(formdata));
     })
@@ -109,18 +108,12 @@ class MyPlaylist extends React.Component {
     dispatch(addAuthUser(formdata));
     console.log('after dispatch =>', this.props);
     this.closePlaylistModal();
-    // this.setState({ openPlaylist: onlyLogin }, () => {
-    //   const { user } = this.props;
-    //   const query = { user_id: user.id };
-    //   // this.props.dispatch(getPlaylists(query));
-    // });
   }
 
   componentDidMount() {
-    const { user, isLoggedIn } = this.props;
+    const { isLoggedIn } = this.props;
     if (isLoggedIn) {
-      const query = { user_id: user.id };
-      this.props.dispatch(getPlaylists(query));
+      this.props.dispatch(getPlaylists());
     }
   }
 

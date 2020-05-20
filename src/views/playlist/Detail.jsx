@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Grid, Button, Fade } from '@material-ui/core';
+import { Grid, Button, Fade, IconButton } from '@material-ui/core';
 import { playStopButtonClickHandler, removeExt } from '../../shared/funs';
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
 import PlayPauseButton from '../../components/PlayPauseButton';
 import logo from '../../assets/images/logo.png'
 import classes from '../../assets/css/album.module.scss';
-import { getPlaylistTrack } from '../../actions/playlist';
+import { getPlaylistTrack, removeTrackFromPlaylist } from '../../actions/playlist';
+import { CancelRounded } from '@material-ui/icons';
 
 
 var trackStyle = {
@@ -61,20 +62,24 @@ class PlaylistDetail extends React.Component {
             </Grid>
             <Grid container direction={"column"}>
               <Grid item xs={12} sm={8} md={10}>
-                <h3>Tracks</h3>
+                <h3>{`Tracks (${playlist && playlist.tracks && playlist.tracks.length})`}</h3>
               </Grid>
               <Grid item xs={12}>
                 <Grid container spacing={1}>
                   {
-                    playlist && playlist.tracks.length > 0 && playlist.tracks.map((track, index) =>
+                    playlist && playlist.tracks && playlist.tracks.length > 0 && playlist.tracks.map((track, index) =>
                       <Fade in={true} key={index}>
                         <Grid item xs={12} >
                           <Grid container spacing={1} alignItems={"center"} >
-                            <Grid item style={{ width: "25px" }}>
-                              <span >{index + 1}</span>
+                            <Grid item >
+                              <IconButton
+                                onClick={() => this.removeTrack(track.id)}
+                                color={"inherit"}>
+                                <CancelRounded style={{ color: "gray", fontSize: 18 }} />
+                              </IconButton>
                             </Grid>
-                            <Grid item><Button style={trackStyle}></Button></Grid>
-                            <Grid item xs={6} md={2}>
+                            {/* <Grid item><Button style={trackStyle}></Button></Grid> */}
+                            <Grid item xs={8} md={2}>
                               <Grid container direction={"column"}>
                                 <Grid item>
                                   <span style={{ fontSize: 14, fontWeight: 500 }}>{removeExt(track.name)}</span>
@@ -93,6 +98,7 @@ class PlaylistDetail extends React.Component {
                                 currentTrack={player.currentTrack}
                               />
                             </Grid>
+
                           </Grid>
                         </Grid>
                       </Fade>
@@ -116,6 +122,12 @@ class PlaylistDetail extends React.Component {
       this.playStopButtonClickHandler(true);
     })
   }
+  removeTrack = (trackId) => {
+    const { dispatch } = this.props;
+    var formdata = new FormData();
+    formdata.append('trackId', trackId);
+    dispatch(removeTrackFromPlaylist(formdata, trackId));
+  }
 
   pauseSong = () => {
     const { player: { isPlaying } } = this.props;
@@ -129,10 +141,9 @@ class PlaylistDetail extends React.Component {
   }
 
   componentDidMount() {
-    const { dispatch, user, match } = this.props;
-    var query = { size: 20, order: 'asc', page: 0, user_id: user.id, playlist_id: match.params.id }
+    const { dispatch, match } = this.props;
+    var query = { size: 20, order: 'asc', page: 0, playlist_id: match.params.id }
     dispatch(getPlaylistTrack(query))
-
   }
 
 }
