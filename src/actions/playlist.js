@@ -40,3 +40,12 @@ export function removeTrackFromPlaylist(data, trackId) {
     trackId,
   }
 }
+
+export function removePlaylist(data, callback) {
+  return {
+    type: PLAYLIST.REMOVE_START,
+    isLoading: true,
+    payload: data,
+    callback
+  }
+}

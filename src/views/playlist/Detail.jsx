@@ -6,8 +6,8 @@ import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
 import PlayPauseButton from '../../components/PlayPauseButton';
 import logo from '../../assets/images/logo.png'
 import classes from '../../assets/css/album.module.scss';
-import { getPlaylistTrack, removeTrackFromPlaylist } from '../../actions/playlist';
-import { CancelRounded } from '@material-ui/icons';
+import { getPlaylistTrack, removeTrackFromPlaylist, removePlaylist } from '../../actions/playlist';
+import { CancelRounded, PauseCircleFilledRounded, PlayCircleFilledRounded, RemoveCircleRounded, DeleteForeverRounded } from '@material-ui/icons';
 
 
 var trackStyle = {
@@ -31,7 +31,7 @@ class PlaylistDetail extends React.Component {
 
   render() {
     const { playlist, isLoading, player } = this.props;
-
+    const { init } = this.state;
     return (
       <div className={classes.albumDetail}>
         {!isLoading &&
@@ -48,14 +48,27 @@ class PlaylistDetail extends React.Component {
                     <h1 className={classes.albumName}>{playlist && playlist.name}</h1>
                   </Grid>
                   <Grid item>
-                    {/* <Button
-                      color={"primary"}
-                      variant={"contained"}
-                      onClick={() => player.isPlaying && !init ? this.pauseSong() : this.playSong(albumDetail.tracks[0])}
-                    >
-                      {player.isPlaying && !init ? <PauseCircleFilledRounded /> : <PlayCircleFilledRounded />}
+                    <Grid container spacing={1}>
+                      <Grid item>
+                        <Button
+                          color={"primary"}
+                          disabled={playlist && playlist.tracks && playlist.tracks.length > 0 ? false : true}
+                          variant={"contained"}
+                          onClick={() => player.isPlaying && !init ? this.pauseSong() : this.playSong(playlist && playlist.tracks[0])}
+                        >
+                          {player.isPlaying && !init ? <PauseCircleFilledRounded /> : <PlayCircleFilledRounded />}
                         &nbsp;{player.isPlaying && !init ? `Pause` : `Play All`}
-                    </Button> */}
+                        </Button>
+                      </Grid>
+                      <Grid item>
+                        <Button color={"primary"} variant={"contained"}>Rename</Button>
+                      </Grid>
+                      <Grid item>
+                        <Button color={"primary"} variant={"contained"} onClick={() => this.deletePlaylist()}><DeleteForeverRounded /> Delete</Button>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item>
                   </Grid>
                 </Grid>
               </Grid>
@@ -122,6 +135,19 @@ class PlaylistDetail extends React.Component {
       this.playStopButtonClickHandler(true);
     })
   }
+
+  deletePlaylist = () => {
+    const { dispatch, match, history } = this.props;
+    var formdata = new FormData();
+    formdata.append('playlistId', match.params.id);
+    dispatch(removePlaylist(formdata, (data) => {
+      console.log('deletePlaylist data =>', data);
+      if (data.status === 200) {
+        history.push("/my-playlist");
+      }
+    }));
+  }
+
   removeTrack = (trackId) => {
     const { dispatch } = this.props;
     var formdata = new FormData();
@@ -130,11 +156,11 @@ class PlaylistDetail extends React.Component {
   }
 
   pauseSong = () => {
-    const { player: { isPlaying } } = this.props;
+    const { player: { isPlaying }, albumDetail, dispatch } = this.props;
 
     if (!isPlaying) {
-      const { tracks } = this.props.albumDetail;
-      this.props.dispatch(playerAddTrack(tracks));
+      const { tracks } = albumDetail;
+      dispatch(playerAddTrack(tracks));
     }
     this.playStopButtonClickHandler(!isPlaying);
 

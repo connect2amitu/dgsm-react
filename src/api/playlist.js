@@ -47,3 +47,14 @@ export const remove = (data) => {
   return callApi(_URL, options, getHeaders());
 }
 
+export const removePlaylist = (data) => {
+  var _URL = `${URL}/removePlaylist`;
+  let options = {
+    method: 'POST',
+    data
+  }
+  console.log('_URL =>', _URL);
+
+  return callApi(_URL, options, getHeaders());
+}
+
