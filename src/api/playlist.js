@@ -53,8 +53,18 @@ export const removePlaylist = (data) => {
     method: 'POST',
     data
   }
-  console.log('_URL =>', _URL);
 
+  return callApi(_URL, options, getHeaders());
+}
+
+
+
+export const rename = (data) => {
+  var _URL = `${URL}/renamePlaylist`;
+  let options = {
+    method: 'POST',
+    data
+  }
   return callApi(_URL, options, getHeaders());
 }
 

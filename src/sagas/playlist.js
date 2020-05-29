@@ -1,5 +1,5 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
-import { getAll, create, add, getPlaylistTrack, remove, removePlaylist } from '../api/playlist';
+import { getAll, create, add, getPlaylistTrack, remove, removePlaylist, rename } from '../api/playlist';
 import { PLAYLIST, GLOBAL } from '../shared/constants';
 
 
@@ -25,7 +25,6 @@ function fetchPlaylistTracks() {
       const action = { type: PLAYLIST.FETCH_TRACKS_SUCCESS, data }
       yield put(action);
     } catch (error) {
-      console.log('AMItu =>', error);
       const action = { type: PLAYLIST.FETCH_TRACKS_ERROR, error }
       yield put(action);
     }
@@ -86,6 +85,19 @@ function deletePlaylist() {
   }
 }
 
+function renamePlaylist() {
+  return function* (options) {
+    try {
+      const data = yield call(() => rename(options.payload));
+      const action = { type: PLAYLIST.RENAME_SUCCESS, data }
+      yield put(action);
+    } catch (error) {
+      const action = { type: PLAYLIST.RENAME_ERROR, error }
+      yield put(action);
+    }
+  }
+}
+
 
 export function* playlistWatcher() {
   yield takeLatest(PLAYLIST.FETCH_START, fetchAllPlaylist());
@@ -94,6 +106,7 @@ export function* playlistWatcher() {
   yield takeLatest(PLAYLIST.FETCH_TRACKS_START, fetchPlaylistTracks());
   yield takeLatest(PLAYLIST.REMOVE_TRACK_START, removeTrackFromPlaylist());
   yield takeLatest(PLAYLIST.REMOVE_START, deletePlaylist());
+  yield takeLatest(PLAYLIST.RENAME_START, renamePlaylist());
 }
 
 export default [

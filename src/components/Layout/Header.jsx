@@ -46,7 +46,6 @@ function Header(props) {
   const { user, isLoggedIn } = props;
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = useState(false);
-  console.log('user =>', user);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -67,7 +66,9 @@ function Header(props) {
                 </Grid>
                 <Grid item>
                   <Tooltip title={"My Playlist"} placement="top">
-                    <Button disabled={false} component={NavLink} to={"/my-playlist"} color="inherit">My Playlist</Button>
+                    <span>
+                      <Button disabled={false} component={NavLink} to={"/my-playlist"} color="inherit">My Playlist</Button>
+                    </span>
                   </Tooltip>
                 </Grid>
                 <Grid item>

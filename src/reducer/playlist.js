@@ -122,6 +122,34 @@ const actionsMap = {
       error: action.error.message,
     }
   },
+
+  [PLAYLIST.RENAME_START]: (state, action) => {
+    console.log('RENAME_START called =>', PLAYLIST.RENAME_START);
+
+    return {
+      ...state,
+      isLoading: true,
+    }
+  },
+  [PLAYLIST.RENAME_SUCCESS]: (state, action) => {
+    console.log('action.data. =>', action.data);
+
+    return {
+      ...state,
+      isLoading: false,
+      playlist: {
+        ...state.playlist,
+        name: action.data.data.name
+      }
+    }
+  },
+  [PLAYLIST.RENAME_ERROR]: (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: action.error.message
+    }
+  },
 }
 
 export default function reducer(state = initialState, action = {}) {

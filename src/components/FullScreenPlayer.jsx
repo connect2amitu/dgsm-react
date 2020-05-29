@@ -99,10 +99,12 @@ export default function FullScreenPlayer(props) {
                   <Grid container alignItems={"center"} justify={"flex-end"} spacing={1}>
                     <Grid item >
                       <Tooltip title={"Open Playlist"} placement="top">
-                        <IconButton
-                          onClick={() => handlePlaylistSidebar(!openPlaylist)} color={"inherit"}>
-                          <QueueMusicRounded style={{ fontSize: "2rem" }} />
-                        </IconButton>
+                        <span>
+                          <IconButton
+                            onClick={() => handlePlaylistSidebar(!openPlaylist)} color={"inherit"}>
+                            <QueueMusicRounded style={{ fontSize: "2rem" }} />
+                          </IconButton>
+                        </span>
                       </Tooltip>
                     </Grid>
 
@@ -133,38 +135,46 @@ export default function FullScreenPlayer(props) {
                   <Grid container spacing={1} alignItems={"center"} justify={"center"}>
                     <Grid item>
                       <Tooltip title={"Previous"} placement="top">
-                        <IconButton
-                          disabled={isActiveActionBtn}
-                          onClick={() => prevSong()} color={"inherit"}>
-                          <SkipPreviousRounded style={{ fontSize: "2rem" }} />
-                        </IconButton>
+                        <span>
+                          <IconButton
+                            disabled={isActiveActionBtn}
+                            onClick={() => prevSong()} color={"inherit"}>
+                            <SkipPreviousRounded style={{ fontSize: "2rem" }} />
+                          </IconButton>
+                        </span>
                       </Tooltip>
                     </Grid>
                     <Grid item>
                       <Tooltip title={player.currentTrack.track !== null ? player.isPlaying ? "Pause" : "Play" : "Select track"} placement="top">
-                        <IconButton edge="start" color="inherit"
-                          disabled={isActiveActionBtn}
-                          onClick={() => playPause()}>
-                          {player.isPlaying ? <PauseCircleFilledRounded style={{ fontSize: "3rem" }} /> : <PlayCircleFilledRounded style={{ fontSize: "3rem" }} />}
-                        </IconButton>
+                        <span>
+                          <IconButton edge="start" color="inherit"
+                            disabled={isActiveActionBtn}
+                            onClick={() => playPause()}>
+                            {player.isPlaying ? <PauseCircleFilledRounded style={{ fontSize: "3rem" }} /> : <PlayCircleFilledRounded style={{ fontSize: "3rem" }} />}
+                          </IconButton>
+                        </span>
                       </Tooltip>
                     </Grid>
                     <Grid item>
                       <Tooltip title={"Next"} placement="top">
-                        <IconButton
-                          disabled={isActiveActionBtn}
-                          onClick={() => nextSong()} color={"inherit"}>
-                          <SkipNextRounded style={{ fontSize: "2rem" }} />
-                        </IconButton>
+                        <span>
+                          <IconButton
+                            disabled={isActiveActionBtn}
+                            onClick={() => nextSong()} color={"inherit"}>
+                            <SkipNextRounded style={{ fontSize: "2rem" }} />
+                          </IconButton>
+                        </span>
                       </Tooltip>
                     </Grid>
                     <Grid item className={classes.muteIcon}>
                       <Tooltip title={player.isMuted ? "Unmute" : "Mute"} placement="top">
-                        <IconButton
-                          disabled={isActiveActionBtn}
-                          onClick={() => muteHandler()} color={"inherit"}>
-                          {player.isMuted ? <VolumeOffRounded /> : <VolumeUpRounded />}
-                        </IconButton>
+                        <span>
+                          <IconButton
+                            disabled={isActiveActionBtn}
+                            onClick={() => muteHandler()} color={"inherit"}>
+                            {player.isMuted ? <VolumeOffRounded /> : <VolumeUpRounded />}
+                          </IconButton>
+                        </span>
                       </Tooltip>
                     </Grid>
                   </Grid>

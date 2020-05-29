@@ -104,9 +104,7 @@ class MyPlaylist extends React.Component {
     formdata.append('name', resp.profileObj.name);
     formdata.append('email', resp.profileObj.email);
     formdata.append('picture', resp.profileObj.imageUrl);
-    console.log('before dispatch =>');
     dispatch(addAuthUser(formdata));
-    console.log('after dispatch =>', this.props);
     this.closePlaylistModal();
   }
 

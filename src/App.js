@@ -1,12 +1,9 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core';
-import { ThemeProvider, CssBaseline } from '@material-ui/core';
+import { ThemeProvider, CssBaseline, Backdrop, CircularProgress } from '@material-ui/core';
 import { connect } from 'react-redux';
-import {
-  //  green, purple, amber, blue, blueGrey, brown, common, cyan, deepOrange, deepPurple, grey, indigo, red,
-  teal, orange,
-} from '@material-ui/core/colors';
+import { darkTheme, theme } from './theme';
+
 
 // import Layout from './components/Layout/Index';
 // import Tracks from './views/tracks/Index';
@@ -25,30 +22,13 @@ const MyPlaylist = React.lazy(() => import('./views/playlist/Index'));
 const MyPlaylistDetail = React.lazy(() => import('./views/playlist/Detail'));
 
 
-
-var darkTheme = createMuiTheme({
-  palette: {
-    primary: teal,
-    secondary: orange,
-    type: "dark"
-  },
-});
-var theme = createMuiTheme({
-  palette: {
-    primary: teal,
-    secondary: orange
-  },
-});
-darkTheme = responsiveFontSizes(darkTheme);
-theme = responsiveFontSizes(theme);
-
-
 function App({ isDark }) {
   return (
     <BrowserRouter basename="/dgsmsg">
       <ThemeProvider theme={isDark ? darkTheme : theme}>
         <CssBaseline />
-        <Suspense fallback={<span>Loading...</span>}>
+
+        <Suspense fallback={<Backdrop open={true}> <CircularProgress color="inherit" /> </Backdrop>}>
           <Switch>
             <Layout>
               <Route exact path="/(|browse)" component={Browse} />

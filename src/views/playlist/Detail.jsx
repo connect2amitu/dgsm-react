@@ -1,13 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Grid, Button, Fade, IconButton } from '@material-ui/core';
+import { Grid, Button, Fade, IconButton, CircularProgress, TextField } from '@material-ui/core';
 import { playStopButtonClickHandler, removeExt } from '../../shared/funs';
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
 import PlayPauseButton from '../../components/PlayPauseButton';
+import DialogBox from '../../components/DialogBox';
+
 import logo from '../../assets/images/logo.png'
 import classes from '../../assets/css/album.module.scss';
-import { getPlaylistTrack, removeTrackFromPlaylist, removePlaylist } from '../../actions/playlist';
-import { CancelRounded, PauseCircleFilledRounded, PlayCircleFilledRounded, RemoveCircleRounded, DeleteForeverRounded } from '@material-ui/icons';
+import { getPlaylistTrack, removeTrackFromPlaylist, removePlaylist, renamePlaylist } from '../../actions/playlist';
+import { CancelRounded, PauseCircleFilledRounded, PlayCircleFilledRounded, DeleteForeverRounded } from '@material-ui/icons';
 
 
 var trackStyle = {
@@ -25,13 +27,15 @@ class PlaylistDetail extends React.Component {
     super(props);
     this.state = {
       init: true,
+      openPlaylist: false,
+      playlistName: "",
     };
     this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
   }
 
   render() {
-    const { playlist, isLoading, player } = this.props;
-    const { init } = this.state;
+    const { playlist, isLoading, player, isLoadingPlaylist } = this.props;
+    const { init, openPlaylist, playlistName } = this.state;
     return (
       <div className={classes.albumDetail}>
         {!isLoading &&
@@ -61,10 +65,10 @@ class PlaylistDetail extends React.Component {
                         </Button>
                       </Grid>
                       <Grid item>
-                        <Button color={"primary"} variant={"contained"}>Rename</Button>
+                        <Button color={"primary"} variant={"contained"} onClick={this.openClosePlaylistHandler}>Rename</Button>
                       </Grid>
                       <Grid item>
-                        <Button color={"primary"} variant={"contained"} onClick={() => this.deletePlaylist()}><DeleteForeverRounded /> Delete</Button>
+                        <Button color={"primary"} variant={"contained"} onClick={this.deletePlaylist}><DeleteForeverRounded /> Delete</Button>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -119,11 +123,36 @@ class PlaylistDetail extends React.Component {
                 </Grid>
               </Grid>
             </Grid>
+            <DialogBox size={"md"} handleClose={this.openClosePlaylistHandler} onSubmit={this.renamePlaylist} open={openPlaylist} heading={"RENAME PLAYLIST"} description={""} >
+              <TextField autoFocus onChange={(e) => this.setState({ playlistName: e.target.value })} value={playlistName} margin="dense" autoComplete={"off"} id="name" label="Enter playlist name" type="email" fullWidth />
+            </DialogBox>
           </>
         }
       </div>
     )
   }
+
+
+
+
+  openClosePlaylistHandler = () => {
+    this.setState({ openPlaylist: !this.state.openPlaylist });
+  }
+
+  renamePlaylist = () => {
+    const { dispatch, match } = this.props;
+    const { playlistName } = this.state;
+    const formdata = new FormData();
+    formdata.append('playlist_id', match.params.id);
+    formdata.append('name', playlistName);
+    console.log('playlistName =>', playlistName);
+
+    dispatch(renamePlaylist(formdata));
+    this.setState({ playlistName: "" }, () => {
+      this.openClosePlaylistHandler();
+    });
+  }
+
 
   playSong = (track) => {
     this.setState({
@@ -138,10 +167,9 @@ class PlaylistDetail extends React.Component {
 
   deletePlaylist = () => {
     const { dispatch, match, history } = this.props;
-    var formdata = new FormData();
-    formdata.append('playlistId', match.params.id);
+    const formdata = new FormData();
+    formdata.append('playlist_id', match.params.id);
     dispatch(removePlaylist(formdata, (data) => {
-      console.log('deletePlaylist data =>', data);
       if (data.status === 200) {
         history.push("/my-playlist");
       }
@@ -150,8 +178,8 @@ class PlaylistDetail extends React.Component {
 
   removeTrack = (trackId) => {
     const { dispatch } = this.props;
-    var formdata = new FormData();
-    formdata.append('trackId', trackId);
+    const formdata = new FormData();
+    formdata.append('track_id', trackId);
     dispatch(removeTrackFromPlaylist(formdata, trackId));
   }
 
@@ -168,10 +196,9 @@ class PlaylistDetail extends React.Component {
 
   componentDidMount() {
     const { dispatch, match } = this.props;
-    var query = { size: 20, order: 'asc', page: 0, playlist_id: match.params.id }
+    const query = { size: 20, order: 'asc', page: 0, playlist_id: match.params.id }
     dispatch(getPlaylistTrack(query))
   }
-
 }
 
 

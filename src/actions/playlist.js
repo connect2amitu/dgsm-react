@@ -49,3 +49,13 @@ export function removePlaylist(data, callback) {
     callback
   }
 }
+
+export function renamePlaylist(data) {
+  console.log('data =>', data);
+
+  return {
+    type: PLAYLIST.RENAME_START,
+    isLoading: true,
+    payload: data,
+  }
+}

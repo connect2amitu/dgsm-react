@@ -118,29 +118,35 @@ class Player extends React.Component {
                     <Grid container spacing={1} alignItems={"center"}>
                       <Grid item>
                         <Tooltip title={"Previous"} placement="top">
-                          <IconButton
-                            disabled={isActiveActionBtn}
-                            onClick={() => this.prevSong()} color={"inherit"}>
-                            <SkipPreviousRounded style={{ fontSize: "2rem" }} />
-                          </IconButton>
+                          <span>
+                            <IconButton
+                              disabled={isActiveActionBtn}
+                              onClick={() => this.prevSong()} color={"inherit"}>
+                              <SkipPreviousRounded style={{ fontSize: "2rem" }} />
+                            </IconButton>
+                          </span>
                         </Tooltip>
                       </Grid>
                       <Grid item>
                         <Tooltip title={player.currentTrack.track !== null ? player.isPlaying ? "Pause" : "Play" : "Select track"} placement="top">
-                          <IconButton edge="start" color="inherit"
-                            disabled={isActiveActionBtn}
-                            onClick={() => this.playPause()}>
-                            {player.isPlaying ? <PauseCircleFilledRounded style={{ fontSize: "3rem" }} /> : <PlayCircleFilledRounded style={{ fontSize: "3rem" }} />}
-                          </IconButton>
+                          <span>
+                            <IconButton edge="start" color="inherit"
+                              disabled={isActiveActionBtn}
+                              onClick={() => this.playPause()}>
+                              {player.isPlaying ? <PauseCircleFilledRounded style={{ fontSize: "3rem" }} /> : <PlayCircleFilledRounded style={{ fontSize: "3rem" }} />}
+                            </IconButton>
+                          </span>
                         </Tooltip>
                       </Grid>
                       <Grid item>
                         <Tooltip title={"Next"} placement="top">
-                          <IconButton
-                            disabled={isActiveActionBtn}
-                            onClick={() => this.nextSong()} color={"inherit"}>
-                            <SkipNextRounded style={{ fontSize: "2rem" }} />
-                          </IconButton>
+                          <span>
+                            <IconButton
+                              disabled={isActiveActionBtn}
+                              onClick={() => this.nextSong()} color={"inherit"}>
+                              <SkipNextRounded style={{ fontSize: "2rem" }} />
+                            </IconButton>
+                          </span>
                         </Tooltip>
                       </Grid>
                       <Grid item className={classes.muteIcon}>
