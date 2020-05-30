@@ -123,8 +123,8 @@ class PlaylistDetail extends React.Component {
                 </Grid>
               </Grid>
             </Grid>
-            <DialogBox size={"md"} handleClose={this.openClosePlaylistHandler} onSubmit={this.renamePlaylist} open={openPlaylist} heading={"RENAME PLAYLIST"} description={""} >
-              <TextField autoFocus onChange={(e) => this.setState({ playlistName: e.target.value })} value={playlistName} margin="dense" autoComplete={"off"} id="name" label="Enter playlist name" type="email" fullWidth />
+            <DialogBox size={"xs"} handleClose={this.openClosePlaylistHandler} onSubmit={this.renamePlaylist} open={openPlaylist} heading={"RENAME PLAYLIST"} description={""} >
+              <TextField autoFocus onChange={(e) => this.setState({ playlistName: e.target.value })} value={playlistName} margin="dense" autoComplete={"off"} id="name" label="Enter playlist name" type="text" fullWidth />
             </DialogBox>
           </>
         }

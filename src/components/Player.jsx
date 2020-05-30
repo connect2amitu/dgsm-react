@@ -216,7 +216,7 @@ class Player extends React.Component {
               )
             }
           </List>
-          <TextField autoFocus onChange={(e) => this.setState({ playlistName: e.target.value })} value={playlistName} margin="dense" autoComplete={"off"} id="name" label="Enter playlist name" type="email" fullWidth />
+          <TextField autoFocus onChange={(e) => this.setState({ playlistName: e.target.value })} value={playlistName} margin="dense" autoComplete={"off"} id="name" label="Enter playlist name" type="text" fullWidth />
           {isLoadingPlaylist && <CircularProgress />}
         </DialogBox>
 
