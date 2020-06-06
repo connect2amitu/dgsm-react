@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { playStopButtonClickHandler, display, removeExt } from '../shared/funs';
 import { playerNextTrack, playerPrevTrack, playerMuteUnMute } from '../actions/player';
 import Sidebar from './Sidebar';
-import icon_512x512 from '../assets/images/icon-512x512.png'
+import Logo from '../assets/images/logo.png'
 import { HOST_API, GOOGLE_CLIENT_ID } from '../shared/constants';
 import RangeSlider from './Slider';
 import DialogBox from './DialogBox';
@@ -31,7 +31,7 @@ const MyAppBar = styled(AppBar)({
 
 var trackStyle = {
   borderRadius: "10px",
-  background: `url(${icon_512x512})`,
+  background: `url(${Logo})`,
   height: "36px",
   width: "36px",
   backgroundPosition: "center",
@@ -337,7 +337,7 @@ class Player extends React.Component {
       artist: _.get(player, "currentTrack.track.artist_name", ""),
       album: _.get(player, "currentTrack.track.artist_name", ""),
       artwork: [
-        { src: `https://chauhanamit.info/static/media/profile.652bae8c.jpg`, sizes: '512x512', type: 'image/png' },
+        { src: `${HOST_API}/${player.currentTrack.track && player.currentTrack.track.cover}`, sizes: '512x512', type: 'image/png' },
       ]
     });
     return state;

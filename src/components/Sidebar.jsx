@@ -1,7 +1,7 @@
 import React from 'react';
 import { DeleteRounded, ClearAllRounded, ArrowForwardIosRounded } from '@material-ui/icons';
 import { connect } from 'react-redux';
-import icon_512x512 from '../assets/images/icon-512x512.png'
+import Logo from '../assets/images/logo.png'
 import { ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, ListSubheader, Grid, Button, Divider, SwipeableDrawer, List, ListItem, ListItemText, Paper } from '@material-ui/core';
 import { playerRemoveTrack, clearPlaylist, playerCurrentTrack } from '../actions/player';
 import { playStopButtonClickHandler, removeExt } from '../shared/funs';
@@ -12,7 +12,7 @@ import { HOST_API } from '../shared/constants';
 
 var trackStyle = {
   borderRadius: "10px",
-  background: `url(${icon_512x512})`,
+  background: `url(${Logo})`,
   height: "100px",
   width: "100px",
   backgroundPosition: "center",

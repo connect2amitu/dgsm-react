@@ -106,7 +106,7 @@ class AlbumsDetail extends React.Component {
                                   <span style={{ fontSize: 14, fontWeight: 500 }}>{removeExt(track.name)}</span>
                                 </Grid>
                                 <Grid item>
-                                  <span style={{ fontSize: 12 }}>{track.artist_name}{track.other_artist_name && ` | ${track.other_artist_name}`}  {track.city_name && `(${track.city_name})`}</span>
+                                  <span style={{ fontSize: 12 }}>{track.album_name} {track.city_name && `- ${track.city_name}`}</span>
                                 </Grid>
                               </Grid>
                             </Grid>

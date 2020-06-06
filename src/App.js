@@ -24,7 +24,9 @@ const MyPlaylistDetail = React.lazy(() => import('./views/playlist/Detail'));
 
 function App({ isDark }) {
   return (
-    <BrowserRouter basename="/dgsmsg">
+    <BrowserRouter
+    // basename="/dgsmsg"
+    >
       <ThemeProvider theme={isDark ? darkTheme : theme}>
         <CssBaseline />
 
