@@ -151,11 +151,13 @@ class Player extends React.Component {
                       </Grid>
                       <Grid item className={classes.muteIcon}>
                         <Tooltip title={player.isMuted ? "Unmute" : "Mute"} placement="top">
-                          <IconButton
-                            disabled={isActiveActionBtn}
-                            onClick={() => this.muteHandler()} color={"inherit"}>
-                            {player.isMuted ? <VolumeOffRounded /> : <VolumeUpRounded />}
-                          </IconButton>
+                          <span>
+                            <IconButton
+                              disabled={isActiveActionBtn}
+                              onClick={() => this.muteHandler()} color={"inherit"}>
+                              {player.isMuted ? <VolumeOffRounded /> : <VolumeUpRounded />}
+                            </IconButton>
+                          </span>
                         </Tooltip>
                       </Grid>
                       <Grid item className={classes.duration}>
@@ -163,10 +165,12 @@ class Player extends React.Component {
                       </Grid>
                       <Grid item className={classes.playlistIcon}>
                         <Tooltip title={"Open Playlist"} placement="top">
-                          <IconButton
-                            onClick={() => this.handlePlaylistSidebar(!open)} color={"inherit"}>
-                            <QueueMusicRounded style={{ fontSize: "2rem" }} />
-                          </IconButton>
+                          <span>
+                            <IconButton
+                              onClick={() => this.handlePlaylistSidebar(!open)} color={"inherit"}>
+                              <QueueMusicRounded style={{ fontSize: "2rem" }} />
+                            </IconButton>
+                          </span>
                         </Tooltip>
                       </Grid>
                       <Grid item className={classes.playlistDetail}>

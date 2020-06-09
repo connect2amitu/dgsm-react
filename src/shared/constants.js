@@ -13,7 +13,24 @@ export const INTERNAL_SERVER_ERROR = 500;
 export const GOOGLE_CLIENT_ID = "770715490238-ft20jtu5vio0krq5c83nih44p48rg715.apps.googleusercontent.com";
 export const JWT_SECRET = "amintu";
 
-
+export const MAIN_CATEGORY = [
+  {
+    slug: 'dada-bhagwan',
+    name: "Dada Bhagwan"
+  },
+  {
+    slug: 'geeta-bhagwan',
+    name: "Geeta Bhagwan"
+  },
+  {
+    slug: 'meera-bhagwan',
+    name: "Meera Bhagwan"
+  },
+  {
+    slug: 'shyam-bhagwan',
+    name: "Shyam Bhagwan"
+  }
+]
 export const TRACK = {
 
   FETCH_START: 'TRACK_FETCH_START',

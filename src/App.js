@@ -20,7 +20,10 @@ const Browse = React.lazy(() => import('./views/browse/Index'));
 const AlbumsDetail = React.lazy(() => import('./views/albums/Detail'));
 const MyPlaylist = React.lazy(() => import('./views/playlist/Index'));
 const MyPlaylistDetail = React.lazy(() => import('./views/playlist/Detail'));
-
+const MainCategory = React.lazy(() => import('./views/MainCategory/Index'));
+const MainCategoryBhajan = React.lazy(() => import('./views/MainCategory/Bhajan'));
+const MainCategoryVani = React.lazy(() => import('./views/MainCategory/Vani'));
+const Page404 = React.lazy(() => import('./components/404'));
 
 function App({ isDark }) {
   return (
@@ -31,18 +34,22 @@ function App({ isDark }) {
         <CssBaseline />
 
         <Suspense fallback={<Backdrop open={true}> <CircularProgress color="inherit" /> </Backdrop>}>
-          <Switch>
-            <Layout>
+          <Layout>
+            <Switch>
               <Route exact path="/(|browse)" component={Browse} />
               <Route exact path="/browse/tracks" component={Tracks} />
+              <Route exact path="/browse/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan)" component={MainCategory} />
+              <Route exact path="/browse/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan)/bhajan" component={MainCategoryBhajan} />
+              <Route exact path="/browse/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan)/vani" component={MainCategoryVani} />
               <Route exact path="/browse/albums" component={Albums} />
               <Route exact path="/albums/:search?" component={Albums} />
               <Route exact path="/my-playlist" component={MyPlaylist} />
               <Route exact path="/my-playlist/:id" component={MyPlaylistDetail} />
               <Route exact path="/album/:slug" component={AlbumsDetail} />
               <Route exact path="/latest" render={() => <h1>Latest</h1>} />
-            </Layout>
-          </Switch>
+              <Route exact path="*" component={Page404} />
+            </Switch>
+          </Layout>
         </Suspense>
       </ThemeProvider>
     </BrowserRouter>
