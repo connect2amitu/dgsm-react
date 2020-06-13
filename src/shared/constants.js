@@ -1,6 +1,6 @@
 // export const HOST_API = "http://localhost/dgsm"
 var isLocal = true;
-export const HOST_API = !isLocal ? "http://localhost/dgsm" : "https://admin.dgsm.in"
+export const HOST_API = isLocal ? "http://localhost/dgsm" : "https://admin.dgsm.in"
 export const SESSION_EXPIRED_URL = '/404';
 export const OK_STATUS = 200;
 export const BAD_REQUEST = 400;
@@ -52,6 +52,20 @@ export const ALBUM = {
   DETAIL_FETCH_START: 'ALBUM_DETAIL_FETCH_START',
   DETAIL_FETCH_SUCCESS: 'ALBUM_DETAIL_FETCH_SUCCESS',
   DETAIL_FETCH_ERROR: 'ALBUM_DETAIL_FETCH_ERROR',
+
+  CLEAR_ALL: 'CLEAR_ALL'
+
+}
+
+export const BROWSE = {
+
+  FETCH_START: 'BROWSE_FETCH_START',
+  FETCH_SUCCESS: 'BROWSE_FETCH_SUCCESS',
+  FETCH_ERROR: 'BROWSE_FETCH_ERROR',
+
+  DETAIL_FETCH_START: 'BROWSE_DETAIL_FETCH_START',
+  DETAIL_FETCH_SUCCESS: 'BROWSE_DETAIL_FETCH_SUCCESS',
+  DETAIL_FETCH_ERROR: 'BROWSE_DETAIL_FETCH_ERROR',
 
   CLEAR_ALL: 'CLEAR_ALL'
 

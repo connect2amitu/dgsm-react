@@ -3,6 +3,7 @@ import trackSaga from './tracks';
 import albumsSaga from './albums';
 import globalSaga from './global';
 import playlistSaga from './playlist';
+import browseSaga from './browse';
 
 export default function* rootSaga() {
   yield all([
@@ -10,5 +11,6 @@ export default function* rootSaga() {
     ...albumsSaga,
     ...globalSaga,
     ...playlistSaga,
+    ...browseSaga,
   ]);
 }

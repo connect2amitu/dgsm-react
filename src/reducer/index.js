@@ -5,6 +5,7 @@ import albums from './albums';
 import player from './player';
 import global from './global';
 import playlist from './playlist';
+import browse from './browse';
 
 export default combineReducers({
   tracks,
@@ -12,4 +13,5 @@ export default combineReducers({
   player,
   global,
   playlist,
+  browse
 });
