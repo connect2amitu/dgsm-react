@@ -1,6 +1,5 @@
 // export const HOST_API = "http://localhost/dgsm"
-var isLocal = true;
-export const HOST_API = isLocal ? "http://localhost/dgsm" : "https://admin.dgsm.in"
+export const HOST_API = window.location.origin === "https://dgsm.in" ? "https://admin.dgsm.in" : "http://localhost/dgsm"
 export const SESSION_EXPIRED_URL = '/404';
 export const OK_STATUS = 200;
 export const BAD_REQUEST = 400;

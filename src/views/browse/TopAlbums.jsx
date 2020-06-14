@@ -51,7 +51,7 @@ class TopAlbums extends Component {
           }
         },
         {
-          breakpoint: 480,
+          breakpoint: 320,
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,

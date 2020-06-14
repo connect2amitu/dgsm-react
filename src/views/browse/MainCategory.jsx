@@ -31,40 +31,40 @@ class MainCategory extends Component {
         {!isLoading && error && <Error />}
         {!isLoading ?
           <Grid container spacing={1} >
-            <Grid item xs={6} sm={6} md={3}>
+            <Grid item xs={6} sm={3} md={"auto"}>
               <Grid container direction={"column"} style={{ padding: "10px", margin: "0 auto", textAlign: "center" }}>
                 <Grid item>
-                  <NavLink to="browse/dada-bhagwan"><Button style={{ ...cardStyle, background: `url('https://gogreen-nursery.com/dgsm/uploads/albumCovers/cover.jpg') center center / cover no-repeat` }}></Button></NavLink>
+                  <NavLink to="browse/dada-bhagwan"><Button style={{ ...cardStyle, background: `url('https://admin.dgsm.in/uploads/dgsm/dada-bhagwan.jpg') center center / cover no-repeat` }}></Button></NavLink>
                 </Grid>
                 <Grid item>
                   <Typography variant={"body1"}>{"DADA BHAGWAN"}</Typography>
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={6} sm={6} md={3}>
+            <Grid item xs={6} sm={3} md={"auto"}>
               <Grid container direction={"column"} style={{ padding: "10px", margin: "0 auto", textAlign: "center" }}>
                 <Grid item>
-                  <NavLink to="browse/geeta-bhagwan"><Button style={{ ...cardStyle, background: `url('https://gogreen-nursery.com/dgsm/uploads/albumCovers/cover1.jpg') center center / cover no-repeat` }}></Button></NavLink>
+                  <NavLink to="browse/geeta-bhagwan"><Button style={{ ...cardStyle, background: `url('https://admin.dgsm.in/uploads/dgsm/geeta-bhagwan.jpg') center center / cover no-repeat` }}></Button></NavLink>
                 </Grid>
                 <Grid item>
                   <Typography variant={"body1"}>{"GEETA BHAGWAN"}</Typography>
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={6} sm={6} md={3}>
+            <Grid item xs={6} sm={3} md={"auto"}>
               <Grid container direction={"column"} style={{ padding: "10px", margin: "0 auto", textAlign: "center" }}>
                 <Grid item>
-                  <NavLink to="browse/shyam-bhagwan"><Button style={{ ...cardStyle, background: `url('https://gogreen-nursery.com/dgsm/uploads/albumCovers/cover2.jpg') center center / cover no-repeat` }}></Button></NavLink>
+                  <NavLink to="browse/shyam-bhagwan"><Button style={{ ...cardStyle, background: `url('https://admin.dgsm.in/uploads/dgsm/shyam-bhagwan.jpg') center center / cover no-repeat` }}></Button></NavLink>
                 </Grid>
                 <Grid item>
                   <Typography variant={"body1"}>{"SHYAM BHAGWAN"}</Typography>
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={6} sm={6} md={3}>
+            <Grid item xs={6} sm={3} md={"auto"}>
               <Grid container direction={"column"} style={{ padding: "10px", margin: "0 auto", textAlign: "center" }}>
                 <Grid item>
-                  <NavLink to="browse/meera-bhagwan"><Button style={{ ...cardStyle, background: `url('https://gogreen-nursery.com/dgsm/uploads/albumCovers/cover3.jpg') center center / cover no-repeat` }}></Button></NavLink>
+                  <NavLink to="browse/meera-bhagwan"><Button style={{ ...cardStyle, background: `url('https://admin.dgsm.in/uploads/dgsm/meera-bhagwan.jpg') center center / cover no-repeat` }}></Button></NavLink>
                 </Grid>
                 <Grid item>
                   <Typography variant={"body1"}>{"MEERA BHAGWAN"}</Typography>
