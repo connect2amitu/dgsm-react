@@ -3,7 +3,7 @@
 
 import React from 'react'
 import { connect } from 'react-redux';
-import { Grid, Button, Chip, Fade, CircularProgress } from '@material-ui/core';
+import { Grid, Button, Chip, Fade, CircularProgress, Tabs, Tab, Box, Typography } from '@material-ui/core';
 import { getAlbumWithTrack } from '../../actions/albums';
 import { HOST_API } from '../../shared/constants';
 import { playStopButtonClickHandler, removeExt } from '../../shared/funs';
@@ -12,9 +12,10 @@ import PlayPauseButton from '../../components/PlayPauseButton';
 import logo from '../../assets/images/logo.png'
 import { PlayCircleFilledRounded, PauseCircleFilledRounded } from '@material-ui/icons';
 import { NavLink } from 'react-router-dom';
-import classes from '../../assets/css/album.module.scss';
+import classes from '../../assets/css/browse.module.scss';
 import { getBrowseWithTrack } from '../../actions/browse';
-
+import PhoneIcon from '@material-ui/icons/Phone';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 var trackStyle = {
   borderRadius: "10px",
@@ -26,63 +27,78 @@ var trackStyle = {
   backgroundSize: "cover",
 }
 
+
 class Bhajan extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       init: true,
-      size: 2,
-      page: 0
+      size: 5,
+      page: 0,
+      value: 0
     };
     this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
   }
 
   render() {
-    const { browse, isLoading, player, tracks, error, totalPages } = this.props;
-    const { init, page } = this.state;
+    const { browse, isLoading, player, tracks, error, totalPages, total } = this.props;
+    const { init, page, value } = this.state;
     console.log('browse =>', browse);
     console.log('tracks =>', tracks);
 
     return (
-      <div className={classes.albumDetail}>
-        {!isLoading && browse &&
+      <div className={classes.browse}>
+        {browse &&
           <>
-            <Grid container spacing={2} className={classes.albumContainer}>
+            <Grid container spacing={1} className={classes.browseContainer}>
               <Grid item >
                 <Fade in={true}>
                   <div><Button className={classes.cover} style={{ backgroundImage: `url(${'https://admin.dgsm.in'}/${browse.avatar})` }}></Button></div>
                 </Fade>
               </Grid>
               <Grid item>
-                <Grid container direction={"column"} spacing={1} className={classes.albumMeta}>
+                <Grid container direction={"column"} spacing={1} className={classes.browseMeta}>
                   <Grid item>
-                    <h1 className={classes.albumName}>{browse.name}</h1>
+                    <h1 className={classes.browseName}>{browse.name}</h1>
                   </Grid>
-                  <Grid item>
-                    <Grid container direction={"column"} justify={"center"} spacing={1} className={classes.tags} >
-                      <Grid item>
-                        <span>By <b>{browse.artist_name}</b></span>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                  <Grid item>
-                  </Grid>
-                  {browse && browse.tracks && browse.tracks.length > 0 && <Grid item>
-                    <Button
-                      color={"primary"}
-                      variant={"contained"}
-                      onClick={() => player.isPlaying && !init ? this.pauseSong() : this.playSong(browse.tracks[0])}
-                    >
-                      {player.isPlaying && !init ? <PauseCircleFilledRounded /> : <PlayCircleFilledRounded />}
+                  {browse && browse.tracks && browse.tracks.length > 0 &&
+                    <Grid item>
+                      <Button
+                        color={"primary"}
+                        variant={"contained"}
+                        onClick={() => player.isPlaying && !init ? this.pauseSong() : this.playSong(browse.tracks[0])}
+                      >
+                        {player.isPlaying && !init ? <PauseCircleFilledRounded /> : <PlayCircleFilledRounded />}
                         &nbsp;{player.isPlaying && !init ? `Pause` : `Play All`}
-                    </Button>
-                  </Grid>}
+                      </Button>
+                    </Grid>
+                  }
                 </Grid>
               </Grid>
             </Grid>
-            <Grid container direction={"column"}>
+            <Grid container className={classes.trackContainer} direction={"column"}>
               <Grid item xs={12} sm={8} md={10}>
-                <h3>Tracks ({tracks.length})</h3>
+                <h3 className={classes.trackLabel}>Tracks ({tracks.length})</h3>
+              </Grid>
+              <Grid item xs={12} sm={8} md={10}>
+                <Grid container justify={"center"}>
+                  <Grid item>
+                    <Tabs
+                      value={value}
+                      onChange={this.handleChange}
+                      variant="scrollable"
+                      scrollButtons="on"
+                      indicatorColor="primary"
+                      textColor="primary"
+                      aria-label="scrollable force tabs example"
+                    >
+                      <Tab label="हिन्दी" icon={<FavoriteIcon />} />
+                      <Tab label="سنڌي" icon={<FavoriteIcon />} />
+                      <Tab label="ਪੰਜਾਬੀ" icon={<FavoriteIcon />} />
+                      <Tab label="English" icon={<FavoriteIcon />} />
+                    </Tabs>
+                  </Grid>
+                </Grid>
               </Grid>
               <Grid item xs={12}>
                 <Grid container spacing={1}>
@@ -118,13 +134,18 @@ class Bhajan extends React.Component {
                         </Grid>
                       </Fade>
                     )}
+                  <Grid item xs={12}>
+                    <Grid container spacing={1} alignItems={"center"} justify={"center"} >
+                      <Grid item item={12}>
+                        {!isLoading && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
+                        {isLoading && !error && <CircularProgress />}
+                        {error && "Something went wrong"}
+                      </Grid>
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
-              <Grid item xs={12} style={{ textAlign: "center" }}>
-                {!isLoading && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
-                {isLoading && !error && <CircularProgress />}
-                {error && "Something went wrong"}
-              </Grid>
+
             </Grid>
 
           </>
@@ -133,6 +154,12 @@ class Bhajan extends React.Component {
     )
   }
 
+
+  handleChange = (event, newValue) => {
+    this.setState({
+      value: newValue
+    })
+  };
 
   loadData = () => {
     const { page, size } = this.state
@@ -188,6 +215,7 @@ const mapStateToProps = state => {
     browse: state.browse.browse,
     error: state.browse.error,
     totalPages: state.browse.totalPages,
+    total: state.browse.total,
     tracks: state.browse.tracks,
     isLoading: state.browse.isLoading,
     player: state.player,

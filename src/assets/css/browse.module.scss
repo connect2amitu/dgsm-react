@@ -1,0 +1,112 @@
+$xs:300px;
+$sm:480px;
+$md:768px;
+$lg:1024px;
+
+.album {
+  .heading {
+    align-items: center;
+  }
+
+  .container {
+
+    .albumCard {
+      height    : 200px;
+      width     : 200px;
+      margin    : 0 auto;
+      text-align: center;
+
+      .cover {
+        border-radius      : 10px;
+        height             : 180px;
+        width              : 180px;
+        background-position: center;
+        background-repeat  : no-repeat;
+        background-size    : cover;
+        object-fit         : contai;
+      }
+    }
+
+    @media screen and (max-width: $xs) {
+      .albumCard {
+        height    : 200px;
+        width     : 200px;
+        margin    : 0 auto;
+        text-align: center;
+
+        .cover {
+          border-radius      : 10px;
+          height             : 180px;
+          width              : 180px;
+          background-position: center;
+          background-repeat  : no-repeat;
+          background-size    : cover;
+          object-fit         : contai;
+
+          margin-top     : 10px;
+          backdrop-filter: blur(35px);
+          height         : 100vh;
+          margin         : 0;
+          padding        : 20px 10px;
+        }
+      }
+
+    }
+  }
+}
+
+
+.browse {
+  margin-top: 20px;
+
+  .browseContainer {
+    justify-content: flex-start;
+    flex-direction : row;
+    align-items    : flex-start;
+
+    .cover {
+      border-radius      : 10px;
+      height             : 180px;
+      width              : 180px;
+      background-position: center;
+      background-repeat  : no-repeat;
+      background-size    : cover;
+      object-fit         : cover;
+    }
+
+    .browseMeta {
+      align-items: flex-start;
+    }
+  }
+
+  @media screen and (min-width: $xs) and (max-width:$sm) {
+    .browseContainer {
+      justify-content: center;
+      flex-direction : column;
+      align-items    : center;
+
+      .cover {
+        width              : 90px;
+        height              : 90px;
+        background-position: center;
+        background-repeat  : no-repeat;
+        background-size    : cover;
+        object-fit         : cover;
+      }
+
+      .browseMeta {
+        align-items: center;
+        .browseName {
+          margin: 0;
+          font-size: 18px;
+        }
+      }
+    }
+    .trackContainer{
+      .trackLabel{
+        margin: 6px;
+        text-align: center;
+      }
+    }
+  }
+}

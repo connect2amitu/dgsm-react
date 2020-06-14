@@ -9,8 +9,8 @@ import { NavLink } from 'react-router-dom';
 
 var cardStyle = {
   borderRadius: "10px",
-  height: "150px",
-  width: "150px",
+  height: "130px",
+  width: "130px",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
@@ -31,8 +31,8 @@ class MainCategory extends Component {
         {!isLoading && error && <Error />}
         {!isLoading ?
           <Grid container spacing={1} >
-            <Grid item>
-              <Grid container direction={"column"} style={{ padding: "10px", margin: "10px", textAlign: "center" }}>
+            <Grid item xs={6} sm={6} md={3}>
+              <Grid container direction={"column"} style={{ padding: "10px", margin: "0 auto", textAlign: "center" }}>
                 <Grid item>
                   <NavLink to="browse/dada-bhagwan"><Button style={{ ...cardStyle, background: `url('https://gogreen-nursery.com/dgsm/uploads/albumCovers/cover.jpg') center center / cover no-repeat` }}></Button></NavLink>
                 </Grid>
@@ -41,8 +41,8 @@ class MainCategory extends Component {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item>
-              <Grid container direction={"column"} style={{ padding: "10px", margin: "10px", textAlign: "center" }}>
+            <Grid item xs={6} sm={6} md={3}>
+              <Grid container direction={"column"} style={{ padding: "10px", margin: "0 auto", textAlign: "center" }}>
                 <Grid item>
                   <NavLink to="browse/geeta-bhagwan"><Button style={{ ...cardStyle, background: `url('https://gogreen-nursery.com/dgsm/uploads/albumCovers/cover1.jpg') center center / cover no-repeat` }}></Button></NavLink>
                 </Grid>
@@ -51,8 +51,8 @@ class MainCategory extends Component {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item>
-              <Grid container direction={"column"} style={{ padding: "10px", margin: "10px", textAlign: "center" }}>
+            <Grid item xs={6} sm={6} md={3}>
+              <Grid container direction={"column"} style={{ padding: "10px", margin: "0 auto", textAlign: "center" }}>
                 <Grid item>
                   <NavLink to="browse/shyam-bhagwan"><Button style={{ ...cardStyle, background: `url('https://gogreen-nursery.com/dgsm/uploads/albumCovers/cover2.jpg') center center / cover no-repeat` }}></Button></NavLink>
                 </Grid>
@@ -61,8 +61,8 @@ class MainCategory extends Component {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item>
-              <Grid container direction={"column"} style={{ padding: "10px", margin: "10px", textAlign: "center" }}>
+            <Grid item xs={6} sm={6} md={3}>
+              <Grid container direction={"column"} style={{ padding: "10px", margin: "0 auto", textAlign: "center" }}>
                 <Grid item>
                   <NavLink to="browse/meera-bhagwan"><Button style={{ ...cardStyle, background: `url('https://gogreen-nursery.com/dgsm/uploads/albumCovers/cover3.jpg') center center / cover no-repeat` }}></Button></NavLink>
                 </Grid>
