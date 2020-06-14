@@ -5,7 +5,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { Grid, Button, Chip, Fade, CircularProgress, Tabs, Tab, Box, Typography } from '@material-ui/core';
 import { getAlbumWithTrack } from '../../actions/albums';
-import { HOST_API } from '../../shared/constants';
+import { HOST_API, LANGUAGES } from '../../shared/constants';
 import { playStopButtonClickHandler, removeExt } from '../../shared/funs';
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
 import PlayPauseButton from '../../components/PlayPauseButton';
@@ -13,9 +13,11 @@ import logo from '../../assets/images/logo.png'
 import { PlayCircleFilledRounded, PauseCircleFilledRounded } from '@material-ui/icons';
 import { NavLink } from 'react-router-dom';
 import classes from '../../assets/css/browse.module.scss';
-import { getBrowseWithTrack } from '../../actions/browse';
+import { getBrowseWithTrack, clearBrowse } from '../../actions/browse';
 import PhoneIcon from '@material-ui/icons/Phone';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import Loading from '../../components/Loading';
+import NoResultFound from '../../components/NoResultFound';
 
 var trackStyle = {
   borderRadius: "10px",
@@ -33,9 +35,10 @@ class Bhajan extends React.Component {
     super(props);
     this.state = {
       init: true,
-      size: 5,
+      size: 10,
       page: 0,
-      value: 0
+      value: 0,
+      lang: 'hindi',
     };
     this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
   }
@@ -61,6 +64,9 @@ class Bhajan extends React.Component {
                   <Grid item>
                     <h1 className={classes.browseName}>{browse.name}</h1>
                   </Grid>
+                  <Grid item>
+                    <span>Bhajan</span>
+                  </Grid>
                   {browse && browse.tracks && browse.tracks.length > 0 &&
                     <Grid item>
                       <Button
@@ -76,10 +82,10 @@ class Bhajan extends React.Component {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid container className={classes.trackContainer} direction={"column"}>
-              <Grid item xs={12} sm={8} md={10}>
+            <Grid container className={classes.trackContainer} spacing={2} direction={"column"}>
+              {/* <Grid item xs={12} sm={8} md={10}>
                 <h3 className={classes.trackLabel}>Tracks ({tracks.length})</h3>
-              </Grid>
+              </Grid> */}
               <Grid item xs={12} sm={8} md={10}>
                 <Grid container justify={"center"}>
                   <Grid item>
@@ -92,10 +98,11 @@ class Bhajan extends React.Component {
                       textColor="primary"
                       aria-label="scrollable force tabs example"
                     >
-                      <Tab label="हिन्दी" icon={<FavoriteIcon />} />
-                      <Tab label="سنڌي" icon={<FavoriteIcon />} />
-                      <Tab label="ਪੰਜਾਬੀ" icon={<FavoriteIcon />} />
-                      <Tab label="English" icon={<FavoriteIcon />} />
+                      {
+                        LANGUAGES.map((lang, index) =>
+                          <Tab key={index} label={lang.label} icon={<FavoriteIcon />} />
+                        )
+                      }
                     </Tabs>
                   </Grid>
                 </Grid>
@@ -103,7 +110,7 @@ class Bhajan extends React.Component {
               <Grid item xs={12}>
                 <Grid container spacing={1}>
                   {
-                    tracks.map((track, index) =>
+                    tracks.length > 0 ? tracks.map((track, index) =>
                       <Fade in={true} key={index}>
                         <Grid item xs={12} >
                           <Grid container spacing={1} alignItems={"center"} >
@@ -133,12 +140,18 @@ class Bhajan extends React.Component {
                           </Grid>
                         </Grid>
                       </Fade>
-                    )}
+                    ) :
+                      <Fade in={true}>
+                        <Grid item xs={12} >
+                          <NoResultFound />
+                        </Grid>
+                      </Fade>
+                  }
                   <Grid item xs={12}>
                     <Grid container spacing={1} alignItems={"center"} justify={"center"} >
-                      <Grid item item={12}>
+                      <Grid item={12}>
                         {!isLoading && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
-                        {isLoading && !error && <CircularProgress />}
+                        {isLoading && !error && <Loading />}
                         {error && "Something went wrong"}
                       </Grid>
                     </Grid>
@@ -157,16 +170,24 @@ class Bhajan extends React.Component {
 
   handleChange = (event, newValue) => {
     this.setState({
-      value: newValue
+      value: newValue,
+      page: 1,
+      lang: LANGUAGES[newValue].value
+    }, () => {
+      const { size, lang } = this.state;
+      var query = { slug: this.props.match.params[0], content: 'bhajan', page: 0, size, lang };
+      console.log('query =>', query);
+      this.props.dispatch(clearBrowse());
+      this.props.dispatch(getBrowseWithTrack(query));
     })
+
   };
 
   loadData = () => {
-    const { page, size } = this.state
+    const { page, size, lang } = this.state
     this.setState({ page: page + 1 }, () => {
-      var query = { slug: this.props.match.params[0], content: 'bhajan', page: page * size, size: size };
+      var query = { slug: this.props.match.params[0], content: 'bhajan', page: page * size, size, lang };
       console.log('query =>', query);
-
       this.props.dispatch(getBrowseWithTrack(query));
     })
   }

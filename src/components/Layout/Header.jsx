@@ -85,9 +85,9 @@ function Header(props) {
               </Grid>
             </Grid>
             <Grid item className={classes.mobile}>
-              <IconButton onClick={handleDrawerToggle}><MenuRounded /></IconButton>
+              <IconButton onClick={handleDrawerToggle}><MenuRounded style={{ fill: "#fff" }} /></IconButton>
               <SwipeableDrawer
-                anchor={"left"}
+                anchor={"right"}
                 open={mobileOpen}
                 onClose={handleDrawerToggle}
                 onOpen={handleDrawerToggle}

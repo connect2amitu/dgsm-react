@@ -1,6 +1,6 @@
 // export const HOST_API = "http://localhost/dgsm"
 var isLocal = true;
-export const HOST_API = !isLocal ? "http://localhost/dgsm" : "https://admin.dgsm.in"
+export const HOST_API = isLocal ? "http://localhost/dgsm" : "https://admin.dgsm.in"
 export const SESSION_EXPIRED_URL = '/404';
 export const OK_STATUS = 200;
 export const BAD_REQUEST = 400;
@@ -12,6 +12,26 @@ export const DATABASE_ERROR_STATUS = 422;
 export const INTERNAL_SERVER_ERROR = 500;
 export const GOOGLE_CLIENT_ID = "770715490238-ft20jtu5vio0krq5c83nih44p48rg715.apps.googleusercontent.com";
 export const JWT_SECRET = "amintu";
+
+
+export const LANGUAGES = [
+  {
+    label: "हिन्दी",
+    value: "hindi"
+  },
+  {
+    label: "سنڌي",
+    value: "sindhi"
+  },
+  {
+    label: "ਪੰਜਾਬੀ",
+    value: "punjabi"
+  },
+  {
+    label: "English",
+    value: "english"
+  },
+]
 
 export const MAIN_CATEGORY = [
   {

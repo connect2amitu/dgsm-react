@@ -14,8 +14,8 @@ import ViewMoreBtn from '../../components/ViewMoreBtn';
 
 var cardStyle = {
   borderRadius: "10px",
-  height: "150px",
-  width: "150px",
+  height: "130px",
+  width: "130px",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
@@ -39,7 +39,7 @@ class TopAlbums extends Component {
           settings: {
             slidesToShow: 3,
             slidesToScroll: 3,
-            initialSlide: 3
+            initialSlide: 0
           }
         },
         {
@@ -47,14 +47,15 @@ class TopAlbums extends Component {
           settings: {
             slidesToShow: 2,
             slidesToScroll: 2,
-            initialSlide: 2
+            initialSlide: 0
           }
         },
         {
           breakpoint: 480,
           settings: {
             slidesToShow: 1,
-            slidesToScroll: 1
+            slidesToScroll: 1,
+            initialSlide: 0
           }
         }
       ]

@@ -154,8 +154,9 @@ body {
         position: absolute;
         right   : 20px;
         top     : 20px;
-        button{
-          svg{
+
+        button {
+          svg {
             font-size: 30px;
           }
         }
@@ -163,6 +164,7 @@ body {
 
       .tags {
         text-transform: capitalize;
+        color: #fff;
       }
 
       .slider {
@@ -175,6 +177,7 @@ body {
           left     : 0px;
           top      : 30px;
           font-size: 12px;
+          color: #fff;
         }
 
         .rightDuration {
@@ -182,6 +185,7 @@ body {
           right    : 0px;
           top      : 30px;
           font-size: 12px;
+          color: #fff;
         }
       }
 
@@ -189,13 +193,24 @@ body {
         text-align: center;
         font-size : 22px;
         margin    : 0;
+        color: #fff;
       }
-      
-      .lyricsBody{
+
+      .artistName {
+        color: #fff;
+      }
+
+      .lyricsBody {
         text-align: center;
+        color: #fff;
       }
+
       .playerAction {
         width: 95%;
+      }
+
+      .color_white {
+        color: #fff;
       }
     }
   }

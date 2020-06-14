@@ -34,14 +34,14 @@ export default function FullScreenPlayer(props) {
 
   return (
     <div>
-      <IconButton disabled={disabled} onClick={handleClickOpen} color={"inherit"}><MoreVertRounded /></IconButton>
+      <IconButton disabled={disabled} onClick={handleClickOpen} color={"inherit"}><MoreVertRounded className={classes.color_white} /></IconButton>
       <Dialog fullScreen open={open} onClose={handleClickOpen} TransitionComponent={Transition} className={classes.dialogbox}>
         <div style={{ backgroundImage: `url(${HOST_API}/${_.get(player, 'currentTrack.track.cover')})` }} className={classes.blurBg}>
 
           <Grid container alignItems={"center"} className={classes.albumDetail}>
             <Grid item className={classes.closeBtn} xs={12}>
-              <IconButton style={{ justifyContent: "flex-end" }} edge="start" color="inherit" onClick={handleClose} aria-label="close">
-                <ExpandMoreRounded />
+              <IconButton style={{ justifyContent: "flex-end" }} edge="start" onClick={handleClose} aria-label="close">
+                <ExpandMoreRounded className={classes.color_white} />
               </IconButton>
             </Grid>
             <Grid item xs={12}>
@@ -57,7 +57,7 @@ export default function FullScreenPlayer(props) {
                   <h1 className={classes.trackName}>{removeExt(_.get(player, 'currentTrack.track.name', "n/a"))}</h1>
                 </Grid>
                 <Grid item xs={12}>
-                  <span><b>{_.get(player, 'currentTrack.track', false) && `By  ${_.get(player, 'currentTrack.track.artist_name', "n/a")}`}</b></span>
+                  <span className={classes.color_white}><b>{_.get(player, 'currentTrack.track', false) && `By  ${_.get(player, 'currentTrack.track.artist_name', "n/a")}`}</b></span>
                 </Grid>
                 <Grid item xs={12}>
                   <span>
@@ -102,7 +102,7 @@ export default function FullScreenPlayer(props) {
                         <span>
                           <IconButton
                             onClick={() => handlePlaylistSidebar(!openPlaylist)} color={"inherit"}>
-                            <QueueMusicRounded style={{ fontSize: "2rem" }} />
+                            <QueueMusicRounded className={classes.color_white} style={{ fontSize: "2rem" }} />
                           </IconButton>
                         </span>
                       </Tooltip>
@@ -115,7 +115,7 @@ export default function FullScreenPlayer(props) {
                         aria-controls="simple-menu"
                         aria-haspopup="true"
                       >
-                        <MoreHorizRounded />
+                        <MoreHorizRounded className={classes.color_white} />
                       </IconButton>
                       <Menu
                         id="simple-menu"
@@ -139,7 +139,7 @@ export default function FullScreenPlayer(props) {
                           <IconButton
                             disabled={isActiveActionBtn}
                             onClick={() => prevSong()} color={"inherit"}>
-                            <SkipPreviousRounded style={{ fontSize: "2rem" }} />
+                            <SkipPreviousRounded className={classes.color_white} style={{ fontSize: "2rem" }} />
                           </IconButton>
                         </span>
                       </Tooltip>
@@ -150,7 +150,7 @@ export default function FullScreenPlayer(props) {
                           <IconButton edge="start" color="inherit"
                             disabled={isActiveActionBtn}
                             onClick={() => playPause()}>
-                            {player.isPlaying ? <PauseCircleFilledRounded style={{ fontSize: "3rem" }} /> : <PlayCircleFilledRounded style={{ fontSize: "3rem" }} />}
+                            {player.isPlaying ? <PauseCircleFilledRounded className={classes.color_white} style={{ fontSize: "3rem" }} /> : <PlayCircleFilledRounded className={classes.color_white} style={{ fontSize: "3rem" }} />}
                           </IconButton>
                         </span>
                       </Tooltip>
@@ -161,7 +161,7 @@ export default function FullScreenPlayer(props) {
                           <IconButton
                             disabled={isActiveActionBtn}
                             onClick={() => nextSong()} color={"inherit"}>
-                            <SkipNextRounded style={{ fontSize: "2rem" }} />
+                            <SkipNextRounded className={classes.color_white} style={{ fontSize: "2rem" }} />
                           </IconButton>
                         </span>
                       </Tooltip>
@@ -172,7 +172,7 @@ export default function FullScreenPlayer(props) {
                           <IconButton
                             disabled={isActiveActionBtn}
                             onClick={() => muteHandler()} color={"inherit"}>
-                            {player.isMuted ? <VolumeOffRounded /> : <VolumeUpRounded />}
+                            {player.isMuted ? <VolumeOffRounded className={classes.color_white} /> : <VolumeUpRounded className={classes.color_white} />}
                           </IconButton>
                         </span>
                       </Tooltip>
