@@ -35,19 +35,23 @@ export const LANGUAGES = [
 export const MAIN_CATEGORY = [
   {
     slug: 'dada-bhagwan',
-    name: "Dada Bhagwan"
+    name: "Dada Bhagwan",
+    image: require('../assets/images/dgsm/dada-bhagwan.jpg')
   },
   {
     slug: 'geeta-bhagwan',
-    name: "Geeta Bhagwan"
+    name: "Geeta Bhagwan",
+    image: require('../assets/images/dgsm/geeta-bhagwan.jpg')
   },
   {
     slug: 'meera-bhagwan',
-    name: "Meera Bhagwan"
+    name: "Meera Bhagwan",
+    image: require('../assets/images/dgsm/meera-bhagwan.jpg')
   },
   {
     slug: 'shyam-bhagwan',
-    name: "Shyam Bhagwan"
+    name: "Shyam Bhagwan",
+    image: require('../assets/images/dgsm/shyam-bhagwan.jpg')
   }
 ]
 export const TRACK = {

@@ -44,14 +44,14 @@ class Bhajan extends React.Component {
   }
 
   render() {
-    const { browse, isLoading, player, tracks, error, totalPages, total } = this.props;
+    const { browse, isLoading, player, tracks, error, totalPages, total, isLoadingTracks } = this.props;
     const { init, page, value } = this.state;
     console.log('browse =>', browse);
     console.log('tracks =>', tracks);
 
     return (
       <div className={classes.browse}>
-        {browse &&
+        {!isLoading && browse &&
           <>
             <Grid container spacing={1} className={classes.browseContainer}>
               <Grid item >
@@ -150,18 +150,19 @@ class Bhajan extends React.Component {
                   <Grid item xs={12}>
                     <Grid container spacing={1} alignItems={"center"} justify={"center"} >
                       <Grid item={12}>
-                        {!isLoading && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
-                        {isLoading && !error && <Loading />}
+                        {!isLoadingTracks && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
+                        {isLoadingTracks && !error && <Loading />}
                         {error && "Something went wrong"}
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
               </Grid>
-
             </Grid>
-
           </>
+        }
+        {
+          isLoading && <Loading />
         }
       </div>
     )
@@ -216,14 +217,6 @@ class Bhajan extends React.Component {
   }
 
 
-  // loadData = () => {
-  //   const { page, size } = this.state
-  //   this.setState({ page: page + 1 }, () => {
-  //     var query = { slug: this.props.match.params[0], content: 'bhajan', page: page * size };
-  //     this.props.dispatch(getBrowseWithTrack(query));
-  //   })
-  // }
-
   componentDidMount() {
     this.loadData();
   }
@@ -239,6 +232,7 @@ const mapStateToProps = state => {
     total: state.browse.total,
     tracks: state.browse.tracks,
     isLoading: state.browse.isLoading,
+    isLoadingTracks: state.browse.isLoadingTracks,
     player: state.player,
   }
 }

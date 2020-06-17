@@ -1,0 +1,52 @@
+$xs:300px;
+$sm:480px;
+$md:768px;
+$lg:1024px;
+
+.mainCategory {
+  .container {
+
+    .albumCard {
+      height    : 200px;
+      width     : 200px;
+      margin    : 0 auto;
+      text-align: center;
+
+      .cover {
+        border-radius      : 10px;
+        height             : 180px;
+        width              : 180px;
+        background-position: center;
+        background-repeat  : no-repeat;
+        background-size    : cover;
+        object-fit         : contai;
+      }
+    }
+
+    @media screen and (max-width: $xs) {
+      .albumCard {
+        height    : 200px;
+        width     : 200px;
+        margin    : 0 auto;
+        text-align: center;
+
+        .cover {
+          border-radius      : 10px;
+          height             : 180px;
+          width              : 180px;
+          background-position: center;
+          background-repeat  : no-repeat;
+          background-size    : cover;
+          object-fit         : contai;
+
+          margin-top     : 10px;
+          backdrop-filter: blur(35px);
+          height         : 100vh;
+          margin         : 0;
+          padding        : 20px 10px;
+        }
+      }
+
+    }
+  }
+}

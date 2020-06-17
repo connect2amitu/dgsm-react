@@ -14,10 +14,11 @@ import { PlayCircleFilledRounded, PauseCircleFilledRounded } from '@material-ui/
 import { NavLink } from 'react-router-dom';
 import classes from '../../assets/css/browse.module.scss';
 import { getBrowseWithTrack, clearBrowse } from '../../actions/browse';
-import PhoneIcon from '@material-ui/icons/Phone';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Loading from '../../components/Loading';
 import NoResultFound from '../../components/NoResultFound';
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css";
 
 var trackStyle = {
   borderRadius: "10px",
@@ -40,19 +41,18 @@ class Vani extends React.Component {
       value: 0,
       lang: 'hindi',
       content: 'vani',
+      date: new Date()
     };
     this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
   }
 
   render() {
-    const { browse, isLoading, player, tracks, error, totalPages } = this.props;
-    const { init, page, value } = this.state;
-    console.log('browse =>', browse);
-    console.log('tracks =>', tracks);
+    const { browse, isLoading, player, tracks, error, totalPages, isLoadingTracks } = this.props;
+    const { init, page, value, date } = this.state;
 
     return (
       <div className={classes.browse}>
-        {browse &&
+        {!isLoading && browse &&
           <>
             <Grid container spacing={1} className={classes.browseContainer}>
               <Grid item >
@@ -100,13 +100,24 @@ class Vani extends React.Component {
                       aria-label="scrollable force tabs example"
                     >
                       {
-                        LANGUAGES.map((lang, index) =>
+                        [LANGUAGES[0], LANGUAGES[1]].map((lang, index) =>
                           <Tab key={index} label={lang.label} icon={<FavoriteIcon />} />
                         )
                       }
                     </Tabs>
                   </Grid>
                 </Grid>
+              </Grid>
+              <Grid item xs={12}>
+                <Grid container justify={"center"}>
+                  <Grid item>
+                    <DatePicker
+                      selected={date}
+                      onChange={this.handleDateChange}
+                      dateFormat="MMMM - yyyy"
+                      showMonthYearPicker
+                    />
+                  </Grid></Grid>
               </Grid>
               <Grid item xs={12}>
                 <Grid container spacing={1}>
@@ -151,8 +162,8 @@ class Vani extends React.Component {
                   <Grid item xs={12}>
                     <Grid container spacing={1} alignItems={"center"} justify={"center"} >
                       <Grid item={12}>
-                        {!isLoading && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
-                        {isLoading && !error && <Loading />}
+                        {!isLoadingTracks && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
+                        {isLoadingTracks && !error && <Loading />}
                         {error && "Something went wrong"}
                       </Grid>
                     </Grid>
@@ -172,22 +183,32 @@ class Vani extends React.Component {
   handleChange = (event, newValue) => {
     this.setState({
       value: newValue,
-      page: 1,
+      page: 0,
       lang: LANGUAGES[newValue].value
     }, () => {
-      const { size, lang, content } = this.state;
-      var query = { slug: this.props.match.params[0], content, page: 0, size, lang };
-      console.log('query =>', query);
       this.props.dispatch(clearBrowse());
-      this.props.dispatch(getBrowseWithTrack(query));
+      this.loadData()
+    })
+
+  };
+
+  handleDateChange = (date) => {
+    this.setState({
+      date,
+      page: 0,
+    }, () => {
+      this.props.dispatch(clearBrowse());
+      this.loadData()
     })
 
   };
 
   loadData = () => {
-    const { page, size, lang, content } = this.state
+    const { page, size, lang, content, date } = this.state
     this.setState({ page: page + 1 }, () => {
-      var query = { slug: this.props.match.params[0], content, page: page * size, size, lang };
+      console.log('date =>', date);
+
+      var query = { slug: this.props.match.params[0], content, page: page * size, size, lang, date };
       console.log('query =>', query);
       this.props.dispatch(getBrowseWithTrack(query));
     })
@@ -240,6 +261,7 @@ const mapStateToProps = state => {
     total: state.browse.total,
     tracks: state.browse.tracks,
     isLoading: state.browse.isLoading,
+    isLoadingTracks: state.browse.isLoadingTracks,
     player: state.player,
   }
 }

@@ -24,7 +24,8 @@ class Tracks extends React.Component {
     this.state = {
       trackIndex: null,
       size: 28,
-      page: 0
+      page: 0,
+      content: 'bhajan',
     }
     this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
   }
@@ -67,9 +68,14 @@ class Tracks extends React.Component {
     );
   }
   loadData = () => {
-    const { page, size } = this.state
+    const { page, size, content } = this.state
     this.setState({ page: page + 1 }, () => {
-      var query = { size, order: 'asc', page: page * size }
+      var query = {
+        size,
+        order: 'desc',
+        page: page * size,
+        content,
+      }
       this.props.dispatch(getTrack(query));
     })
   }

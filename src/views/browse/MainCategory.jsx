@@ -34,7 +34,7 @@ class MainCategory extends Component {
             <Grid item xs={6} sm={3} md={"auto"}>
               <Grid container direction={"column"} style={{ padding: "10px", margin: "0 auto", textAlign: "center" }}>
                 <Grid item>
-                  <NavLink to="browse/dada-bhagwan"><Button style={{ ...cardStyle, background: `url('https://admin.dgsm.in/uploads/dgsm/dada-bhagwan.jpg') center center / cover no-repeat` }}></Button></NavLink>
+                  <NavLink to="browse/dada-bhagwan"><Button style={{ ...cardStyle, background: `url(${require('../../assets/images/dgsm/dada-bhagwan.jpg')}) center center / cover no-repeat` }}></Button></NavLink>
                 </Grid>
                 <Grid item>
                   <Typography variant={"body1"}>{"DADA BHAGWAN"}</Typography>
@@ -44,7 +44,7 @@ class MainCategory extends Component {
             <Grid item xs={6} sm={3} md={"auto"}>
               <Grid container direction={"column"} style={{ padding: "10px", margin: "0 auto", textAlign: "center" }}>
                 <Grid item>
-                  <NavLink to="browse/geeta-bhagwan"><Button style={{ ...cardStyle, background: `url('https://admin.dgsm.in/uploads/dgsm/geeta-bhagwan.jpg') center center / cover no-repeat` }}></Button></NavLink>
+                  <NavLink to="browse/geeta-bhagwan"><Button style={{ ...cardStyle, background: `url(${require('../../assets/images/dgsm/geeta-bhagwan.jpg')}) center center / cover no-repeat` }}></Button></NavLink>
                 </Grid>
                 <Grid item>
                   <Typography variant={"body1"}>{"GEETA BHAGWAN"}</Typography>
@@ -54,7 +54,7 @@ class MainCategory extends Component {
             <Grid item xs={6} sm={3} md={"auto"}>
               <Grid container direction={"column"} style={{ padding: "10px", margin: "0 auto", textAlign: "center" }}>
                 <Grid item>
-                  <NavLink to="browse/shyam-bhagwan"><Button style={{ ...cardStyle, background: `url('https://admin.dgsm.in/uploads/dgsm/shyam-bhagwan.jpg') center center / cover no-repeat` }}></Button></NavLink>
+                  <NavLink to="browse/shyam-bhagwan"><Button style={{ ...cardStyle, background: `url(${require('../../assets/images/dgsm/shyam-bhagwan.jpg')}) center center / cover no-repeat` }}></Button></NavLink>
                 </Grid>
                 <Grid item>
                   <Typography variant={"body1"}>{"SHYAM BHAGWAN"}</Typography>
@@ -64,7 +64,7 @@ class MainCategory extends Component {
             <Grid item xs={6} sm={3} md={"auto"}>
               <Grid container direction={"column"} style={{ padding: "10px", margin: "0 auto", textAlign: "center" }}>
                 <Grid item>
-                  <NavLink to="browse/meera-bhagwan"><Button style={{ ...cardStyle, background: `url('https://admin.dgsm.in/uploads/dgsm/meera-bhagwan.jpg') center center / cover no-repeat` }}></Button></NavLink>
+                  <NavLink to="browse/meera-bhagwan"><Button style={{ ...cardStyle, background: `url(${require('../../assets/images/dgsm/meera-bhagwan.jpg')}) center center / cover no-repeat` }}></Button></NavLink>
                 </Grid>
                 <Grid item>
                   <Typography variant={"body1"}>{"MEERA BHAGWAN"}</Typography>
@@ -77,15 +77,6 @@ class MainCategory extends Component {
       </div>
     )
   }
-  componentDidMount() {
-  }
-
 }
 
-
-const mapStateToProps = state => {
-  return {
-  }
-}
-
-export default connect(mapStateToProps)(MainCategory)
+export default MainCategory

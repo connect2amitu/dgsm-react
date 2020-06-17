@@ -17,6 +17,7 @@
     "query-string": "^6.12.1",
     "react": "^16.13.1",
     "react-custom-scrollbars": "^4.2.1",
+    "react-datepicker": "^3.0.0",
     "react-dom": "^16.13.1",
     "react-google-login": "^5.1.10",
     "react-redux": "^7.2.0",

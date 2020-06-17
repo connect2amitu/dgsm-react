@@ -8,12 +8,7 @@ import SongCard from '../../components/SongCard';
 import classes from '../../assets/css/track.module.scss';
 import ViewMoreBtn from '../../components/ViewMoreBtn';
 
-
-
-
-
-
-class TopTracks extends Component {
+class TopVanis extends Component {
   constructor(props) {
     super(props);
     this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
@@ -39,10 +34,10 @@ class TopTracks extends Component {
       <div className={classes.track}>
         <Grid container justify={"space-between"} className={classes.heading}>
           <Grid item>
-            <h1>Top Tracks</h1>
+            <h1>Top Vanis</h1>
           </Grid>
           <Grid item>
-            <ViewMoreBtn to={"/browse/tracks"} />
+            <ViewMoreBtn to={"/browse/vanis"} />
           </Grid>
         </Grid>
         <Grid container spacing={3} className={classes.container}>
@@ -73,10 +68,11 @@ class TopTracks extends Component {
       size: 16,
       order: 'asc',
       page: 0,
-      content: 'bhajan'
+      content: 'vani',
     }
     this.props.dispatch(getTrack(query))
   }
+
   componentWillUnmount() {
     this.props.dispatch(clearTracks());
   }
@@ -89,5 +85,5 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(TopTracks)
+export default connect(mapStateToProps)(TopVanis)
 

@@ -20,6 +20,7 @@ export default function SongCard({ track, player, playSong, pauseSong }) {
               </Grid>
               <Grid item>
                 <Typography color={"inherit"} component={NavLink} to={`/album/${track.album_slug}`} variant={"caption"} style={{ fontSize: 12 }}>{track.album_name} {track.city_name && `(${track.city_name})`}</Typography>
+                <br /><span className={classes.name}>{track.type}</span>
               </Grid>
 
             </Grid>
