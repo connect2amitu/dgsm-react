@@ -18,6 +18,13 @@ export function getMoreBrowseTracks(data) {
   }
 }
 
+export function getDGSMBrowse() {
+  return {
+    type: BROWSE.FETCH_DGSM_START,
+    isLoading: true,
+  }
+}
+
 export function clearBrowse(data) {
   return {
     type: BROWSE.CLEAR_ALL,

@@ -10,3 +10,12 @@ export const getBrowseData = (query) => {
   }
   return callApi(_URL, options);
 }
+
+export const getMainDGSMBrowse = () => {
+  var _URL = generateURL(`${URL}/mainCategory`);
+
+  let options = {
+    method: 'GET',
+  }
+  return callApi(_URL, options);
+}

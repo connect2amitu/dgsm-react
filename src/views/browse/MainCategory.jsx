@@ -5,6 +5,7 @@ import Loading from '../../components/Loading';
 import Error from '../../components/Error';
 import classes from '../../assets/css/album.module.scss';
 import { NavLink } from 'react-router-dom';
+import { getDGSMBrowse } from '../../actions/browse';
 
 
 var cardStyle = {
@@ -20,7 +21,7 @@ var cardStyle = {
 
 class MainCategory extends Component {
   render() {
-    const { isLoading, error } = this.props
+    const { isLoading, error, dgsmMain } = this.props;
     return (
       <div className={classes.album}>
         <Grid container justify={"space-between"} className={classes.heading}>
@@ -31,52 +32,42 @@ class MainCategory extends Component {
         {!isLoading && error && <Error />}
         {!isLoading ?
           <Grid container spacing={1} >
-            <Grid item xs={6} sm={3} md={"auto"}>
-              <Grid container direction={"column"} style={{ padding: "10px", margin: "0 auto", textAlign: "center" }}>
-                <Grid item>
-                  <NavLink to="browse/dada-bhagwan"><Button style={{ ...cardStyle, background: `url(${require('../../assets/images/dgsm/dada-bhagwan.jpg')}) center center / cover no-repeat` }}></Button></NavLink>
+            {
+              dgsmMain.map((main, index) =>
+                <Grid item xs={6} sm={3} md={"auto"}>
+                  <Grid container direction={"column"} style={{ padding: "10px", margin: "0 auto", textAlign: "center" }}>
+                    <Grid item>
+                      <NavLink to={`browse/${main.slug}`}>
+                        <Button style={{ ...cardStyle, background: `url(${require(`../../assets/images/dgsm/${main.slug}.jpg`)}) center center / cover no-repeat` }}></Button>
+                      </NavLink>
+                    </Grid>
+                    <Grid item>
+                      <Typography variant={"body1"}>{main.name}</Typography>
+                    </Grid>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Typography variant={"body1"}>{"DADA BHAGWAN"}</Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={6} sm={3} md={"auto"}>
-              <Grid container direction={"column"} style={{ padding: "10px", margin: "0 auto", textAlign: "center" }}>
-                <Grid item>
-                  <NavLink to="browse/geeta-bhagwan"><Button style={{ ...cardStyle, background: `url(${require('../../assets/images/dgsm/geeta-bhagwan.jpg')}) center center / cover no-repeat` }}></Button></NavLink>
-                </Grid>
-                <Grid item>
-                  <Typography variant={"body1"}>{"GEETA BHAGWAN"}</Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={6} sm={3} md={"auto"}>
-              <Grid container direction={"column"} style={{ padding: "10px", margin: "0 auto", textAlign: "center" }}>
-                <Grid item>
-                  <NavLink to="browse/shyam-bhagwan"><Button style={{ ...cardStyle, background: `url(${require('../../assets/images/dgsm/shyam-bhagwan.jpg')}) center center / cover no-repeat` }}></Button></NavLink>
-                </Grid>
-                <Grid item>
-                  <Typography variant={"body1"}>{"SHYAM BHAGWAN"}</Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={6} sm={3} md={"auto"}>
-              <Grid container direction={"column"} style={{ padding: "10px", margin: "0 auto", textAlign: "center" }}>
-                <Grid item>
-                  <NavLink to="browse/meera-bhagwan"><Button style={{ ...cardStyle, background: `url(${require('../../assets/images/dgsm/meera-bhagwan.jpg')}) center center / cover no-repeat` }}></Button></NavLink>
-                </Grid>
-                <Grid item>
-                  <Typography variant={"body1"}>{"MEERA BHAGWAN"}</Typography>
-                </Grid>
-              </Grid>
-            </Grid>
+              )
+            }
           </Grid>
           : <Loading />
         }
       </div>
     )
   }
+
+  componentDidMount() {
+    this.props.dispatch(getDGSMBrowse())
+  }
+
 }
 
-export default MainCategory
+const mapStateToProps = state => {
+  return {
+    dgsmMain: state.browse.dgsmMain,
+    isLoading: state.browse.isLoading,
+    error: state.browse.error
+  }
+}
+
+export default connect(mapStateToProps)(MainCategory)
+

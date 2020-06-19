@@ -4,7 +4,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { Grid, Button, Chip, Fade, CircularProgress, Tabs, Tab, Box, Typography } from '@material-ui/core';
-import { getAlbumWithTrack } from '../../actions/albums';
+import { getAlbumWithTrack, getAlbums, clearAlbums, getDGSMAlbums } from '../../actions/albums';
 import { HOST_API, LANGUAGES } from '../../shared/constants';
 import { playStopButtonClickHandler, removeExt } from '../../shared/funs';
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
@@ -12,13 +12,12 @@ import PlayPauseButton from '../../components/PlayPauseButton';
 import logo from '../../assets/images/logo.png'
 import { PlayCircleFilledRounded, PauseCircleFilledRounded } from '@material-ui/icons';
 import { NavLink } from 'react-router-dom';
-import classes from '../../assets/css/browse.module.scss';
-import { getBrowseWithTrack, clearBrowse } from '../../actions/browse';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import classes from '../../assets/css/album.module.scss';
 import Loading from '../../components/Loading';
 import NoResultFound from '../../components/NoResultFound';
-import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
+import AlbumCard from '../../components/AlbumCard';
+import Error from '../../components/Error';
 
 var trackStyle = {
   borderRadius: "10px",
@@ -47,20 +46,33 @@ class Vani extends React.Component {
   }
 
   render() {
-    const { browse, isLoading, player, tracks, error, totalPages, isLoadingTracks } = this.props;
-    const { init, page, value, date } = this.state;
+    const { isLoading, albums, error, totalPages } = this.props;
+    const { page } = this.state;
+    var items = [];
+
+    albums.length > 0 ? albums.map((album, index) =>
+      items.push(
+        <Fade in={true} key={index}>
+          <Grid item xs={12} sm={4} md={3} lg={2}>
+            <AlbumCard
+              name={album.name}
+              slug={album.slug}
+              cover={album.cover}
+            />
+          </Grid>
+        </Fade>
+      )
+    ) : items.push(<Fade in={true} ><Grid item xs={12} sm={4} md={3} lg={2}><NoResultFound /></Grid></Fade>);
 
     return (
-      <div className={classes.browse}>
-        {!isLoading && browse &&
-          <>
-            <Grid container spacing={1} className={classes.browseContainer}>
-              <Grid item >
+      <div className={classes.album}>
+        <Grid container spacing={1} className={classes.browseContainer}>
+          {/* <Grid item >
                 <Fade in={true}>
                   <div><Button className={classes.cover} style={{ backgroundImage: `url(${'https://admin.dgsm.in'}/${browse.avatar})` }}></Button></div>
                 </Fade>
-              </Grid>
-              <Grid item>
+              </Grid> */}
+          {/* <Grid item>
                 <Grid container direction={"column"} spacing={1} className={classes.browseMeta}>
                   <Grid item>
                     <h1 className={classes.browseName}>{browse.name}</h1>
@@ -81,173 +93,34 @@ class Vani extends React.Component {
                     </Grid>
                   }
                 </Grid>
-              </Grid>
-            </Grid>
-            <Grid container className={classes.trackContainer} spacing={2} direction={"column"}>
-              {/* <Grid item xs={12} sm={8} md={10}>
-                <h3 className={classes.trackLabel}>Tracks ({tracks.length})</h3>
               </Grid> */}
-              <Grid item xs={12} sm={8} md={10}>
-                <Grid container justify={"center"}>
-                  <Grid item>
-                    <Tabs
-                      value={value}
-                      onChange={this.handleChange}
-                      variant="scrollable"
-                      scrollButtons="on"
-                      indicatorColor="primary"
-                      textColor="primary"
-                      aria-label="scrollable force tabs example"
-                    >
-                      {
-                        [LANGUAGES[0], LANGUAGES[1]].map((lang, index) =>
-                          <Tab key={index} label={lang.label} icon={<FavoriteIcon />} />
-                        )
-                      }
-                    </Tabs>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <Grid container justify={"center"}>
-                  <Grid item>
-                    <DatePicker
-                      selected={date}
-                      onChange={this.handleDateChange}
-                      dateFormat="MMMM - yyyy"
-                      showMonthYearPicker
-                    />
-                  </Grid></Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <Grid container spacing={1}>
-                  {
-                    tracks.length > 0 ? tracks.map((track, index) =>
-                      <Fade in={true} key={index}>
-                        <Grid item xs={12} >
-                          <Grid container spacing={1} alignItems={"center"} >
-                            <Grid item style={{ width: "25px" }}>
-                              <span >{index + 1}</span>
-                            </Grid>
-                            <Grid item><Button style={trackStyle}></Button></Grid>
-                            <Grid item xs={6} md={2}>
-                              <Grid container direction={"column"}>
-                                <Grid item>
-                                  <span style={{ fontSize: 14, fontWeight: 500 }}>{removeExt(track.name)}</span>
-                                </Grid>
-                                <Grid item>
-                                  <span style={{ fontSize: 12 }}>{track.artist_name}{track.other_artist_name && ` | ${track.other_artist_name}`}  {track.city_name && `(${track.city_name})`}</span>
-                                </Grid>
-                              </Grid>
-                            </Grid>
-                            <Grid item>
-                              <PlayPauseButton
-                                track={track}
-                                pauseSong={this.pauseSong}
-                                playSong={this.playSong}
-                                isPlaying={player.isPlaying}
-                                currentTrack={player.currentTrack}
-                              />
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </Fade>
-                    ) :
-                      <Fade in={true}>
-                        <Grid item xs={12} >
-                          <NoResultFound />
-                        </Grid>
-                      </Fade>
-                  }
-                  <Grid item xs={12}>
-                    <Grid container spacing={1} alignItems={"center"} justify={"center"} >
-                      <Grid item={12}>
-                        {!isLoadingTracks && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
-                        {isLoadingTracks && !error && <Loading />}
-                        {error && "Something went wrong"}
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-
-            </Grid>
-
-          </>
-        }
+        </Grid>
+        <Grid container spacing={4} justify={"flex-start"} alignItems={"center"} className={classes.container} >
+          <Grid item xs={12} style={{ textAlign: "center" }}>
+            {isLoading && !error && <CircularProgress />}
+            {!isLoading && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
+            {!isLoading && error && <Error />}
+          </Grid>
+          {items}
+        </Grid>
       </div>
     )
   }
 
-
-  handleChange = (event, newValue) => {
-    this.setState({
-      value: newValue,
-      page: 0,
-      lang: LANGUAGES[newValue].value
-    }, () => {
-      this.props.dispatch(clearBrowse());
-      this.loadData()
-    })
-
-  };
-
-  handleDateChange = (date) => {
-    this.setState({
-      date,
-      page: 0,
-    }, () => {
-      this.props.dispatch(clearBrowse());
-      this.loadData()
-    })
-
-  };
-
   loadData = () => {
-    const { page, size, lang, content, date } = this.state
+    const { page, size } = this.state
     this.setState({ page: page + 1 }, () => {
-      console.log('date =>', date);
-
-      var query = { slug: this.props.match.params[0], content, page: page * size, size, lang, date };
-      console.log('query =>', query);
-      this.props.dispatch(getBrowseWithTrack(query));
+      var query = { size, order: 'asc', page: page * size, type: 'vani', q: this.props.match.params[0] };
+      this.props.dispatch(getDGSMAlbums(query));
     })
   }
-
-
-  playSong = (track) => {
-    this.setState({
-      init: false
-    }, () => {
-      const { tracks } = this.props;
-      this.props.dispatch(playerAddTrack(tracks));
-      this.props.dispatch(playerCurrentTrack({ track }));
-      this.playStopButtonClickHandler(true);
-    })
-  }
-
-  pauseSong = () => {
-    const { player: { isPlaying } } = this.props;
-
-    if (!isPlaying) {
-      const { tracks } = this.props.albumDetail;
-      this.props.dispatch(playerAddTrack(tracks));
-    }
-    this.playStopButtonClickHandler(!isPlaying);
-
-  }
-
-
-  // loadData = () => {
-  //   const { page, size } = this.state
-  //   this.setState({ page: page + 1 }, () => {
-  //     var query = { slug: this.props.match.params[0], content: 'bhajan', page: page * size };
-  //     this.props.dispatch(getBrowseWithTrack(query));
-  //   })
-  // }
 
   componentDidMount() {
     this.loadData();
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(clearAlbums());
   }
 
 }
@@ -255,14 +128,10 @@ class Vani extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    browse: state.browse.browse,
-    error: state.browse.error,
-    totalPages: state.browse.totalPages,
-    total: state.browse.total,
-    tracks: state.browse.tracks,
-    isLoading: state.browse.isLoading,
-    isLoadingTracks: state.browse.isLoadingTracks,
-    player: state.player,
+    albums: state.albums.albums,
+    error: state.albums.error,
+    totalPages: state.albums.totalPages,
+    isLoading: state.albums.isLoading,
   }
 }
 

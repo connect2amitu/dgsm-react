@@ -24,6 +24,12 @@ const actionsMap = {
       isLoading: true
     }
   },
+  [ALBUM.DGSM_FETCH_START]: (state, action) => {
+    return {
+      ...state,
+      isLoading: true
+    }
+  },
   [ALBUM.FETCH_SUCCESS]: (state, action) => {
     return {
       ...state,

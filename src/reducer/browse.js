@@ -6,6 +6,7 @@ const initialState = {
   isLoadingTracks: false,
   error: false,
   browse: null,
+  dgsmMain: [],
   tracks: [],
   init: true,
   totalPages: 0,
@@ -47,6 +48,27 @@ const actionsMap = {
       ...state,
       isLoading: false,
       isLoadingTracks: false,
+      error: action.error.message,
+    }
+  },
+
+  [BROWSE.FETCH_DGSM_START]: (state, action) => {
+    return {
+      ...state,
+      isLoading: true,
+    }
+  },
+  [BROWSE.FETCH_DGSM_SUCCESS]: (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      dgsmMain: action.data.data,
+    }
+  },
+  [BROWSE.FETCH_DGSM_ERROR]: (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
       error: action.error.message,
     }
   },
