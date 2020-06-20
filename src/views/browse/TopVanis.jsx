@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Grid, Fade, CircularProgress } from '@material-ui/core'
 import { connect } from 'react-redux';
-import { getTrack, clearTracks } from '../../actions/tracks';
+import { getVaniTrack, clearTracks } from '../../actions/tracks';
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
 import { playStopButtonClickHandler } from '../../shared/funs';
 import SongCard from '../../components/SongCard';
@@ -14,9 +14,9 @@ class TopVanis extends Component {
     this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
   }
   render() {
-    const { tracks, isLoading, error, player } = this.props
+    const { vanis, isLoading, error, player } = this.props
     var items = [];
-    tracks.map((track, index) =>
+    vanis.map((track, index) =>
       items.push(
         <Fade in={true} key={index}>
           <Grid item xs={12} md={6} lg={4} xl={3}>
@@ -56,8 +56,8 @@ class TopVanis extends Component {
   }
 
   playSong = (track) => {
-    const { tracks } = this.props;
-    this.props.dispatch(playerAddTrack(tracks));
+    const { vanis } = this.props;
+    this.props.dispatch(playerAddTrack(vanis));
     this.props.dispatch(playerCurrentTrack({ track }));
     this.playStopButtonClickHandler(true);
 
@@ -70,7 +70,7 @@ class TopVanis extends Component {
       page: 0,
       content: 'vani',
     }
-    this.props.dispatch(getTrack(query))
+    this.props.dispatch(getVaniTrack(query))
   }
 
   componentWillUnmount() {
