@@ -90,7 +90,8 @@ $lg:1024px;
       align-items    : center;
 
       .cover {
-        width              : 180px;
+        width              : 100px;
+        height             : 100px;
         background-position: center;
         background-repeat  : no-repeat;
         background-size    : cover;
@@ -101,7 +102,8 @@ $lg:1024px;
         align-items: center;
 
         .albumName {
-          margin: 0;
+          font-size: 18px;
+          margin   : 0;
         }
 
         .tags {
