@@ -9,7 +9,7 @@ export const MEDIA_ERROR_STATUS = 415;
 export const VALIDATION_FAILURE_STATUS = 417;
 export const DATABASE_ERROR_STATUS = 422;
 export const INTERNAL_SERVER_ERROR = 500;
-export const GOOGLE_CLIENT_ID = "770715490238-ft20jtu5vio0krq5c83nih44p48rg715.apps.googleusercontent.com";
+export const GOOGLE_CLIENT_ID = "811627969823-ves8f3n7ljkmfpmcbevg34b3v0ekeoje.apps.googleusercontent.com";
 export const GOOGLE_PHONE_ID = "770715490238-ft20jtu5vio0krq5c83nih44p48rg715.8765866490.apps.googleusercontent.com";
 export const JWT_SECRET = "amintu";
 
