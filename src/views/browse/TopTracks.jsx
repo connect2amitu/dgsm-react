@@ -20,8 +20,6 @@ class TopTracks extends Component {
   }
   render() {
     const { tracks, isLoading, error, player } = this.props
-    console.log('tracks =>', tracks);
-
     var items = [];
     tracks.map((track, index) =>
       items.push(

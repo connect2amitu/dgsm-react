@@ -7,8 +7,6 @@ function fetchAllTracks() {
   return function* (options) {
     try {
       const data = yield call(() => getAll(options.payload));
-      console.log('data =>', data);
-
       const action = { type: TRACK.FETCH_ALL_SUCCESS, data }
       yield put(action);
     } catch (error) {
@@ -22,8 +20,6 @@ function fetchAllVaniTracks() {
   return function* (options) {
     try {
       const data = yield call(() => getAll(options.payload));
-      console.log('data =>', data);
-
       const action = { type: TRACK.FETCH_ALL_VANI_SUCCESS, data }
       yield put(action);
     } catch (error) {

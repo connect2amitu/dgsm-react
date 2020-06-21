@@ -50,7 +50,7 @@ class Vani extends React.Component {
     const { page } = this.state;
     var items = [];
 
-    albums.length > 0 ? albums.map((album, index) =>
+    !isLoading && albums.length > 0 ? albums.map((album, index) =>
       items.push(
         <Fade in={true} key={index}>
           <Grid item xs={12} sm={4} md={3} lg={2}>

@@ -51,8 +51,6 @@ export function removePlaylist(data, callback) {
 }
 
 export function renamePlaylist(data) {
-  console.log('data =>', data);
-
   return {
     type: PLAYLIST.RENAME_START,
     isLoading: true,

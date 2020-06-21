@@ -50,7 +50,7 @@ const actionsMap = {
     return {
       ...state,
       isLoading: false,
-      vanis: [...state.tracks, ...action.data.data],
+      vanis: [...state.vanis, ...action.data.data],
       totalPages: action.data.totalPages,
     }
   },

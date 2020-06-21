@@ -46,8 +46,6 @@ class Bhajan extends React.Component {
   render() {
     const { browse, isLoading, player, tracks, error, totalPages, total, isLoadingTracks } = this.props;
     const { init, page, value } = this.state;
-    console.log('browse =>', browse);
-    console.log('tracks =>', tracks);
 
     return (
       <div className={classes.browse}>
@@ -82,11 +80,11 @@ class Bhajan extends React.Component {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid container className={classes.trackContainer} spacing={2} direction={"column"}>
+            <Grid container className={classes.trackContainer} spacing={2}>
               {/* <Grid item xs={12} sm={8} md={10}>
                 <h3 className={classes.trackLabel}>Tracks ({tracks.length})</h3>
               </Grid> */}
-              <Grid item xs={12} sm={8} md={10}>
+              <Grid item xs={12}>
                 <Grid container justify={"center"}>
                   <Grid item>
                     <Tabs
@@ -108,9 +106,9 @@ class Bhajan extends React.Component {
                 </Grid>
               </Grid>
               <Grid item xs={12}>
-                <Grid container spacing={1}>
+                <Grid container spacing={1} justify={"center"}>
                   {
-                    tracks.length > 0 ? tracks.map((track, index) =>
+                    !isLoading && tracks.length > 0 ? tracks.map((track, index) =>
                       <Fade in={true} key={index}>
                         <Grid item xs={12} >
                           <Grid container spacing={1} alignItems={"center"} >
@@ -141,7 +139,7 @@ class Bhajan extends React.Component {
                         </Grid>
                       </Fade>
                     ) :
-                      <Fade in={true}>
+                      (!isLoadingTracks && tracks.length <= 0) && <Fade in={true}>
                         <Grid item xs={12} >
                           <NoResultFound />
                         </Grid>

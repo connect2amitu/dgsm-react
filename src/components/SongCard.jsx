@@ -6,7 +6,6 @@ import { removeExt } from '../shared/funs';
 import classes from '../assets/css/track.module.scss';
 
 export default function SongCard({ track, player, playSong, pauseSong }) {
-
   return (
     <Grid container>
       <Grid item xs={2} className={classes.trackCard} ><Button className={classes.cover} /></Grid>

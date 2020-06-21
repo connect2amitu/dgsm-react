@@ -1,8 +1,6 @@
 import { BROWSE } from "../shared/constants";
 
 export function getBrowseWithTrack(data) {
-  console.log('getBrowseWithTrack data =>', data);
-
   return {
     type: BROWSE.FETCH_START,
     isLoading: true,

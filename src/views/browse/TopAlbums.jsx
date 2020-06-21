@@ -60,6 +60,8 @@ class TopAlbums extends Component {
         }
       ]
     };
+    console.log('albums =>', albums);
+
     return (
       <div className={classes.album}>
         <Grid container justify={"space-between"} className={classes.heading}>
@@ -80,7 +82,7 @@ class TopAlbums extends Component {
                     <NavLink to={`/album/${album.slug}`}><Button style={{ ...cardStyle, background: `url(${HOST_API}/${album.cover}) center center / cover no-repeat` }}></Button></NavLink>
                   </Grid>
                   <Grid item>
-                    <Typography variant={"body1"}>{album.name}</Typography>
+                    <Typography variant={"caption"}>{album.name}</Typography>
                   </Grid>
                 </Grid>
               )
