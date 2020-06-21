@@ -15,7 +15,6 @@ import { NavLink } from 'react-router-dom';
 import classes from '../../assets/css/album.module.scss';
 import Loading from '../../components/Loading';
 import NoResultFound from '../../components/NoResultFound';
-import "react-datepicker/dist/react-datepicker.css";
 import AlbumCard from '../../components/AlbumCard';
 import Error from '../../components/Error';
 

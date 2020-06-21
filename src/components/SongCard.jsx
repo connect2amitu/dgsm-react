@@ -12,11 +12,11 @@ export default function SongCard({ track, player, playSong, pauseSong }) {
       <Grid item xs={8} className={classes.trackDetail}>
         <Grid container direction={"column"}>
           {/* <span>{track.name}</span> */}
-          <Grid item>
+          <Grid item className={classes.trackName}>
             <span className={classes.name}>{removeExt(track.name)}</span>
           </Grid>
           {track.album_slug &&
-            <Grid item>
+            <Grid item className={classes.albumName}>
               <Typography color={"inherit"} component={NavLink} to={`/album/${track.album_slug}`} variant={"caption"} style={{ fontSize: 12 }}>{track.album_name} {track.city_name && `(${track.city_name})`}</Typography><br />
             </Grid>
           }

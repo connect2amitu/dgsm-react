@@ -16,29 +16,42 @@
     }
   }
 
-  @media screen and (max-width: 480px) {
-    .trackCard {
-      max-width: 20.666667%;
-      .cover {
-        height       : 50px;
-        width        : 50px;
-        border-radius: 10px;
-      }
-    }
-  .trackDetail {
-    max-width: 56.666667%;
-  }
-  }
-
   .trackDetail {
     padding: 0 10px;
 
     .name {
       font-size  : 14;
-      font-weight: 500;
+      font-weight: 600;
     }
 
   }
+
+
+  @media screen and (max-width: 425px) {
+    .trackDetail {
+      .trackName,
+      .albumName {
+        white-space  : nowrap;
+        overflow     : hidden;
+        text-overflow: ellipsis;
+        width: 247px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 375px) {
+    .trackDetail {
+      padding  : 0 20px;
+      .trackName,
+      .albumName {
+        white-space  : nowrap;
+        overflow     : hidden;
+        text-overflow: ellipsis;
+        width: 180px;
+      }
+    }
+  }
+ 
 
   @media screen and (max-width: 480px) {
     .track {
@@ -46,11 +59,13 @@
         justify-content: center;
 
         .trackCard {
+          max-width: 20.666667%;
+
           .cover {
             border-radius      : 10px;
             background         : url('../images/logo.png');
-            height             : 60px;
-            width              : 60px;
+            height             : 50px;
+            width              : 50px;
             background-position: center;
             background-repeat  : no-repeat;
             background-size    : cover;
@@ -58,11 +73,15 @@
         }
 
         .trackDetail {
-          padding: 0 10px;
+          padding  : 0 10px;
+          max-width: 56.666667%;
 
-          .name {
-            font-size  : 14px;
-            font-weight: 600;
+          .trackName,
+          .albumName {
+            white-space  : nowrap;
+            overflow     : hidden;
+            text-overflow: ellipsis;
+            width        : 170px;
           }
         }
       }

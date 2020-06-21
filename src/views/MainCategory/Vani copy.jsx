@@ -17,8 +17,6 @@ import { getBrowseWithTrack, clearBrowse } from '../../actions/browse';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Loading from '../../components/Loading';
 import NoResultFound from '../../components/NoResultFound';
-import DatePicker from 'react-datepicker'
-import "react-datepicker/dist/react-datepicker.css";
 
 var trackStyle = {
   borderRadius: "10px",

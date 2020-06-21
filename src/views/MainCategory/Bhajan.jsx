@@ -65,7 +65,7 @@ class Bhajan extends React.Component {
                   <Grid item>
                     <span>Bhajan</span>
                   </Grid>
-                  {browse && browse.tracks && browse.tracks.length > 0 &&
+                  {tracks.length > 0 &&
                     <Grid item>
                       <Button
                         color={"primary"}

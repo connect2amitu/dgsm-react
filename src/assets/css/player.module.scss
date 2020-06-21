@@ -54,14 +54,18 @@
             }
 
           }
-
-          .playlistDetail {
-            .dialogbox {}
-
-          }
         }
 
       }
+    }
+  }
+
+  @media screen and (max-width: 840px) {
+    .container {
+      justify-content: center;
+    }
+    .playerDetail{
+      display: none;
     }
   }
 

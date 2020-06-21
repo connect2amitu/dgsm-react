@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { getTrack, clearTracks } from '../../actions/tracks';
-import { Button, Grid, CircularProgress } from '@material-ui/core';
+import { Button, Grid, CircularProgress, Typography, IconButton, Avatar, Badge } from '@material-ui/core';
 import { playStopButtonClickHandler } from '../../shared/funs';
 import { playerCurrentTrack } from '../../actions/player';
 import SongCard from '../../components/SongCard';
@@ -50,9 +50,19 @@ class Tracks extends React.Component {
     )
     return (
       <div className={classes.track}>
-        <Grid container className={classes.heading}>
+        <Grid container spacing={2} className={classes.heading} direction={"column"}>
           <Grid item>
             <h1>All Tracks</h1>
+          </Grid>
+          <Grid item>
+            <Grid container justify={"center"}>
+              {
+                ['All', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].map(o =>
+                  <IconButton size={"medium"} style={{ marginRight: `${o === "All" ? `5px` : `0px`}` }}><Badge color={o === "All" ? "secondary" : "primary"} badgeContent={o}>
+                  </Badge></IconButton>
+                )
+              }
+            </Grid>
           </Grid>
         </Grid>
         <Grid container spacing={3} className={classes.container}>
