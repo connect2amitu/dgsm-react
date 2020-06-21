@@ -7,22 +7,21 @@ import classes from '../assets/css/track.module.scss';
 
 export default function SongCard({ track, player, playSong, pauseSong }) {
   return (
-    <Grid container>
+    <Grid container spacing={1}>
       <Grid item xs={2} className={classes.trackCard} ><Button className={classes.cover} /></Grid>
       <Grid item xs={8} className={classes.trackDetail}>
         <Grid container direction={"column"}>
+          {/* <span>{track.name}</span> */}
           <Grid item>
-            {/* <span>{track.name}</span> */}
-            <Grid container direction={"column"}>
-              <Grid item>
-                <span className={classes.name}>{removeExt(track.name)}</span>
-              </Grid>
-              <Grid item>
-                <Typography color={"inherit"} component={NavLink} to={`/album/${track.album_slug}`} variant={"caption"} style={{ fontSize: 12 }}>{track.album_name} {track.city_name && `(${track.city_name})`}</Typography>
-                <br /><span className={classes.name}>{track.type}</span>
-              </Grid>
-
+            <span className={classes.name}>{removeExt(track.name)}</span>
+          </Grid>
+          {track.album_slug &&
+            <Grid item>
+              <Typography color={"inherit"} component={NavLink} to={`/album/${track.album_slug}`} variant={"caption"} style={{ fontSize: 12 }}>{track.album_name} {track.city_name && `(${track.city_name})`}</Typography><br />
             </Grid>
+          }
+          <Grid item>
+            <span className={classes.name}>{track.type}</span>
           </Grid>
         </Grid>
       </Grid>
