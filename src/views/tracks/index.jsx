@@ -7,6 +7,7 @@ import { playerCurrentTrack } from '../../actions/player';
 import SongCard from '../../components/SongCard';
 import { Fade } from '@material-ui/core';
 import classes from '../../assets/css/track.module.scss';
+import NoResultFound from '../../components/NoResultFound';
 
 // var trackStyle = {
 //   borderRadius: "10px",
@@ -23,8 +24,9 @@ class Tracks extends React.Component {
     super(props)
     this.state = {
       trackIndex: null,
-      size: 28,
+      size: 20,
       page: 0,
+      aZ: "All",
       content: 'bhajan',
     }
     this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
@@ -32,7 +34,7 @@ class Tracks extends React.Component {
 
   render() {
     const { tracks, isLoading, error, totalPages, player } = this.props
-    const { page } = this.state
+    const { page, aZ } = this.state
     var items = [];
     tracks.map((track, index) =>
       items.push(
@@ -58,7 +60,7 @@ class Tracks extends React.Component {
             <Grid container justify={"center"}>
               {
                 ['All', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].map(o =>
-                  <IconButton size={"medium"} style={{ marginRight: `${o === "All" ? `5px` : `0px`}` }}><Badge color={o === "All" ? "secondary" : "primary"} badgeContent={o}>
+                  <IconButton onClick={() => this.changeFilter(o)} size={"medium"} style={{ marginRight: `${o === "All" ? `5px` : `0px`}` }}><Badge color={o === aZ ? "secondary" : "primary"} badgeContent={o}>
                   </Badge></IconButton>
                 )
               }
@@ -70,6 +72,7 @@ class Tracks extends React.Component {
           <Grid item xs={12} style={{ textAlign: "center" }}>
             {!isLoading && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
             {isLoading && !error && <CircularProgress />}
+            {!isLoading && !error && items.length <= 0 && <NoResultFound />}
             {error && "Something went wrong"}
           </Grid>
         </Grid>
@@ -77,14 +80,30 @@ class Tracks extends React.Component {
       </div>
     );
   }
+
+  changeFilter = (aZ) => {
+    this.setState({
+      aZ: aZ,
+      page: 0
+    }, () => {
+      this.props.history.push(`/browse/tracks${aZ !== "All" ? `/${aZ}` : ""}`);
+      this.props.dispatch(clearTracks());
+      this.loadData()
+    })
+  }
+
+
   loadData = () => {
-    const { page, size, content } = this.state
+    const { page, size, content } = this.state;
     this.setState({ page: page + 1 }, () => {
       var query = {
         size,
         order: 'desc',
         page: page * size,
         content,
+      }
+      if (typeof this.props.match.params.aZ === "undefined" || this.props.match.params.aZ !== "All") {
+        query.aZ = this.props.match.params.aZ
       }
       this.props.dispatch(getTrack(query));
     })
@@ -97,7 +116,11 @@ class Tracks extends React.Component {
     this.playStopButtonClickHandler(false);
   }
   componentDidMount() {
-    this.loadData()
+    this.setState({
+      aZ: this.props.match.params.aZ ? this.props.match.params.aZ : "All"
+    }, () => {
+      this.loadData()
+    })
   }
   componentWillUnmount() {
     this.props.dispatch(clearTracks());

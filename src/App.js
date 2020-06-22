@@ -38,7 +38,7 @@ function App({ isDark }) {
           <Layout>
             <Switch>
               <Route exact path="/(|browse)" component={Browse} />
-              <Route exact path="/browse/tracks" component={Tracks} />
+              <Route exact path="/browse/tracks/:aZ?" component={Tracks} />
               <Route exact path="/browse/vanis" component={Vanis} />
               <Route exact path="/browse/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan)" component={MainCategory} />
               <Route exact path="/browse/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan)/bhajan" component={MainCategoryBhajan} />

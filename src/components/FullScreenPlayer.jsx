@@ -28,8 +28,10 @@ export default function FullScreenPlayer(props) {
     setOpen(false);
   };
 
-  const tags = _.get(player, "currentTrack.track.tags", "").split(", ");
+  const tags = player && player.currentTrack && player.currentTrack.track && player.currentTrack.track.tags && player.currentTrack.track.tags.length > 0 ? player.currentTrack.track.tags.split(", ") : [];
   // const tags = [];
+  console.log('tags =>', tags);
+
   const lyrics = _.get(player, 'currentTrack.track.lyrics', false)
 
   return (
