@@ -3,8 +3,6 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { ThemeProvider, CssBaseline, Backdrop, CircularProgress } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { darkTheme, theme } from './theme';
-
-
 // import Layout from './components/Layout/Index';
 // import Tracks from './views/tracks/Index';
 // import Albums from './views/albums/Index';
@@ -65,5 +63,3 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps)(App)
-
-
