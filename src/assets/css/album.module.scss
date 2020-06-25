@@ -62,7 +62,7 @@ $lg:1024px;
   .albumContainer {
     justify-content: flex-start;
     flex-direction : row;
-    align-items    : flex-start;
+    align-items    : center;
 
     .cover {
       border-radius      : 10px;
@@ -82,8 +82,14 @@ $lg:1024px;
       }
     }
   }
+  @media screen and (max-width:959px) {
+    .albumName {
+      font-size: 18px;
+      margin   : 0;
+    }
+  }
 
-  @media screen and (min-width: $xs) and (max-width:$sm) {
+  @media screen and (max-width:$md) {
     .albumContainer {
       justify-content: center;
       flex-direction : column;

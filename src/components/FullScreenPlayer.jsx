@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Button, Dialog, IconButton, Slide, Grid, Fade, Chip, Tooltip, Menu, MenuItem } from '@material-ui/core';
-import { MoreVertRounded, ExpandMoreRounded, SkipPreviousRounded, PauseCircleFilledRounded, PlayCircleFilledRounded, SkipNextRounded, VolumeOffRounded, VolumeUpRounded, QueueMusicRounded, MoreHorizRounded } from '@material-ui/icons';
+import { MoreVertRounded, ExpandMoreRounded, SkipPreviousRounded, PauseCircleFilledRounded, PlayCircleFilledRounded, SkipNextRounded, VolumeOffRounded, VolumeUpRounded, QueueMusicRounded, MoreHorizRounded, QueuePlayNextRounded } from '@material-ui/icons';
 import { HOST_API } from '../shared/constants';
 import { removeExt, display } from '../shared/funs';
 import classes from '../assets/css/player.module.scss';
@@ -111,14 +111,14 @@ export default function FullScreenPlayer(props) {
                     </Grid>
 
                     <Grid item>
-                      <IconButton
+                      {/* <IconButton
                         disabled={isActiveActionBtn}
                         onClick={handleClick} color={"inherit"}
                         aria-controls="simple-menu"
                         aria-haspopup="true"
                       >
                         <MoreHorizRounded className={classes.color_white} />
-                      </IconButton>
+                      </IconButton> */}
                       <Menu
                         id="simple-menu"
                         anchorEl={anchorEl}
@@ -130,6 +130,14 @@ export default function FullScreenPlayer(props) {
                         <MenuItem onClick={closeMenu}>Share</MenuItem>
                         <MenuItem onClick={closeMenu}>View Lyrics</MenuItem>
                       </Menu>
+                      <IconButton
+                        disabled={isActiveActionBtn}
+                        onClick={openPlaylistModal} color={"inherit"}
+                        aria-controls="simple-menu"
+                        aria-haspopup="true"
+                      >
+                        <QueuePlayNextRounded />
+                      </IconButton>
                     </Grid>
                   </Grid>
                 </Grid>

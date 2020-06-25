@@ -4,7 +4,7 @@ import { styled } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { Grid, Menu, MenuItem, TextField, Tooltip, CircularProgress, List, ListItemText, ListItem, ListItemAvatar, Avatar, IconButton } from '@material-ui/core';
-import { FavoriteBorderRounded, MoreHorizRounded, PlayCircleFilledRounded, PauseCircleFilledRounded, SkipNextRounded, SkipPreviousRounded, QueueMusicRounded, VolumeOffRounded, VolumeUpRounded } from '@material-ui/icons';
+import { FavoriteBorderRounded, MoreHorizRounded, PlayCircleFilledRounded, PauseCircleFilledRounded, SkipNextRounded, SkipPreviousRounded, QueueMusicRounded, VolumeOffRounded, VolumeUpRounded, QueuePlayNextRounded } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { playStopButtonClickHandler, display, removeExt } from '../shared/funs';
 import { playerNextTrack, playerPrevTrack, playerMuteUnMute } from '../actions/player';
@@ -89,13 +89,21 @@ class Player extends React.Component {
                     <IconButton disabled={true} color={"inherit"}> <FavoriteBorderRounded /> </IconButton>
                   </Grid>
                   <Grid item>
-                    <IconButton
+                    {/* <IconButton
                       disabled={isActiveActionBtn}
                       onClick={this.handleClick} color={"inherit"}
                       aria-controls="simple-menu"
                       aria-haspopup="true"
                     >
                       <MoreHorizRounded />
+                    </IconButton> */}
+                    <IconButton
+                      disabled={isActiveActionBtn}
+                      onClick={this.openPlaylistModal} color={"inherit"}
+                      aria-controls="simple-menu"
+                      aria-haspopup="true"
+                    >
+                      <QueuePlayNextRounded />
                     </IconButton>
                     <Menu
                       id="simple-menu"

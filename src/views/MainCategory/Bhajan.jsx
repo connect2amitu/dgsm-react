@@ -66,18 +66,17 @@ class Bhajan extends React.Component {
                   <Grid item>
                     <span>Bhajan</span>
                   </Grid>
-                  {tracks.length > 0 &&
-                    <Grid item>
-                      <Button
-                        color={"primary"}
-                        variant={"contained"}
-                        onClick={() => player.isPlaying && !init ? this.pauseSong() : this.playSong(tracks[0])}
-                      >
-                        {player.isPlaying && !init ? <PauseCircleFilledRounded /> : <PlayCircleFilledRounded />}
+                  <Grid item>
+                    <Button
+                      disabled={isLoadingTracks || tracks.length <= 0}
+                      color={"primary"}
+                      variant={"contained"}
+                      onClick={() => player.isPlaying && !init ? this.pauseSong() : this.playSong(tracks[0])}
+                    >
+                      {player.isPlaying && !init ? <PauseCircleFilledRounded /> : <PlayCircleFilledRounded />}
                         &nbsp;{player.isPlaying && !init ? `Pause` : `Play All`}
-                      </Button>
-                    </Grid>
-                  }
+                    </Button>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>

@@ -100,7 +100,7 @@ class AlbumsDetail extends React.Component {
                               <span >{index + 1}</span>
                             </Grid>
                             <Grid item><Button style={trackStyle}></Button></Grid>
-                            <Grid item xs={6} md={2}>
+                            <Grid item xs={6} md={6}>
                               <Grid container direction={"column"}>
                                 <Grid item>
                                   <span style={{ fontSize: 14, fontWeight: 500 }}>{removeExt(track.name)}</span>

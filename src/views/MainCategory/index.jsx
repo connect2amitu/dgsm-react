@@ -20,17 +20,17 @@ export default class MainCategoryDetail extends Component {
     var data = find(MAIN_CATEGORY, { 'slug': this.props.match.params[0] });
     return (
       <div className={classes.mainCategory}>
-        <Grid container spacing={2} alignItems={"center"} className={classes.container}>
-          <Grid item xs={12} className={classes.albumCard}>
+        <Grid container spacing={2} direction={"column"} className={classes.container}>
+          <Grid item className={classes.albumCard}>
             <Fade in={true}>
               <div><Button className={classes.cover} style={{ ...trackStyle, backgroundImage: `url(${data.image})` }}></Button></div>
             </Fade>
           </Grid>
-          <Grid item xs={12}>
-            <h1 style={{ margin: 0, fontSize: 18, textAlign: "center" }}>{data.name}</h1>
+          <Grid item className={classes.name}>
+            <h1>{data.name}</h1>
           </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={2} justify={"center"}>
+          <Grid item >
+            <Grid className={classes.options} container spacing={2} justify={"center"}>
               <Grid item>
                 <Button component={NavLink} to={`/browse/${this.props.match.params[0]}/bhajan`} disabled={false} variant="contained" color="primary">Bhajan</Button>
               </Grid>
