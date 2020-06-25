@@ -46,6 +46,7 @@ class Bhajan extends React.Component {
   render() {
     const { browse, isLoading, player, tracks, error, totalPages, total, isLoadingTracks } = this.props;
     const { init, page, value } = this.state;
+    console.info('browse => ', browse);
 
     return (
       <div className={classes.browse}>
@@ -70,7 +71,7 @@ class Bhajan extends React.Component {
                       <Button
                         color={"primary"}
                         variant={"contained"}
-                        onClick={() => player.isPlaying && !init ? this.pauseSong() : this.playSong(browse.tracks[0])}
+                        onClick={() => player.isPlaying && !init ? this.pauseSong() : this.playSong(tracks[0])}
                       >
                         {player.isPlaying && !init ? <PauseCircleFilledRounded /> : <PlayCircleFilledRounded />}
                         &nbsp;{player.isPlaying && !init ? `Pause` : `Play All`}
@@ -236,5 +237,3 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps)(Bhajan)
-
-

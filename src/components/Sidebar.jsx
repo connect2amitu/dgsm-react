@@ -42,7 +42,7 @@ class Sidebar extends React.Component {
         >
           {
             <Paper style={{ width: 350 }} role="presentation"
-            // onClick={() => this.props.handlePlaylistSidebar(false)} onKeyDown={() => this.props.handlePlaylistSidebar(false)} 
+            // onClick={() => this.props.handlePlaylistSidebar(false)} onKeyDown={() => this.props.handlePlaylistSidebar(false)}
             >
               <List
                 component="nav"
@@ -100,11 +100,13 @@ class Sidebar extends React.Component {
                   )
                 }
                 ) :
-                  <Grid container alignItems={"center"} direction={"column"}>
-                    <Grid item><Button style={trackStyle}></Button></Grid>
-                    <Grid item><h4>Playlist is empty!</h4></Grid>
-                    <Grid item><p>Add a song to build your playlist.</p></Grid>
-                  </Grid>
+                  <List dense={false}>
+                    <Grid container alignItems={"center"} direction={"column"}>
+                      <Grid item><Button style={trackStyle}></Button></Grid>
+                      <Grid item><h4>Playlist is empty!</h4></Grid>
+                      <Grid item><p>Add a song to build your playlist.</p></Grid>
+                    </Grid>
+                  </List>
                 }
               </List>
             </Paper>

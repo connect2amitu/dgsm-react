@@ -154,12 +154,6 @@ class AlbumsDetail extends React.Component {
 
   }
 
-  static getDerivedStateFromProps(props, state) {
-
-    return state;
-  }
-
-
   componentDidMount() {
     var query = { size: 20, order: 'asc', page: 0 }
     this.props.dispatch(getAlbumWithTrack(this.props.match.params.slug, query))
@@ -178,5 +172,3 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps)(AlbumsDetail)
-
-
