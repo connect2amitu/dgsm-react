@@ -20,7 +20,9 @@ export const getDGSMAlbums = (query) => {
 }
 
 export const getAlbumWithTrack = (slug = "", query) => {
+
   var _URL = generateURL(URL + "/" + slug, query);
+  console.log('getAlbumWithTrack _URL =>', _URL);
 
   let options = {
     method: 'GET',

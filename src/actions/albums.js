@@ -9,19 +9,18 @@ export function getAlbums(data) {
 }
 
 export function getDGSMAlbums(data) {
-  console.log('getDGSMAlbums data =>', data);
-
   return {
     type: ALBUM.DGSM_FETCH_START,
     isLoading: true,
     payload: data
   }
 }
-export function getAlbumWithTrack(data) {
+export function getAlbumWithTrack(data, query) {
   return {
     type: ALBUM.DETAIL_FETCH_START,
     isLoading: true,
-    payload: data
+    payload: data,
+    query: query
   }
 }
 

@@ -35,7 +35,7 @@ class Bhajan extends React.Component {
     super(props);
     this.state = {
       init: true,
-      size: 10,
+      size: 50,
       page: 0,
       value: 0,
       lang: 'hindi',
@@ -116,7 +116,7 @@ class Bhajan extends React.Component {
                               <span >{index + 1}</span>
                             </Grid>
                             <Grid item><Button style={trackStyle}></Button></Grid>
-                            <Grid item xs={6} md={2}>
+                            <Grid item xs={6} md={6}>
                               <Grid container direction={"column"}>
                                 <Grid item>
                                   <span style={{ fontSize: 14, fontWeight: 500 }}>{removeExt(track.name)}</span>

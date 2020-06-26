@@ -156,8 +156,8 @@ class AlbumsDetail extends React.Component {
 
   componentDidMount() {
     var query = { size: 20, order: 'asc', page: 0 }
+    console.log('componentDidMount query =>', query);
     this.props.dispatch(getAlbumWithTrack(this.props.match.params.slug, query))
-
   }
 
 }
