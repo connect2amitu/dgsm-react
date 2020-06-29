@@ -145,8 +145,6 @@ class PlaylistDetail extends React.Component {
     const formdata = new FormData();
     formdata.append('playlist_id', match.params.id);
     formdata.append('name', playlistName);
-    console.log('playlistName =>', playlistName);
-
     dispatch(renamePlaylist(formdata));
     this.setState({ playlistName: "" }, () => {
       this.openClosePlaylistHandler();

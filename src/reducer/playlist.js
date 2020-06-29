@@ -124,16 +124,12 @@ const actionsMap = {
   },
 
   [PLAYLIST.RENAME_START]: (state, action) => {
-    console.log('RENAME_START called =>', PLAYLIST.RENAME_START);
-
     return {
       ...state,
       isLoading: true,
     }
   },
   [PLAYLIST.RENAME_SUCCESS]: (state, action) => {
-    console.log('action.data. =>', action.data);
-
     return {
       ...state,
       isLoading: false,

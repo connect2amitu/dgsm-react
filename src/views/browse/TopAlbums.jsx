@@ -60,8 +60,6 @@ class TopAlbums extends Component {
         }
       ]
     };
-    console.log('albums =>', albums);
-
     return (
       <div className={classes.album}>
         <Grid container justify={"space-between"} className={classes.heading}>

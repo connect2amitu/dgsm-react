@@ -7,3 +7,9 @@ export function getQuotes(data) {
     payload: data
   }
 }
+
+export function clearQuote() {
+  return {
+    type: QUOTE.CLEAR_ALL,
+  }
+}

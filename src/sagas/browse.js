@@ -5,8 +5,6 @@ import { BROWSE } from '../shared/constants';
 
 function fetchBrowse() {
   return function* (options) {
-    console.log('options =>', options);
-
     try {
       const data = yield call(() => getBrowseData(options.payload));
       const action = { type: BROWSE.FETCH_SUCCESS, data }
@@ -20,8 +18,6 @@ function fetchBrowse() {
 
 function fetchDGSMMainBrowse() {
   return function* (options) {
-    console.log('options =>', options);
-
     try {
       const data = yield call(() => getMainDGSMBrowse(options.payload));
       const action = { type: BROWSE.FETCH_DGSM_SUCCESS, data }

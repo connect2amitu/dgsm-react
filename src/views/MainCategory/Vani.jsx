@@ -18,16 +18,6 @@ import NoResultFound from '../../components/NoResultFound';
 import AlbumCard from '../../components/AlbumCard';
 import Error from '../../components/Error';
 
-var trackStyle = {
-  borderRadius: "10px",
-  background: `url(${logo})`,
-  height: "50px",
-  width: "50px",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
-}
-
 
 class Vani extends React.Component {
   constructor(props) {
@@ -49,7 +39,7 @@ class Vani extends React.Component {
     const { page } = this.state;
     var items = [];
 
-    !isLoading && albums.length > 0 ? albums.map((album, index) =>
+    !isLoading && albums.length > 0 && albums.map((album, index) =>
       items.push(
         <Fade in={true} key={index}>
           <Grid item xs={12} sm={4} md={3} lg={2}>
@@ -61,7 +51,7 @@ class Vani extends React.Component {
           </Grid>
         </Fade>
       )
-    ) : items.push(<Fade in={true} ><Grid item xs={12} sm={4} md={3} lg={2}><NoResultFound /></Grid></Fade>);
+    );
 
     return (
       <div className={classes.album}>
@@ -99,10 +89,11 @@ class Vani extends React.Component {
             {isLoading && !error && <CircularProgress />}
             {!isLoading && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
             {!isLoading && error && <Error />}
+            {!isLoading && !error && items.length <= 0 && <Fade in={true} ><Grid item xs={12} sm={4} md={3} lg={2}><NoResultFound /></Grid></Fade>}
           </Grid>
           {items}
         </Grid>
-      </div>
+      </div >
     )
   }
 

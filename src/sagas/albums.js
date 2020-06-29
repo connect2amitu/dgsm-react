@@ -20,9 +20,6 @@ function fetchAlbums() {
 
 function fetchDGSMAlbums() {
   return function* (options) {
-    console.log('fetchDGSMAlbums options =>', options);
-
-
     try {
       const data = yield call(() => getDGSMAlbums(options.payload));
       const action = { type: ALBUM.FETCH_SUCCESS, data }
@@ -36,7 +33,6 @@ function fetchDGSMAlbums() {
 
 function fetchAlbumWithTracks() {
   return function* (options) {
-    console.log('options.payload =>', options.payload);
 
     try {
       const data = yield call(() => getAlbumWithTrack(options.payload, options.query));

@@ -18,8 +18,6 @@ export function playerFetchPlayerList(data) {
 
 //Add Track to play list Handler
 export function playerAddTrack(data) {
-  console.log('playerAddTrack data =>', data);
-
   return {
     type: PLAYER.ADD_TRACK,
     payload: data

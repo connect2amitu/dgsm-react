@@ -46,7 +46,6 @@ class Bhajan extends React.Component {
   render() {
     const { browse, isLoading, player, tracks, error, totalPages, total, isLoadingTracks } = this.props;
     const { init, page, value } = this.state;
-    console.info('browse => ', browse);
 
     return (
       <div className={classes.browse}>
@@ -175,7 +174,6 @@ class Bhajan extends React.Component {
     }, () => {
       const { size, lang } = this.state;
       var query = { slug: this.props.match.params[0], content: 'bhajan', page: 0, size, lang };
-      console.log('query =>', query);
       this.props.dispatch(clearBrowse());
       this.props.dispatch(getBrowseWithTrack(query));
     })
@@ -186,7 +184,6 @@ class Bhajan extends React.Component {
     const { page, size, lang } = this.state
     this.setState({ page: page + 1 }, () => {
       var query = { slug: this.props.match.params[0], content: 'bhajan', page: page * size, size, lang };
-      console.log('query =>', query);
       this.props.dispatch(getBrowseWithTrack(query));
     })
   }

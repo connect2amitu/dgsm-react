@@ -30,8 +30,6 @@ export default function FullScreenPlayer(props) {
 
   const tags = player && player.currentTrack && player.currentTrack.track && player.currentTrack.track.tags && player.currentTrack.track.tags.length > 0 ? player.currentTrack.track.tags.split(", ") : [];
   // const tags = [];
-  console.log('tags =>', tags);
-
   const lyrics = _.get(player, 'currentTrack.track.lyrics', false)
 
   return (
@@ -119,7 +117,7 @@ export default function FullScreenPlayer(props) {
                       >
                         <MoreHorizRounded className={classes.color_white} />
                       </IconButton> */}
-                      <Menu
+                      {/* <Menu
                         id="simple-menu"
                         anchorEl={anchorEl}
                         keepMounted
@@ -129,15 +127,19 @@ export default function FullScreenPlayer(props) {
                         <MenuItem onClick={openPlaylistModal}>Add to playlist</MenuItem>
                         <MenuItem onClick={closeMenu}>Share</MenuItem>
                         <MenuItem onClick={closeMenu}>View Lyrics</MenuItem>
-                      </Menu>
-                      <IconButton
-                        disabled={isActiveActionBtn}
-                        onClick={openPlaylistModal} color={"inherit"}
-                        aria-controls="simple-menu"
-                        aria-haspopup="true"
-                      >
-                        <QueuePlayNextRounded />
-                      </IconButton>
+                      </Menu> */}
+                      <Tooltip title={"Add to playlist"} placement="top">
+                        <span>
+                          <IconButton
+                            disabled={isActiveActionBtn}
+                            onClick={openPlaylistModal} color={"inherit"}
+                            aria-controls="simple-menu"
+                            aria-haspopup="true"
+                          >
+                            <QueuePlayNextRounded className={classes.color_white} />
+                          </IconButton>
+                        </span>
+                      </Tooltip>
                     </Grid>
                   </Grid>
                 </Grid>

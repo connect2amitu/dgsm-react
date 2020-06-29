@@ -37,6 +37,9 @@ export default class MainCategoryDetail extends Component {
               <Grid item>
                 <Button component={NavLink} to={`/browse/${this.props.match.params[0]}/vani`} disabled={false} variant="contained" color="primary">Vani</Button>
               </Grid>
+              <Grid item>
+                <Button component={NavLink} to={`/browse/${this.props.match.params[0]}/quote`} disabled={false} variant="contained" color="primary">Quote</Button>
+              </Grid>
               {/* <Grid item>
                 <Button component={NavLink} to={`/browse/${this.props.match.params[0]}/vani`} disabled={false} variant="contained" color="primary">Vani</Button>
               </Grid>
