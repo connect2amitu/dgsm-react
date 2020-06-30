@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import { Button, Dialog, IconButton, Slide, Grid, Fade, Chip, Tooltip, Menu, MenuItem } from '@material-ui/core';
-import { MoreVertRounded, ExpandMoreRounded, SkipPreviousRounded, PauseCircleFilledRounded, PlayCircleFilledRounded, SkipNextRounded, VolumeOffRounded, VolumeUpRounded, QueueMusicRounded, MoreHorizRounded, QueuePlayNextRounded } from '@material-ui/icons';
+import { Button, Dialog, IconButton, Slide, Grid, Fade, Chip, Tooltip } from '@material-ui/core';
+import { MoreVertRounded, ExpandMoreRounded, SkipPreviousRounded, PauseCircleFilledRounded, PlayCircleFilledRounded, SkipNextRounded, VolumeOffRounded, VolumeUpRounded, QueueMusicRounded, QueuePlayNextRounded } from '@material-ui/icons';
 import { HOST_API } from '../shared/constants';
 import { removeExt, display } from '../shared/funs';
 import classes from '../assets/css/player.module.scss';
@@ -18,7 +18,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function FullScreenPlayer(props) {
   const [open, setOpen] = useState(false);
-  const { player, disabled, isActiveActionBtn, prevSong, nextSong, muteHandler, handlePlaylistSidebar, playPause, openPlaylist, openPlaylistModal, closeMenu, anchorEl, handleClick } = props;
+  const { player, disabled, isActiveActionBtn, prevSong, nextSong, muteHandler, handlePlaylistSidebar, playPause, openPlaylist, openPlaylistModal } = props;
 
   const handleClickOpen = () => {
     setOpen(true);

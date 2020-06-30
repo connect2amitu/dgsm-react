@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Grid, Button, Fade, IconButton, CircularProgress, TextField } from '@material-ui/core';
+import { Grid, Button, Fade, IconButton, TextField } from '@material-ui/core';
 import { playStopButtonClickHandler, removeExt } from '../../shared/funs';
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
 import PlayPauseButton from '../../components/PlayPauseButton';
@@ -10,17 +10,6 @@ import logo from '../../assets/images/logo.png'
 import classes from '../../assets/css/album.module.scss';
 import { getPlaylistTrack, removeTrackFromPlaylist, removePlaylist, renamePlaylist } from '../../actions/playlist';
 import { CancelRounded, PauseCircleFilledRounded, PlayCircleFilledRounded, DeleteForeverRounded } from '@material-ui/icons';
-
-
-var trackStyle = {
-  borderRadius: "10px",
-  background: `url(${logo})`,
-  height: "60px",
-  width: "60px",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
-}
 
 class PlaylistDetail extends React.Component {
   constructor(props) {
@@ -34,7 +23,7 @@ class PlaylistDetail extends React.Component {
   }
 
   render() {
-    const { playlist, isLoading, player, isLoadingPlaylist } = this.props;
+    const { playlist, isLoading, player } = this.props;
     const { init, openPlaylist, playlistName } = this.state;
     return (
       <div className={classes.albumDetail}>

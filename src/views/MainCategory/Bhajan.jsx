@@ -3,7 +3,7 @@
 
 import React from 'react'
 import { connect } from 'react-redux';
-import { Grid, Button, Fade, Tabs, Tab, Typography } from '@material-ui/core';
+import { Grid, Button, Fade, Tabs, Tab } from '@material-ui/core';
 import { LANGUAGES } from '../../shared/constants';
 import { playStopButtonClickHandler, removeExt } from '../../shared/funs';
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
@@ -41,7 +41,7 @@ class Bhajan extends React.Component {
   }
 
   render() {
-    const { browse, isLoading, player, tracks, error, totalPages, total, isLoadingTracks } = this.props;
+    const { browse, isLoading, player, tracks, error, totalPages, isLoadingTracks } = this.props;
     const { init, page, value } = this.state;
 
     return (

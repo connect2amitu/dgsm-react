@@ -3,17 +3,10 @@
 
 import React from 'react'
 import { connect } from 'react-redux';
-import { Grid, Button, Chip, Fade, CircularProgress, Tabs, Tab, Box, Typography } from '@material-ui/core';
-import { getAlbumWithTrack, getAlbums, clearAlbums, getDGSMAlbums } from '../../actions/albums';
-import { HOST_API, LANGUAGES } from '../../shared/constants';
-import { playStopButtonClickHandler, removeExt } from '../../shared/funs';
-import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
-import PlayPauseButton from '../../components/PlayPauseButton';
-import logo from '../../assets/images/logo.png'
-import { PlayCircleFilledRounded, PauseCircleFilledRounded } from '@material-ui/icons';
-import { NavLink } from 'react-router-dom';
+import { Grid, Button, Fade, CircularProgress, } from '@material-ui/core';
+import { clearAlbums, getDGSMAlbums } from '../../actions/albums';
+import { playStopButtonClickHandler } from '../../shared/funs';
 import classes from '../../assets/css/album.module.scss';
-import Loading from '../../components/Loading';
 import NoResultFound from '../../components/NoResultFound';
 import AlbumCard from '../../components/AlbumCard';
 import Error from '../../components/Error';
