@@ -56,33 +56,6 @@ class Vani extends React.Component {
     return (
       <div className={classes.album}>
         <Grid container spacing={1} className={classes.browseContainer}>
-          {/* <Grid item >
-                <Fade in={true}>
-                  <div><Button className={classes.cover} style={{ backgroundImage: `url(${'https://admin.dgsm.in'}/${browse.avatar})` }}></Button></div>
-                </Fade>
-              </Grid> */}
-          {/* <Grid item>
-                <Grid container direction={"column"} spacing={1} className={classes.browseMeta}>
-                  <Grid item>
-                    <h1 className={classes.browseName}>{browse.name}</h1>
-                  </Grid>
-                  <Grid item>
-                    <span>Vani</span>
-                  </Grid>
-                  {browse && browse.tracks && browse.tracks.length > 0 &&
-                    <Grid item>
-                      <Button
-                        color={"primary"}
-                        variant={"contained"}
-                        onClick={() => player.isPlaying && !init ? this.pauseSong() : this.playSong(browse.tracks[0])}
-                      >
-                        {player.isPlaying && !init ? <PauseCircleFilledRounded /> : <PlayCircleFilledRounded />}
-                        &nbsp;{player.isPlaying && !init ? `Pause` : `Play All`}
-                      </Button>
-                    </Grid>
-                  }
-                </Grid>
-              </Grid> */}
         </Grid>
         <Grid container spacing={4} justify={"flex-start"} alignItems={"center"} className={classes.container} >
           <Grid item xs={12} style={{ textAlign: "center" }}>

@@ -3,18 +3,15 @@
 
 import React from 'react'
 import { connect } from 'react-redux';
-import { Grid, Button, Chip, Fade, CircularProgress, Tabs, Tab, Box, Typography } from '@material-ui/core';
-import { getAlbumWithTrack } from '../../actions/albums';
-import { HOST_API, LANGUAGES } from '../../shared/constants';
+import { Grid, Button, Fade, Tabs, Tab, Typography } from '@material-ui/core';
+import { LANGUAGES } from '../../shared/constants';
 import { playStopButtonClickHandler, removeExt } from '../../shared/funs';
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
 import PlayPauseButton from '../../components/PlayPauseButton';
 import logo from '../../assets/images/logo.png'
 import { PlayCircleFilledRounded, PauseCircleFilledRounded } from '@material-ui/icons';
-import { NavLink } from 'react-router-dom';
 import classes from '../../assets/css/browse.module.scss';
 import { getBrowseWithTrack, clearBrowse } from '../../actions/browse';
-import PhoneIcon from '@material-ui/icons/Phone';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Loading from '../../components/Loading';
 import NoResultFound from '../../components/NoResultFound';
@@ -80,9 +77,6 @@ class Bhajan extends React.Component {
               </Grid>
             </Grid>
             <Grid container className={classes.trackContainer} spacing={2}>
-              {/* <Grid item xs={12} sm={8} md={10}>
-                <h3 className={classes.trackLabel}>Tracks ({tracks.length})</h3>
-              </Grid> */}
               <Grid item xs={12}>
                 <Grid container justify={"center"}>
                   <Grid item>

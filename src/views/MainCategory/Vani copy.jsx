@@ -222,15 +222,6 @@ class Vani extends React.Component {
 
   }
 
-
-  // loadData = () => {
-  //   const { page, size } = this.state
-  //   this.setState({ page: page + 1 }, () => {
-  //     var query = { slug: this.props.match.params[0], content: 'bhajan', page: page * size };
-  //     this.props.dispatch(getBrowseWithTrack(query));
-  //   })
-  // }
-
   componentDidMount() {
     this.loadData();
   }

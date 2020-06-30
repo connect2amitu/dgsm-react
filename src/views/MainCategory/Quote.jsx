@@ -26,7 +26,7 @@ class Quote extends React.Component {
       items.push(
         <Fade in={true} key={index}>
           <Grid item xs={12}>
-            <h1>{quote.quote}</h1>
+            <p>{quote.quote}</p>
           </Grid>
         </Fade>
       )
