@@ -103,13 +103,13 @@ class Bhajan extends React.Component {
                   {
                     !isLoading && tracks.length > 0 ? tracks.map((track, index) =>
                       <Fade in={true} key={index}>
-                        <Grid item xs={12} >
-                          <Grid container spacing={1} alignItems={"center"} >
+                        <Grid item xs={12} sm={8} >
+                          <Grid container spacing={1} justify={"center"} >
                             <Grid item style={{ width: "25px" }}>
                               <span >{index + 1}</span>
                             </Grid>
                             <Grid item><Button style={trackStyle}></Button></Grid>
-                            <Grid item xs={6} md={6}>
+                            <Grid item xs={6} md={4}>
                               <Grid container direction={"column"}>
                                 <Grid item>
                                   <span style={{ fontSize: 14, fontWeight: 500 }}>{removeExt(track.name)}</span>

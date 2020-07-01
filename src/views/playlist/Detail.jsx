@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Grid, Button, Fade, IconButton, TextField } from '@material-ui/core';
+import { Grid, Button, Fade, IconButton, TextField, Tooltip } from '@material-ui/core';
 import { playStopButtonClickHandler, removeExt } from '../../shared/funs';
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
 import PlayPauseButton from '../../components/PlayPauseButton';
@@ -9,7 +9,8 @@ import DialogBox from '../../components/DialogBox';
 import logo from '../../assets/images/logo.png'
 import classes from '../../assets/css/album.module.scss';
 import { getPlaylistTrack, removeTrackFromPlaylist, removePlaylist, renamePlaylist } from '../../actions/playlist';
-import { CancelRounded, PauseCircleFilledRounded, PlayCircleFilledRounded, DeleteForeverRounded } from '@material-ui/icons';
+import { CancelRounded, PauseCircleFilledRounded, PlayCircleFilledRounded, DeleteForeverRounded, EditRounded } from '@material-ui/icons';
+import NoResultFound from '../../components/NoResultFound';
 
 class PlaylistDetail extends React.Component {
   constructor(props) {
@@ -43,21 +44,34 @@ class PlaylistDetail extends React.Component {
                   <Grid item>
                     <Grid container spacing={1}>
                       <Grid item>
-                        <Button
-                          color={"primary"}
-                          disabled={playlist && playlist.tracks && playlist.tracks.length > 0 ? false : true}
-                          variant={"contained"}
-                          onClick={() => player.isPlaying && !init ? this.pauseSong() : this.playSong(playlist && playlist.tracks[0])}
-                        >
-                          {player.isPlaying && !init ? <PauseCircleFilledRounded /> : <PlayCircleFilledRounded />}
-                        &nbsp;{player.isPlaying && !init ? `Pause` : `Play All`}
-                        </Button>
+                        <Tooltip title={"Play all tracks"} placement="top">
+                          <span>
+                            <IconButton
+                              disabled={playlist && playlist.tracks && playlist.tracks.length > 0 ? false : true}
+                              onClick={() => player.isPlaying && !init ? this.pauseSong() : this.playSong(playlist && playlist.tracks[0])}
+                            >
+                              {player.isPlaying && !init ? <PauseCircleFilledRounded /> : <PlayCircleFilledRounded />}
+                            </IconButton>
+                          </span>
+                        </Tooltip>
                       </Grid>
                       <Grid item>
-                        <Button color={"primary"} variant={"contained"} onClick={this.openClosePlaylistHandler}>Rename</Button>
+                        <Tooltip title={"Rename Playlist"} placement="top">
+                          <span>
+                            <IconButton>
+                              <EditRounded onClick={this.openClosePlaylistHandler} />
+                            </IconButton>
+                          </span>
+                        </Tooltip>
                       </Grid>
                       <Grid item>
-                        <Button color={"primary"} variant={"contained"} onClick={this.deletePlaylist}><DeleteForeverRounded /> Delete</Button>
+                        <Tooltip title={"Delete Playlist"} placement="top">
+                          <span>
+                            <IconButton>
+                              <DeleteForeverRounded onClick={this.deletePlaylist} />
+                            </IconButton>
+                          </span>
+                        </Tooltip>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -67,16 +81,13 @@ class PlaylistDetail extends React.Component {
               </Grid>
             </Grid>
             <Grid container direction={"column"}>
-              <Grid item xs={12} sm={8} md={10}>
-                <h3>{`Tracks (${playlist && playlist.tracks && playlist.tracks.length})`}</h3>
-              </Grid>
               <Grid item xs={12}>
                 <Grid container spacing={1}>
                   {
-                    playlist && playlist.tracks && playlist.tracks.length > 0 && playlist.tracks.map((track, index) =>
+                    playlist && playlist.tracks && playlist.tracks.length > 0 ? playlist.tracks.map((track, index) =>
                       <Fade in={true} key={index}>
                         <Grid item xs={12} >
-                          <Grid container spacing={1} alignItems={"center"} >
+                          <Grid container spacing={1} justify={"center"} >
                             <Grid item >
                               <IconButton
                                 onClick={() => this.removeTrack(track.id)}
@@ -85,7 +96,7 @@ class PlaylistDetail extends React.Component {
                               </IconButton>
                             </Grid>
                             {/* <Grid item><Button style={trackStyle}></Button></Grid> */}
-                            <Grid item xs={8} md={2}>
+                            <Grid item xs={6} md={4}>
                               <Grid container direction={"column"}>
                                 <Grid item>
                                   <span style={{ fontSize: 14, fontWeight: 500 }}>{removeExt(track.name)}</span>
@@ -108,7 +119,9 @@ class PlaylistDetail extends React.Component {
                           </Grid>
                         </Grid>
                       </Fade>
-                    )}
+                    ) : <Fade in={true}>
+                        <Grid item xs={12} ><NoResultFound /></Grid>
+                      </Fade>}
                 </Grid>
               </Grid>
             </Grid>

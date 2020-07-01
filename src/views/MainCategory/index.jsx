@@ -20,7 +20,7 @@ export default class MainCategoryDetail extends Component {
     var data = find(MAIN_CATEGORY, { 'slug': slug });
     return (
       <div className={classes.mainCategory}>
-        <Grid container spacing={2} direction={"column"} className={classes.container}>
+        <Grid container spacing={2} direction={"column"} alignItems={"center"} className={classes.container}>
           <Grid item className={classes.albumCard}>
             <Fade in={true}>
               <div><Button className={classes.cover} style={{ ...trackStyle, backgroundImage: `url(${data.image})` }}></Button></div>

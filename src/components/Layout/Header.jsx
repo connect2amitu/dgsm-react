@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AppBar, Toolbar, Button, Grid, Typography, Avatar, Tooltip, IconButton, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
+import { AppBar, Toolbar, Button, Grid, Typography, Avatar, Tooltip, IconButton, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, Paper } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
 import { NightsStayRounded, WbSunnyRounded, MenuRounded } from '@material-ui/icons'
 import { changeTheme } from '../../actions/global'
@@ -35,7 +35,12 @@ const useStyles = makeStyles((theme) => ({
   },
   mobileDrawer: {
     width: 250
+  },
+  textAlignCenter: {
+    textAlign: "center"
   }
+
+
 }));
 
 
@@ -56,7 +61,13 @@ function Header(props) {
       <AppBar position="fixed">
         <Toolbar>
           <Grid container justify={"space-between"} alignItems={"center"}>
-            <Grid item>
+            <Grid item className={classes.mobile}>
+              <Grid container alignItems={"center"}>
+                <IconButton onClick={handleDrawerToggle}><MenuRounded style={{ fill: "#fff" }} /></IconButton>
+                <Typography variant="h6" component={NavLink} to={"/"} color={"inherit"} style={{ textDecoration: "none" }} > DGSM </Typography>
+              </Grid>
+            </Grid>
+            <Grid item className={classes.desktop}>
               <Typography variant="h6" component={NavLink} to={"/"} color={"inherit"} style={{ textDecoration: "none" }} > DGSM </Typography>
             </Grid>
             <Grid item className={classes.desktop}>
@@ -85,57 +96,39 @@ function Header(props) {
               </Grid>
             </Grid>
             <Grid item className={classes.mobile}>
-              <IconButton onClick={handleDrawerToggle}><MenuRounded style={{ fill: "#fff" }} /></IconButton>
               <SwipeableDrawer
-                anchor={"right"}
+                anchor={"left"}
                 open={mobileOpen}
                 onClose={handleDrawerToggle}
                 onOpen={handleDrawerToggle}
               >
-                <List>
-                  <ListItem style={{ textAlign: "center" }} disabled={true} button component={NavLink} to={"/browse"} onClick={handleDrawerToggle}>
+                <List
+                  className={classes.mobileDrawer}
+                >
+                  <ListItem className={classes.textAlignCenter} disabled={true} button component={NavLink} to={"/browse"} onClick={handleDrawerToggle}>
                     <ListItemText primary={"DGSM"} />
                   </ListItem>
                   {
                     isLoggedIn &&
-                    <ListItem button style={{ display: "flex", flexDirection: "column" }}>
-                      <ListItemIcon><Avatar src={user.picture} style={{ height: 70, width: 70 }} /></ListItemIcon>
-                      <ListItemText primary={user.name || "DGSM"} />
-                    </ListItem>
+                    <Paper elevation={5}>
+                      <ListItem button style={{ display: "flex", flexDirection: "column" }}>
+                        <ListItemIcon><Avatar src={user.picture} style={{ height: 70, width: 70 }} /></ListItemIcon>
+                        <ListItemText primary={user.name || "DGSM"} />
+                      </ListItem>
+                    </Paper>
                   }
-                  <ListItem button component={NavLink} to={"/browse"} onClick={handleDrawerToggle}>
+                  <ListItem className={classes.textAlignCenter} button component={NavLink} to={"/browse"} onClick={handleDrawerToggle}>
                     <ListItemText primary={"Browse"} />
                   </ListItem>
-                  <ListItem button component={NavLink} to={"/my-playlist"} onClick={handleDrawerToggle}>
+                  <ListItem className={classes.textAlignCenter} button component={NavLink} to={"/my-playlist"} onClick={handleDrawerToggle}>
                     <ListItemText primary={"My Playlist"} />
                   </ListItem>
 
 
-                  <ListItem button onClick={() => { themHandler(); handleDrawerToggle() }} >
+                  <ListItem className={classes.textAlignCenter} button onClick={() => { themHandler(); handleDrawerToggle() }} >
                     <ListItemText primary={props.isDark ? <WbSunnyRounded /> : <NightsStayRounded />} />
                   </ListItem>
                 </List>
-                <Grid container className={classes.mobileDrawer} spacing={1} alignItems={"center"} direction={"column"}>
-                  {/* <Grid item>
-                    <Button component={NavLink} to={"/browse"} color="inherit" onClick={handleDrawerToggle}>Browse</Button>
-                  </Grid> */}
-                  {/* <Grid item>
-                    <Tooltip title={"My Playlist"} placement="top">
-                      <Button disabled={false} component={NavLink} to={"/my-playlist"} color="inherit" onClick={handleDrawerToggle}>My Playlist</Button>
-                    </Tooltip>
-                  </Grid>
-                  {
-                    isLoggedIn &&
-                    <Grid item>
-                      <IconButton><Avatar src={user.picture} style={{ height: 70, width: 70 }} /></IconButton>
-                    </Grid>
-                  }
-                  <Grid item>
-                    <Tooltip title={"Theme"} placement="bottom">
-                      <IconButton onClick={() => { themHandler(); handleDrawerToggle() }} color="inherit"> {props.isDark ? <WbSunnyRounded /> : <NightsStayRounded />}  </IconButton>
-                    </Tooltip>
-                  </Grid> */}
-                </Grid>
               </SwipeableDrawer>
             </Grid>
           </Grid>

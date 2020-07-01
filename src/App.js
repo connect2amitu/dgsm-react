@@ -26,6 +26,17 @@ const MainCategoryQuote = React.lazy(() => import('./views/MainCategory/Quote'))
 const MainCategoryJivani = React.lazy(() => import('./views/MainCategory/Jivani'));
 const Page404 = React.lazy(() => import('./components/404'));
 
+console.log(`%c
+██████╗  ██████╗ ███████╗███╗   ███╗\r
+██╔══██╗██╔════╝ ██╔════╝████╗ ████║\r
+██║  ██║██║  ███╗███████╗██╔████╔██║\r
+██║  ██║██║   ██║╚════██║██║╚██╔╝██║\r
+██████╔╝╚██████╔╝███████║██║ ╚═╝ ██║\r
+╚═════╝  ╚═════╝ ╚══════╝╚═╝     ╚═╝`,
+  'background: #222; color: #e38461');
+
+
+
 function App({ isDark }) {
   return (
     <BrowserRouter
