@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { getAlbums, clearAlbums } from '../../actions/albums';
-import { Button, Grid, CircularProgress } from '@material-ui/core';
+import { Button, Grid, CircularProgress, Typography } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
 import classes from '../../assets/css/album.module.scss';
 import AlbumCard from '../../components/AlbumCard';
+import Skeleton from 'react-loading-skeleton';
 
 class Albums extends React.Component {
   constructor(props) {
@@ -43,10 +44,28 @@ class Albums extends React.Component {
         </Grid>
         <Grid container spacing={4} justify={"flex-start"} alignItems={"center"} className={classes.container} >
           {items}
+          {
+            isLoading && !error && new Array(3).fill(null).map((o, index) =>
+              <Fade in={true} key={index}>
+                <Grid item xs={12} sm={4} md={3} lg={2}>
+                  <Grid container className={classes.albumCard}>
+                    <Grid item xs={12}>
+                      <Skeleton
+                        className={classes.cover}
+                        animation={"wave"}
+                        variant="rect" />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography style={{ marginTop: "10px" }} variant={"body1"}><Skeleton animation={"wave"} width={180} height={15} variant="rect" /></Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Fade>
+            )
+          }
           <Grid item xs={12} style={{ textAlign: "center" }}>
             {!isLoading && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
-            {isLoading && !error && <CircularProgress />}
-            {error && "Something went wrong"}
+            {!isLoading && error && "Something went wrong"}
           </Grid>
         </Grid>
 

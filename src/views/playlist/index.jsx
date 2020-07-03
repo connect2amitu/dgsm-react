@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Button, Grid, CircularProgress, TextField } from '@material-ui/core';
+import { Button, Grid, CircularProgress, TextField, Typography } from '@material-ui/core';
 import { playStopButtonClickHandler } from '../../shared/funs';
 import { Fade } from '@material-ui/core';
 import PlaylistCard from '../../components/PlaylistCard';
@@ -9,7 +9,16 @@ import DialogBox from '../../components/DialogBox';
 import GoogleLogin from 'react-google-login';
 import { GOOGLE_CLIENT_ID } from '../../shared/constants';
 import { addAuthUser } from '../../actions/global';
+import Skeleton from 'react-loading-skeleton';
 
+var trackStyle = {
+  borderRadius: "10px",
+  height: "200px",
+  width: "200px",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+}
 
 class MyPlaylist extends React.Component {
   constructor(props) {
@@ -52,8 +61,27 @@ class MyPlaylist extends React.Component {
         </Grid>
         <Grid container spacing={3} justify={"center"}>
           {items}
+          {
+            isLoadingPlaylist && !error && new Array(3).fill(null).map((o, index) =>
+              <Fade in={true} key={index}>
+                <Grid item id={index}>
+                  <Grid container direction={"column"} alignItems={"center"}>
+                    <Grid item xs={12}>
+                      <Skeleton
+                        style={trackStyle}
+                        animation={"wave"}
+                        variant="rect" />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography style={{ marginTop: "10px" }} variant={"body1"}><Skeleton animation={"wave"} width={180} height={15} variant="rect" /></Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Fade>
+            )
+          }
           < Grid item xs={12} style={{ textAlign: "center" }}>
-            {isLoading && !error && <CircularProgress />}
+            {/* {isLoading && !error && <CircularProgress />} */}
             {!isLoggedIn && <GoogleLogin
               clientId={GOOGLE_CLIENT_ID}
               buttonText="Login with Google"
