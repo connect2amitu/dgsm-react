@@ -23,7 +23,9 @@ body {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
-
+.slick-prev:before, .slick-next:before{
+  color: #009688 !important;
+}
 .MuiTab-root{
   padding: 6px 5px !important;
 }

@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import { Grid, Button, Chip, Fade } from '@material-ui/core';
 import { getAlbumWithTrack } from '../../actions/albums';
 import { HOST_API } from '../../shared/constants';
-import { playStopButtonClickHandler, removeExt } from '../../shared/funs';
+import { playStopButtonClickHandler, removeExt, randomNumber } from '../../shared/funs';
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
 import PlayPauseButton from '../../components/PlayPauseButton';
 import logo from '../../assets/images/logo.png'
 import { PlayCircleFilledRounded, PauseCircleFilledRounded } from '@material-ui/icons';
 import { NavLink } from 'react-router-dom';
 import classes from '../../assets/css/album.module.scss';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 
 var trackStyle = {
@@ -20,6 +21,7 @@ var trackStyle = {
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
+  minWidth: "inherit",
 }
 
 class AlbumsDetail extends React.Component {
@@ -32,7 +34,7 @@ class AlbumsDetail extends React.Component {
   }
 
   render() {
-    const { albumDetail, isLoading, player } = this.props;
+    const { albumDetail, isLoading, error, player } = this.props;
     const { init, } = this.state;
 
     return (
@@ -93,9 +95,6 @@ class AlbumsDetail extends React.Component {
                       <Fade in={true} key={index}>
                         <Grid item xs={12} >
                           <Grid container spacing={1} justify={"center"} >
-                            <Grid item >
-                              <span >{index + 1}</span>
-                            </Grid>
                             <Grid item><Button style={trackStyle}></Button></Grid>
                             <Grid item xs={6} md={4}>
                               <Grid container direction={"column"}>
@@ -120,9 +119,108 @@ class AlbumsDetail extends React.Component {
                         </Grid>
                       </Fade>
                     )}
+
                 </Grid>
               </Grid>
             </Grid>
+          </>
+        }
+        {
+          isLoading && !error &&
+          <>
+            <Grid container spacing={2} className={classes.albumContainer}>
+              <Grid item >
+                <Fade in={true}>
+                  <div>
+                    <Skeleton className={classes.cover} variant="rect" />
+                  </div>
+                </Fade>
+              </Grid>
+              <Grid item>
+                <Grid container direction={"column"} spacing={1} className={classes.albumMeta}>
+                  <Grid item>
+                    <Skeleton style={{ marginTop: 5 }} variant="rect" width={randomNumber(250, 300)} height={33} />
+                  </Grid>
+                  <Grid item>
+                    <Grid container direction={"column"} justify={"center"} spacing={1} className={classes.tags} >
+                      <Grid item>
+                        <Skeleton style={{ marginTop: 5 }} variant="rect" width={randomNumber(150, 280)} height={15} />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item>
+                  </Grid>
+                  <Grid item>
+                    <Skeleton style={{ marginTop: 5 }} variant="rect" width={randomNumber(127, 127)} height={36} />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+            {/* <Grid container direction={"column"}>
+              <Grid item xs={12}>
+                <Grid container spacing={1}>
+                  {new Array(10).fill(null).map((track, index) => <Fade in={true} key={index}>
+                    <Grid item xs={12} sm={8} >
+                      <Grid container spacing={1} justify={"center"} >
+                        <Grid item><Skeleton style={{ borderRadius: 10 }} variant="rect" width={50} height={50} /></Grid>
+                        <Grid item xs={6} md={4}>
+                          <Grid container direction={"column"}>
+                            <Grid item className={classes.trackName}>
+                              <Skeleton style={{ marginTop: 5 }} variant="rect" width={randomNumber(150, 200)} height={15} />
+                            </Grid>
+                            <Grid item className={classes.albumName}>
+                              <Skeleton style={{ marginTop: 5 }} variant="rect" width={randomNumber(80, 150)} height={8} />
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <Grid container justify={"center"}>
+                            <Skeleton variant="circle" width={25} height={25} />
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Fade>
+                  )}
+                </Grid>
+              </Grid>
+            </Grid> */}
+            <Grid container direction={"column"}>
+              <Grid item xs={12}>
+                <Grid container spacing={1}>
+                  {
+                    new Array(10).fill(null).map((track, index) =>
+                      <Fade in={true} key={index}>
+                        <Grid item xs={12} >
+                          <Grid container spacing={1} justify={"center"} >
+                            <Grid item><Skeleton style={trackStyle} variant="rect" width={64} height={64} /></Grid>
+                            <Grid item xs={6} md={4}>
+                              <Grid container direction={"column"}>
+                                <Grid item className={classes.trackName}>
+                                  <Skeleton style={{ marginTop: 5 }} variant="rect" width={randomNumber(150, 200)} height={18} />
+                                </Grid>
+                                <Grid item className={classes.albumName}>
+                                  <Skeleton style={{ marginTop: 5 }} variant="rect" width={randomNumber(80, 150)} height={10} />
+                                </Grid>
+                                <Grid item>
+                                  <Skeleton style={{ marginTop: 5 }} variant="rect" width={randomNumber(10, 70)} height={7} />
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                            <Grid item xs={2}>
+                              <Grid container justify={"center"}>
+                                <Skeleton variant="circle" width={25} height={25} />
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </Fade>
+                    )}
+
+                </Grid>
+              </Grid>
+            </Grid>
+
           </>
         }
       </div>
@@ -163,6 +261,7 @@ const mapStateToProps = state => {
   return {
     albumDetail: state.albums.albumDetail,
     isLoading: state.albums.isLoading,
+    error: state.albums.error,
     player: state.player,
   }
 }

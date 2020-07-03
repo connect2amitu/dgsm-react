@@ -211,7 +211,7 @@ class Player extends React.Component {
 
         <Sidebar open={open} handlePlaylistSidebar={this.handlePlaylistSidebar} />
 
-        <DialogBox size={"md"} handleClose={this.closePlaylistModal} onSubmit={this.createNewPlaylist} open={openPlaylist} heading={"ADDED TO PLAYLIST"} description={""} >
+        <DialogBox size={"md"} playlistName={playlistName} handleClose={this.closePlaylistModal} onSubmit={this.createNewPlaylist} open={openPlaylist} heading={"ADDED TO PLAYLIST"} description={""} >
           <List dense={true}>
             {
               playlists.map((playlist, index) =>
@@ -228,7 +228,17 @@ class Player extends React.Component {
               )
             }
           </List>
-          <TextField autoFocus onChange={(e) => this.setState({ playlistName: e.target.value })} value={playlistName} margin="dense" autoComplete={"off"} id="name" label="Enter playlist name" type="text" fullWidth />
+          <TextField
+            autoFocus
+            onChange={(e) => this.setState({ playlistName: e.target.value })}
+            value={playlistName}
+            margin="dense"
+            autoComplete={"off"}
+            id="name"
+            label="Enter playlist name"
+            type="text"
+            fullWidth
+          />
           {isLoadingPlaylist && <CircularProgress />}
         </DialogBox>
 
@@ -267,11 +277,6 @@ class Player extends React.Component {
     this.setState({ snackbar: true, message: "Track added in playlist" });
   }
 
-
-
-
-
-
   responseGoogle = (response) => {
     const { dispatch } = this.props;
     var resp = JSON.parse(JSON.stringify(response));
@@ -285,7 +290,6 @@ class Player extends React.Component {
     this.closePlaylistModal();
     this.setState({ openPlaylist: true, anchorEl: null });
   }
-
 
   openPlaylistModal = () => {
     const { isLoggedIn } = this.props

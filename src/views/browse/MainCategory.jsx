@@ -6,6 +6,7 @@ import Error from '../../components/Error';
 import classes from '../../assets/css/album.module.scss';
 import { NavLink } from 'react-router-dom';
 import { getDGSMBrowse } from '../../actions/browse';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 
 var cardStyle = {
@@ -49,7 +50,25 @@ class MainCategory extends Component {
               )
             }
           </Grid>
-          : <Loading />
+          : <Grid container spacing={1} >
+            {
+              new Array(4).fill(null).map(o =>
+                <Grid item xs={6} sm={3} md={"auto"}>
+                  <Grid container direction={"column"} style={{ padding: "10px", margin: "0 auto", textAlign: "center" }}>
+                    <Grid item>
+                      <Skeleton
+                        animation={"wave"}
+                        style={{ ...cardStyle }}
+                        variant="rect" />
+                    </Grid>
+                    <Grid item>
+                      <Typography style={{ marginTop: "10px" }} variant={"body1"}><Skeleton animation={"wave"} width={130} height={15} variant="rect" /></Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              )
+            }
+          </Grid>
         }
       </div>
     )

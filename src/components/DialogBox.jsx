@@ -2,7 +2,7 @@ import React from 'react'
 import { DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Dialog } from '@material-ui/core';
 
 export default function DialogBox(props) {
-  const { handleClose, open = false, heading = "heading", size = "sm", fullWidth = true, description = "", children, hideActionBtn = false, onSubmit } = props;
+  const { handleClose, open = false, playlistName = "", heading = "heading", size = "sm", fullWidth = true, description = "", children, hideActionBtn = false, onSubmit } = props;
   return (
     <div>
       <Dialog fullWidth={fullWidth} maxWidth={size} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -18,12 +18,12 @@ export default function DialogBox(props) {
             !hideActionBtn &&
             <>
               <Button onClick={handleClose} color="primary"> Cancel </Button>
-              <Button onClick={onSubmit} color="primary"> Create </Button>
+              <Button disabled={playlistName.length > 2 ? false : true} onClick={onSubmit} color="primary"> Create </Button>
             </>
           }
         </DialogActions>
       </Dialog>
-    </div>
+    </div >
   )
 }
 

@@ -9,6 +9,7 @@ import Loading from '../../components/Loading';
 import Error from '../../components/Error';
 import classes from '../../assets/css/album.module.scss';
 import ViewMoreBtn from '../../components/ViewMoreBtn';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 
 
@@ -86,7 +87,27 @@ class TopAlbums extends Component {
               )
             }
           </CarouselSlider>
-        </Grid> : <Loading />
+        </Grid> :
+          <Grid container style={{ backgroundColor: "", padding: "30px", textAlign: "center" }} spacing={1} justify={"flex-start"}>
+            <CarouselSlider style={{ width: "100%" }} className="slider" {...settings}>
+              {
+                new Array(10).fill(null).map((album, index) =>
+                  <Grid container direction={"column"} key={index} style={{ height: "210px", width: "210px", padding: "10px", margin: "10px" }}>
+                    <Grid item>
+                      <Skeleton
+                        animation={"wave"}
+                        style={{ ...cardStyle }}
+                        variant="rect" />
+                    </Grid>
+                    <Grid item>
+                      {/* <Typography variant={"caption"}>{album.name}</Typography> */}
+                      <Typography style={{ marginTop: "10px" }} variant={"body1"}><Skeleton animation={"wave"} width={130} height={15} variant="rect" /></Typography>
+                    </Grid>
+                  </Grid>
+                )
+              }
+            </CarouselSlider>
+          </Grid>
         }
       </div>
     )

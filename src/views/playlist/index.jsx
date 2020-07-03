@@ -75,7 +75,7 @@ class MyPlaylist extends React.Component {
           />
         </DialogBox>
 
-        <DialogBox size={"xs"} handleClose={this.closePlaylistModal} onSubmit={this.createNewPlaylist} open={openPlaylist} heading={"CREATE A NEW PLAYLIST"} description={""} >
+        <DialogBox size={"xs"} playlistName={playlistName} handleClose={this.closePlaylistModal} onSubmit={this.createNewPlaylist} open={openPlaylist} heading={"CREATE A NEW PLAYLIST"} description={""} >
           <TextField autoFocus onChange={(e) => this.setState({ playlistName: e.target.value })} value={playlistName} margin="dense" autoComplete={"off"} id="name" label="Enter playlist name" type="text" fullWidth />
           {isLoadingPlaylist && <CircularProgress />}
         </DialogBox>

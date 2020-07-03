@@ -14,6 +14,7 @@ const actionsMap = {
     return {
       ...state,
       tracks: [],
+      vanis: [],
       totalPages: 0,
       error: false,
     }

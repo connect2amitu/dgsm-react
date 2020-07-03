@@ -2,11 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { getTrack, clearTracks } from '../../actions/tracks';
 import { Button, Grid, CircularProgress } from '@material-ui/core';
-import { playStopButtonClickHandler } from '../../shared/funs';
+import { playStopButtonClickHandler, randomNumber } from '../../shared/funs';
 import { playerCurrentTrack } from '../../actions/player';
 import SongCard from '../../components/SongCard';
 import { Fade } from '@material-ui/core';
 import classes from '../../assets/css/track.module.scss';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 class Vanis extends React.Component {
   constructor(props) {
@@ -47,9 +48,37 @@ class Vanis extends React.Component {
         </Grid>
         <Grid container spacing={3} className={classes.container}>
           {items}
+          {isLoading && !error &&
+            new Array(16).fill(null).map((o, index) =>
+              <Fade in={true} key={index} style={{ display: "flex" }}>
+                <Grid item xs={12} md={6} lg={4} xl={3}>
+                  <Grid item xs={2} className={classes.trackCard} >
+                    <Skeleton style={{ borderRadius: 10 }} variant="rect" width={64} height={64} />
+                  </Grid>
+                  <Grid item xs={8} className={classes.trackDetail}>
+                    <Grid container direction={"column"}>
+                      <Grid item className={classes.trackName}>
+                        <Skeleton style={{ marginTop: 5 }} variant="rect" width={randomNumber(150, 200)} height={18} />
+                      </Grid>
+                      <Grid item className={classes.albumName}>
+                        <Skeleton style={{ marginTop: 5 }} variant="rect" width={randomNumber(80, 150)} height={10} />
+                      </Grid>
+                      <Grid item>
+                        <Skeleton style={{ marginTop: 5 }} variant="rect" width={randomNumber(10, 70)} height={7} />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Grid container justify={"center"}>
+                      <Skeleton variant="circle" width={25} height={25} />
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Fade>
+            )
+          }
           <Grid item xs={12} style={{ textAlign: "center" }}>
             {!isLoading && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
-            {isLoading && !error && <CircularProgress />}
             {error && "Something went wrong"}
           </Grid>
         </Grid>

@@ -5,7 +5,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { Grid, Button, Fade, Tabs, Tab } from '@material-ui/core';
 import { LANGUAGES } from '../../shared/constants';
-import { playStopButtonClickHandler, removeExt } from '../../shared/funs';
+import { playStopButtonClickHandler, removeExt, randomNumber } from '../../shared/funs';
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
 import PlayPauseButton from '../../components/PlayPauseButton';
 import logo from '../../assets/images/logo.png'
@@ -15,6 +15,7 @@ import { getBrowseWithTrack, clearBrowse } from '../../actions/browse';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Loading from '../../components/Loading';
 import NoResultFound from '../../components/NoResultFound';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 var trackStyle = {
   borderRadius: "10px",
@@ -24,6 +25,7 @@ var trackStyle = {
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
+  minWidth: "inherit",
 }
 
 
@@ -105,9 +107,6 @@ class Bhajan extends React.Component {
                       <Fade in={true} key={index}>
                         <Grid item xs={12} sm={8} >
                           <Grid container spacing={1} justify={"center"} >
-                            <Grid item style={{ width: "25px" }}>
-                              <span >{index + 1}</span>
-                            </Grid>
                             <Grid item><Button style={trackStyle}></Button></Grid>
                             <Grid item xs={6} md={4}>
                               <Grid container direction={"column"}>
@@ -138,11 +137,37 @@ class Bhajan extends React.Component {
                         </Grid>
                       </Fade>
                   }
+                  {
+                    isLoadingTracks && !error && new Array(10).fill(null).map((track, index) =>
+                      <Fade in={true} key={index}>
+                        <Grid item xs={12} sm={8} >
+                          <Grid container spacing={1} justify={"center"} >
+                            <Grid item><Skeleton style={{ borderRadius: 10 }} variant="rect" width={50} height={50} /></Grid>
+                            <Grid item xs={6} md={4}>
+                              <Grid container direction={"column"}>
+                                <Grid item className={classes.trackName}>
+                                  <Skeleton style={{ marginTop: 5 }} variant="rect" width={randomNumber(150, 200)} height={15} />
+                                </Grid>
+                                <Grid item className={classes.albumName}>
+                                  <Skeleton style={{ marginTop: 5 }} variant="rect" width={randomNumber(80, 150)} height={8} />
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                            <Grid item xs={2}>
+                              <Grid container justify={"center"}>
+                                <Skeleton variant="circle" width={25} height={25} />
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </Fade>
+                    )
+                  }
                   <Grid item xs={12}>
                     <Grid container spacing={1} alignItems={"center"} justify={"center"} >
                       <Grid item={12}>
                         {!isLoadingTracks && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
-                        {isLoadingTracks && !error && <Loading />}
+                        {/* {isLoadingTracks && !error && <Loading />} */}
                         {error && "Something went wrong"}
                       </Grid>
                     </Grid>
@@ -196,7 +221,6 @@ class Bhajan extends React.Component {
 
   pauseSong = () => {
     const { player: { isPlaying } } = this.props;
-
     if (!isPlaying) {
       const { tracks } = this.props.albumDetail;
       this.props.dispatch(playerAddTrack(tracks));
@@ -208,6 +232,10 @@ class Bhajan extends React.Component {
 
   componentDidMount() {
     this.loadData();
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(clearBrowse());
   }
 
 }
