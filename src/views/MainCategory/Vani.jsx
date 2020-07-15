@@ -3,7 +3,7 @@
 
 import React from 'react'
 import { connect } from 'react-redux';
-import { Grid, Button, Fade, CircularProgress, Typography, } from '@material-ui/core';
+import { Grid, Button, Fade, Typography, } from '@material-ui/core';
 import { clearAlbums, getDGSMAlbums } from '../../actions/albums';
 import { playStopButtonClickHandler } from '../../shared/funs';
 import classes from '../../assets/css/album.module.scss';

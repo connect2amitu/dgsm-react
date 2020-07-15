@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { getAlbums, clearAlbums } from '../../actions/albums';
 import { HOST_API } from '../../shared/constants';
 import { NavLink } from 'react-router-dom';
-import Loading from '../../components/Loading';
+// import Loading from '../../components/Loading';
 import Error from '../../components/Error';
 import classes from '../../assets/css/album.module.scss';
 import ViewMoreBtn from '../../components/ViewMoreBtn';

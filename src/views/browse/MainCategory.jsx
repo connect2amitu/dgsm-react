@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Grid, Button, Typography } from '@material-ui/core'
 import { connect } from 'react-redux';
-import Loading from '../../components/Loading';
 import Error from '../../components/Error';
 import classes from '../../assets/css/album.module.scss';
 import { NavLink } from 'react-router-dom';

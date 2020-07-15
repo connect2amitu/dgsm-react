@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { getTrack, clearTracks } from '../../actions/tracks';
-import { Button, Grid, CircularProgress, IconButton, Badge } from '@material-ui/core';
+import { Button, Grid, IconButton, Badge } from '@material-ui/core';
 import { playStopButtonClickHandler, randomNumber } from '../../shared/funs';
 import { playerCurrentTrack } from '../../actions/player';
 import SongCard from '../../components/SongCard';
@@ -35,7 +35,7 @@ class Tracks extends React.Component {
 
   render() {
     const { tracks, isLoading, error, totalPages, player } = this.props
-    const { page, aZ, size } = this.state
+    const { page, aZ } = this.state
     var items = [];
     tracks.map((track, index) =>
       items.push(

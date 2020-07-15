@@ -4,7 +4,10 @@ import { styled } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { Grid, Menu, MenuItem, TextField, Tooltip, CircularProgress, List, ListItemText, ListItem, ListItemAvatar, Avatar, IconButton } from '@material-ui/core';
-import { FavoriteBorderRounded, PlayCircleFilledRounded, PauseCircleFilledRounded, SkipNextRounded, SkipPreviousRounded, QueueMusicRounded, VolumeOffRounded, VolumeUpRounded, QueuePlayNextRounded } from '@material-ui/icons';
+import {
+  // FavoriteBorderRounded,
+  PlayCircleFilledRounded, PauseCircleFilledRounded, SkipNextRounded, SkipPreviousRounded, QueueMusicRounded, VolumeOffRounded, VolumeUpRounded, QueuePlayNextRounded
+} from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { playStopButtonClickHandler, display, removeExt } from '../shared/funs';
 import { playerNextTrack, playerPrevTrack, playerMuteUnMute } from '../actions/player';
@@ -85,9 +88,9 @@ class Player extends React.Component {
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid item>
-                    <IconButton disabled={true} color={"inherit"}> <FavoriteBorderRounded /> </IconButton>
-                  </Grid>
+                  {/* <Grid item>
+                    <IconButton disabled={isActiveActionBtn} color={"inherit"}> <FavoriteBorderRounded /> </IconButton>
+                  </Grid> */}
                   <Grid item>
                     {/* <IconButton
                       disabled={isActiveActionBtn}

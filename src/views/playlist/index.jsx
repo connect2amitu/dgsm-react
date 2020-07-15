@@ -34,7 +34,7 @@ class MyPlaylist extends React.Component {
   }
 
   render() {
-    const { isLoading, playlists, isLoadingPlaylist, isLoggedIn } = this.props
+    const { playlists, isLoadingPlaylist, isLoggedIn } = this.props
     const { error, openLoginBox, openPlaylist, playlistName } = this.state
     var items = [];
     playlists.map((playlist, index) =>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { getAlbums, clearAlbums } from '../../actions/albums';
-import { Button, Grid, CircularProgress, Typography } from '@material-ui/core';
+import { Button, Grid, Typography } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
 import classes from '../../assets/css/album.module.scss';
 import AlbumCard from '../../components/AlbumCard';
@@ -33,13 +33,11 @@ class Albums extends React.Component {
         </Fade>
       )
     )
-    var searchString = "";
-    search && search.split(" ").map(a => searchString += `#${a} `)
     return (
       <div className={classes.album}>
         <Grid container justify={"space-between"}>
           <Grid item>
-            <h1>{search ? `Searched for ${searchString}` : `All Albums`}</h1>
+            <h1>{search ? `Searched for "${search}"` : `All Albums`}</h1>
           </Grid>
         </Grid>
         <Grid container spacing={4} justify={"flex-start"} alignItems={"center"} className={classes.container} >

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Fade, CircularProgress } from '@material-ui/core'
+import { Grid, Fade } from '@material-ui/core'
 import { connect } from 'react-redux';
 import { getTrack, clearTracks } from '../../actions/tracks';
 import { playerAddTrack, playerCurrentTrack } from '../../actions/player';
