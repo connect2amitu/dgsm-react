@@ -32,7 +32,8 @@ export const display = (seconds) => {
 }
 
 export const removeExt = (str) => {
-  return str.replace(/\.[^.]*$/, '');
+  var _str = str.replace(/_/g, " ");
+  return _str.replace(/\.[^.]*$/, '');
 }
 export const getHeaders = () => {
   let headers = { Authorization: localStorage.getItem('token') };

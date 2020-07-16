@@ -94,7 +94,8 @@ class AlbumsDetail extends React.Component {
                     albumDetail.tracks.map((track, index) =>
                       <Fade in={true} key={index}>
                         <Grid item xs={12} >
-                          <Grid container spacing={1} justify={"center"} >
+                          <Grid container spacing={1} alignItems={"center"} justify={"center"} >
+                            <Grid item>{index + 1}</Grid>
                             <Grid item><Button style={trackStyle}></Button></Grid>
                             <Grid item xs={6} md={4}>
                               <Grid container direction={"column"}>
