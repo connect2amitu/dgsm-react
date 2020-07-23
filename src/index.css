@@ -1,7 +1,9 @@
 @import "~slick-carousel/slick/slick-theme.css";
 @import "~slick-carousel/slick/slick.css";
 @import "../src/assets/css/style.scss";
-
+html{
+  overflow-y: scroll;
+}
 body {
   margin: 0;
   /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
@@ -28,4 +30,8 @@ body {
 }
 .MuiTab-root{
   padding: 6px 5px !important;
+}
+
+.slick-prev, .slick-next{
+  top: 35% !important;
 }

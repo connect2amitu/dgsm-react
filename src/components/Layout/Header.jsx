@@ -38,6 +38,22 @@ const useStyles = makeStyles((theme) => ({
   },
   textAlignCenter: {
     textAlign: "center"
+  },
+  logoSection: {
+    display: "flex",
+    alignItems: "center",
+    position: "relative"
+  },
+  logo: {
+    height: "75px",
+    width: "75px",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundSize: "contain",
+
+    position: "absolute",
+    bottom: "-42px",
+
   }
 }));
 
@@ -59,13 +75,21 @@ function Header(props) {
       <AppBar position="fixed">
         <Toolbar>
           <Grid container justify={"space-between"} alignItems={"center"}>
-            <Grid item>
-              <Typography variant="h6" component={NavLink} to={"/"} color={"inherit"} style={{ textDecoration: "none" }} > DGSM </Typography>
+            <Grid item className={classes.logoSection}>
+              <NavLink to={"/"} color={"inherit"} style={{ textDecoration: "none" }}><Avatar className={classes.logo}
+                src={require('../../assets/images/TLogo.png')}
+              // style={{ backgroundImage: `url(${require('../../assets/images/TLogo.png')})` }}
+              ></Avatar>
+              </NavLink>
+              {/* <Typography variant="h6" component={NavLink} to={"/"} color={"inherit"} style={{ textDecoration: "none" }} > DGSM </Typography> */}
             </Grid>
             <Grid item className={classes.desktop}>
               <Grid container spacing={1} alignItems={"center"}>
                 <Grid item>
                   <Button component={NavLink} to={"/browse"} color="inherit">Browse</Button>
+                </Grid>
+                <Grid item>
+                  <Button component={NavLink} to={"/quotes"} color="inherit">Quotes</Button>
                 </Grid>
                 <Grid item>
                   <Tooltip title={"My Playlist"} placement="top">
@@ -108,6 +132,9 @@ function Header(props) {
                   }
                   <ListItem className={classes.textAlignCenter} button component={NavLink} to={"/browse"} onClick={handleDrawerToggle}>
                     <ListItemText primary={"Browse"} />
+                  </ListItem>
+                  <ListItem className={classes.textAlignCenter} button component={NavLink} to={"/quotes"} onClick={handleDrawerToggle}>
+                    <ListItemText primary={"Quotes"} />
                   </ListItem>
                   <ListItem className={classes.textAlignCenter} button component={NavLink} to={"/my-playlist"} onClick={handleDrawerToggle}>
                     <ListItemText primary={"My Playlist"} />

@@ -35,7 +35,7 @@ export default function FullScreenPlayer(props) {
   return (
     <div>
       <IconButton disabled={disabled} onClick={handleClickOpen} color={"inherit"}><MoreVertRounded className={classes.color_white} /></IconButton>
-      <Dialog fullScreen open={open} onClose={handleClickOpen} TransitionComponent={Transition} className={classes.dialogbox}>
+      <Dialog fullScreen open={open} onEscapeKeyDown={handleClickOpen} onClose={handleClickOpen} TransitionComponent={Transition} className={classes.dialogbox}>
         <div style={{ backgroundImage: `url(${HOST_API}/${_.get(player, 'currentTrack.track.cover')})` }} className={classes.blurBg}>
 
           <Grid container alignItems={"center"} className={classes.albumDetail}>

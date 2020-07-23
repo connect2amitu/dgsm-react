@@ -36,7 +36,7 @@ class TopAlbums extends Component {
       draggable: false,
       responsive: [
         {
-          breakpoint: 768,
+          breakpoint: 600,
           settings: {
             slidesToShow: 3,
             slidesToScroll: 3,
@@ -80,7 +80,10 @@ class TopAlbums extends Component {
                   <Grid item>
                     <NavLink to={`/album/${album.slug}`}><Button style={{ ...cardStyle, background: `url(${HOST_API}/${album.cover}) center center / cover no-repeat` }}></Button></NavLink>
                   </Grid>
-                  <Grid item>
+                  <Grid item style={{
+                    width: "120px",
+                    margin: "0 auto"
+                  }}>
                     <Typography variant={"caption"}>{album.name}</Typography>
                   </Grid>
                 </Grid>

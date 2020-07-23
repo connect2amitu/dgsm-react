@@ -45,15 +45,15 @@ export const MAIN_CATEGORY = [
     image: require('../assets/images/dgsm/geeta-bhagwan.jpg')
   },
   {
+    slug: 'shyam-bhagwan',
+    name: "Shyam Bhagwan",
+    image: require('../assets/images/dgsm/shyam-bhagwan.jpg')
+  },
+  {
     slug: 'meera-bhagwan',
     name: "Meera Bhagwan",
     image: require('../assets/images/dgsm/meera-bhagwan.jpg')
   },
-  {
-    slug: 'shyam-bhagwan',
-    name: "Shyam Bhagwan",
-    image: require('../assets/images/dgsm/shyam-bhagwan.jpg')
-  }
 ]
 export const TRACK = {
 
@@ -113,6 +113,10 @@ export const QUOTE = {
   FETCH_START: 'QUOTE_FETCH_START',
   FETCH_SUCCESS: 'QUOTE_FETCH_SUCCESS',
   FETCH_ERROR: 'QUOTE_FETCH_ERROR',
+
+  FETCH_TITLE_START: 'QUOTE_FETCH_TITLE_START',
+  FETCH_TITLE_SUCCESS: 'QUOTE_FETCH_TITLE_SUCCESS',
+  FETCH_TITLE_ERROR: 'QUOTE_FETCH_TITLE_ERROR',
   CLEAR_ALL: 'CLEAR_ALL'
 }
 

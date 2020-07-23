@@ -28,6 +28,7 @@ class Tracks extends React.Component {
       size: 20,
       page: 0,
       aZ: "All",
+      order: 'ASC',
       content: 'bhajan',
     }
     this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
@@ -113,24 +114,27 @@ class Tracks extends React.Component {
     );
   }
 
-  changeFilter = (aZ) => {
-    this.setState({
-      aZ: aZ,
-      page: 0
-    }, () => {
-      this.props.history.push(`/browse/tracks${aZ !== "All" ? `/${aZ}` : ""}`);
-      this.props.dispatch(clearTracks());
-      this.loadData()
-    })
+  changeFilter = (o) => {
+    const { aZ } = this.state
+    if (aZ !== o) {
+      this.setState({
+        aZ: o,
+        page: 0
+      }, () => {
+        this.props.history.push(`/browse/tracks${o !== "All" ? `/${o}` : ""}`);
+        this.props.dispatch(clearTracks());
+        this.loadData()
+      })
+    }
   }
 
 
   loadData = () => {
-    const { page, size, content } = this.state;
+    const { page, size, content, order } = this.state;
     this.setState({ page: page + 1 }, () => {
       var query = {
         size,
-        order: 'desc',
+        order,
         page: page * size,
         content,
       }

@@ -11,3 +11,14 @@ export const getQuotes = (query) => {
   return callApi(_URL, options);
 }
 
+export const getQuotesTitle = (query) => {
+  console.log('query =>', query);
+
+  var _URL = URL + "/getQuoteTopics";
+  _URL = generateURL(_URL, query);
+  let options = {
+    method: 'GET',
+  }
+  return callApi(_URL, options);
+}
+

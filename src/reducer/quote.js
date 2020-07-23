@@ -5,20 +5,21 @@ const initialState = {
   isLoading: false,
   error: false,
   quotes: [],
+  quotes_title: [],
   totalPages: 0,
 };
 
 const actionsMap = {
-  [QUOTE.FETCH_START]: (state, action) => {
-    return {
-      ...state,
-      isLoading: true
-    }
-  },
   [QUOTE.CLEAR_ALL]: (state, action) => {
     return {
       ...state,
       quotes: [],
+    }
+  },
+  [QUOTE.FETCH_START]: (state, action) => {
+    return {
+      ...state,
+      isLoading: true
     }
   },
   [QUOTE.FETCH_SUCCESS]: (state, action) => {
@@ -30,6 +31,28 @@ const actionsMap = {
     }
   },
   [QUOTE.FETCH_ERROR]: (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: action.error.message,
+    }
+  },
+  [QUOTE.FETCH_TITLE_START]: (state, action) => {
+    return {
+      ...state,
+      isLoading: true
+    }
+  },
+  [QUOTE.FETCH_TITLE_SUCCESS]: (state, action) => {
+    console.log('action =>', action);
+
+    return {
+      ...state,
+      isLoading: false,
+      quotes_title: action.data.data,
+    }
+  },
+  [QUOTE.FETCH_TITLE_ERROR]: (state, action) => {
     return {
       ...state,
       isLoading: false,

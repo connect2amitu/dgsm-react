@@ -1,36 +1,44 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { getQuotes, clearQuote } from '../../actions/quotes';
+import { getQuotes, clearQuote, getTitle } from '../../actions/quotes';
 import { Button, Grid, CircularProgress } from '@material-ui/core';
-import { playStopButtonClickHandler } from '../../shared/funs';
 import { Fade } from '@material-ui/core';
 import classes from '../../assets/css/track.module.scss';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 class Quote extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       trackIndex: null,
-      size: 5,
+      size: 10,
       page: 0,
       content: 'quote'
     }
-    this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
   }
 
   render() {
-    const { quotes, isLoading, error, totalPages } = this.props
+    const { quotes, quotes_title, isLoading, error, totalPages } = this.props
+    console.log('this.props =>', this.props);
+    console.log('quotes_title =>', quotes_title);
+
     const { page } = this.state
     var items = [];
     quotes.map((quote, index) =>
       items.push(
         <Fade in={true} key={index}>
           <Grid item xs={12}>
-            <p>{quote.quote}</p>
+            <p><b>{index + 1} &nbsp;</b>{quote.quote}</p>
           </Grid>
         </Fade>
       )
     )
+
     return (
       <div className={classes.track}>
         <Grid container className={classes.heading}>
@@ -38,14 +46,36 @@ class Quote extends React.Component {
             <h1>All Quotes</h1>
           </Grid>
         </Grid>
-        <Grid container spacing={3} className={classes.container}>
+        {quotes_title.map((o, index) =>
+
+          <Accordion onClick={() => console.info(o.title)}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography className={classes.heading}>{o.title}</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Grid container spacing={3} className={classes.container}>
+                {items}
+                <Grid item xs={12} style={{ textAlign: "center" }}>
+                  {!isLoading && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
+                  {isLoading && !error && <CircularProgress />}
+                  {error && "Something went wrong"}
+                </Grid>
+              </Grid>
+            </AccordionDetails>
+          </Accordion>)}
+        {/* <Grid container spacing={3} className={classes.container}>
           {items}
+
           <Grid item xs={12} style={{ textAlign: "center" }}>
             {!isLoading && !error && (page < totalPages) && <Button color={"primary"} variant={"contained"} onClick={() => this.loadData()}>Load more</Button>}
             {isLoading && !error && <CircularProgress />}
             {error && "Something went wrong"}
           </Grid>
-        </Grid>
+        </Grid> */}
 
       </div>
     );
@@ -64,8 +94,19 @@ class Quote extends React.Component {
     })
   }
 
+  loadTitleData = () => {
+    var query = {
+      order: 'ASC',
+      slug: this.props.match.params[0]
+    }
+    console.log('query =>', query);
+
+    this.props.dispatch(getTitle(query));
+  }
+
   componentDidMount() {
-    this.loadData()
+    // this.loadData()
+    this.loadTitleData()
   }
   componentWillUnmount() {
     this.props.dispatch(clearQuote());

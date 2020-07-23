@@ -3,7 +3,6 @@ import { PLAYLIST } from "../shared/constants";
 export function getPlaylists(data) {
   return {
     type: PLAYLIST.FETCH_START,
-    isLoading: true,
     payload: data
   }
 }
@@ -11,7 +10,6 @@ export function getPlaylists(data) {
 export function getPlaylistTrack(data) {
   return {
     type: PLAYLIST.FETCH_TRACKS_START,
-    isLoading: true,
     payload: data
   }
 }
@@ -19,7 +17,6 @@ export function getPlaylistTrack(data) {
 export function createPlaylist(data) {
   return {
     type: PLAYLIST.CREATE_START,
-    isLoading: true,
     payload: data
   }
 }
@@ -27,7 +24,6 @@ export function createPlaylist(data) {
 export function addToPlaylist(data) {
   return {
     type: PLAYLIST.ADD_START,
-    isLoading: true,
     payload: data
   }
 }
@@ -35,7 +31,6 @@ export function addToPlaylist(data) {
 export function removeTrackFromPlaylist(data, trackId) {
   return {
     type: PLAYLIST.REMOVE_TRACK_START,
-    isLoading: true,
     payload: data,
     trackId,
   }
@@ -44,7 +39,6 @@ export function removeTrackFromPlaylist(data, trackId) {
 export function removePlaylist(data, callback) {
   return {
     type: PLAYLIST.REMOVE_START,
-    isLoading: true,
     payload: data,
     callback
   }
@@ -53,7 +47,6 @@ export function removePlaylist(data, callback) {
 export function renamePlaylist(data) {
   return {
     type: PLAYLIST.RENAME_START,
-    isLoading: true,
     payload: data,
   }
 }

@@ -16,6 +16,7 @@ const Tracks = React.lazy(() => import('./views/tracks'));
 const Vanis = React.lazy(() => import('./views/vani'));
 const Albums = React.lazy(() => import('./views/albums'));
 const Browse = React.lazy(() => import('./views/browse'));
+const Quotes = React.lazy(() => import('./views/quotes'));
 const AlbumsDetail = React.lazy(() => import('./views/albums/Detail'));
 const MyPlaylist = React.lazy(() => import('./views/playlist'));
 const MyPlaylistDetail = React.lazy(() => import('./views/playlist/Detail'));
@@ -49,6 +50,8 @@ function App({ isDark }) {
           <Layout>
             <Switch>
               <Route exact path="/(|browse)" component={Browse} />
+              <Route exact path="/quotes" component={Quotes} />
+              <Route exact path="/quotes/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan|others)" component={MainCategoryQuote} />
               <Route exact path="/browse/tracks/:aZ?" component={Tracks} />
               <Route exact path="/browse/vanis" component={Vanis} />
               <Route exact path="/browse/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan)" component={MainCategory} />
