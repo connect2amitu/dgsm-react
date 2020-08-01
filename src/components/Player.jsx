@@ -397,6 +397,8 @@ class Player extends React.Component {
       // Do something more than just pausing audio...
     });
 
+    navigator.mediaSession.setActionHandler('seekbackward', null);
+
     /* Stop (supported since Chrome 77) */
 
     try {

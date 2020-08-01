@@ -6,6 +6,16 @@ import { HOST_API } from '../shared/constants'
 
 export default function AlbumCard({ name, cover, slug }) {
   return (
+    // <Grid container className={classes.albumCard}>
+    //   <Grid item xs={12}>
+    //     <NavLink to={`/album/${slug}`}>
+    //       <Button className={classes.cover} style={{ background: `url(${HOST_API}/${cover}) center center / cover no-repeat` }}>
+    //         <Typography variant={"body1"} className={classes.albumName}>{name}</Typography>
+    //       </Button>
+    //     </NavLink>
+    //   </Grid>
+
+    // </Grid>
     <Grid container className={classes.albumCard}>
       <Grid item xs={12}>
         <NavLink to={`/album/${slug}`}><Button className={classes.cover} style={{ background: `url(${HOST_API}/${cover}) center center / cover no-repeat` }}></Button></NavLink>

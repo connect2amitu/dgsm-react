@@ -1,24 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { getAlbums, clearAlbums } from '../../actions/albums';
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Button, Grid, Typography, Tabs, Tab } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
 import classes from '../../assets/css/album.module.scss';
 import AlbumCard from '../../components/AlbumCard';
-import Skeleton from 'react-loading-skeleton';
+import Skeleton from '@material-ui/lab/Skeleton';
+import { ALBUM_TYPES } from '../../shared/constants';
+
 
 class Albums extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      size: 12,
-      page: 0
-    }
+    this.state = { size: 12, page: 0, value: 0 }
   }
 
   render() {
     const { albums, isLoading, error, totalPages, match: { params: { search } } } = this.props
-    const { page } = this.state
+    const { page, value } = this.state
     var items = [];
     albums.map((album, index) =>
       items.push(
@@ -38,6 +37,25 @@ class Albums extends React.Component {
         <Grid container justify={"space-between"}>
           <Grid item>
             <h1>{search ? `Searched for "${search}"` : `All Albums`}</h1>
+          </Grid>
+        </Grid>
+        <Grid container justify={"center"} className={classes.albumTypeContainer}>
+          <Grid item>
+            <Tabs
+              value={value}
+              onChange={this.handleChange}
+              variant="scrollable"
+              scrollButtons="on"
+              indicatorColor="primary"
+              textColor="primary"
+              aria-label="scrollable force tabs example"
+            >
+              {
+                ALBUM_TYPES.map((type, index) =>
+                  < Tab key={index} label={type.name} />
+                )
+              }
+            </Tabs>
           </Grid>
         </Grid>
         <Grid container spacing={4} justify={"flex-start"} alignItems={"center"} className={classes.container} >
@@ -70,10 +88,33 @@ class Albums extends React.Component {
       </div>
     );
   }
+
+  handleChange = (event, newValue) => {
+    console.log('newValue =>', newValue);
+
+    this.setState({
+      value: newValue,
+      page: 0,
+      type: ALBUM_TYPES[newValue].value
+    }, () => {
+      this.props.dispatch(clearAlbums());
+      if (newValue !== 0) {
+        this.props.history.push(`/browse/albums/${ALBUM_TYPES[newValue].value}`)
+      } else {
+        this.props.history.push(`/browse/albums`)
+      }
+      this.loadData();
+    })
+
+  };
+
+
   loadData = () => {
-    const { page, size } = this.state
+    const { page, size, type } = this.state
+    console.log('type =>', type);
+
     this.setState({ page: page + 1 }, () => {
-      var query = { size, order: 'asc', page: page * size };
+      var query = { size, order: 'asc', page: page * size, type };
       if (this.props.match.params.search) {
         query.q = this.props.match.params.search
       }
@@ -82,7 +123,16 @@ class Albums extends React.Component {
   }
 
   componentDidMount() {
-    this.loadData();
+    console.log('this.props =>', this.props.match.params[0]);
+    var type = "all";
+    var value = 0;
+    if (this.props.match.params[0]) {
+      value = ALBUM_TYPES.findIndex(data => data.value === this.props.match.params[0]);
+      type = this.props.match.params[0];
+    }
+    this.setState({ value, type }, () => {
+      this.loadData();
+    })
   }
 
   componentWillUnmount() {

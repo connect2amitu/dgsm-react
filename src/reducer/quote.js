@@ -4,7 +4,7 @@ import { QUOTE } from '../shared/constants'
 const initialState = {
   isLoading: false,
   error: false,
-  quotes: [],
+  quotes: null,
   quotes_title: [],
   totalPages: 0,
 };
@@ -26,8 +26,7 @@ const actionsMap = {
     return {
       ...state,
       isLoading: false,
-      quotes: [...state.quotes, ...action.data.data],
-      totalPages: action.data.totalPages,
+      quotes: action.data.data,
     }
   },
   [QUOTE.FETCH_ERROR]: (state, action) => {

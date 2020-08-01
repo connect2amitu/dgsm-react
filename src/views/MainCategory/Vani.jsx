@@ -5,7 +5,6 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { Grid, Button, Fade, Typography, } from '@material-ui/core';
 import { clearAlbums, getDGSMAlbums } from '../../actions/albums';
-import { playStopButtonClickHandler } from '../../shared/funs';
 import classes from '../../assets/css/album.module.scss';
 import NoResultFound from '../../components/NoResultFound';
 import AlbumCard from '../../components/AlbumCard';
@@ -25,7 +24,6 @@ class Vani extends React.Component {
       content: 'vani',
       date: new Date()
     };
-    this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
   }
 
   render() {

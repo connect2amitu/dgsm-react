@@ -21,6 +21,9 @@ body {
 .slick-slider{
   width: 100%;
 }
+.slick-slider .slick-dots{
+  display: none !important;
+}
 .slick-track{
   margin-left: 0 !important;
   margin-right: 0 !important;
@@ -33,5 +36,5 @@ body {
 }
 
 .slick-prev, .slick-next{
-  top: 35% !important;
+  top: 40% !important;
 }

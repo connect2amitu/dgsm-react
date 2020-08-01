@@ -59,7 +59,7 @@ function App({ isDark }) {
               <Route exact path="/browse/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan)/vani" component={MainCategoryVani} />
               <Route exact path="/browse/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan)/quote" component={MainCategoryQuote} />
               <Route exact path="/browse/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan)/jivani" component={MainCategoryJivani} />
-              <Route exact path="/browse/albums" component={Albums} />
+              <Route exact path="/browse/albums/(vani|bhajan)?" component={Albums} />
               <Route exact path="/albums/:search?" component={Albums} />
               <Route exact path="/my-playlist" component={MyPlaylist} />
               <Route exact path="/my-playlist/:id" component={MyPlaylistDetail} />

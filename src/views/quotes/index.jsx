@@ -1,8 +1,5 @@
 import React from 'react'
-import { getQuotes, clearQuote } from '../../actions/quotes';
-import { Button, Grid, CircularProgress, Typography } from '@material-ui/core';
-import { playStopButtonClickHandler } from '../../shared/funs';
-import { Fade } from '@material-ui/core';
+import { Button, Grid, Typography } from '@material-ui/core';
 import classes from '../../assets/css/track.module.scss';
 import { MAIN_CATEGORY } from '../../shared/constants';
 import { NavLink } from 'react-router-dom';

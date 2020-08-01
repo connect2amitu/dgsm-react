@@ -4,6 +4,13 @@ $md:768px;
 $lg:1024px;
 
 .album {
+  .albumName{
+    width: 131px;
+    margin: 0 auto
+  }
+  .albumTypeContainer{
+    margin-bottom: 15px;
+  }
   .heading {
     align-items: center;
   }
@@ -23,7 +30,19 @@ $lg:1024px;
         background-position: center;
         background-repeat  : no-repeat;
         background-size    : cover;
-        object-fit         : contai;
+        object-fit         : contain;
+        .albumName{
+          margin: 0;
+          position: absolute;
+          bottom: 0;
+          font-size: 14px;
+          font-style: normal;
+          text-transform: none;
+          width:100%;
+          border-radius: 0 0px 10px 10px;
+          background:#30303073;
+          font-family: monospace;
+        }
       }
     }
 

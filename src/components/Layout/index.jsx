@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from './Header'
 import { Container, styled, } from '@material-ui/core'
 import Player from '../Player'
+import { withRouter } from 'react-router-dom';
 
 const MyContainer = styled(Container)({
   paddingBottom: "90px",
@@ -9,7 +10,15 @@ const MyContainer = styled(Container)({
 });
 
 
-function Layout({ children }) {
+function Layout({ history, children }) {
+  useEffect(() => {
+    const unlisten = history.listen(() => {
+      window.scrollTo(0, 0);
+    });
+    return () => {
+      unlisten();
+    }
+  });
   return (
     <div>
       <Header />
@@ -21,4 +30,4 @@ function Layout({ children }) {
   )
 }
 
-export default Layout
+export default withRouter(Layout)

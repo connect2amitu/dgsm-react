@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AppBar, Toolbar, Button, Grid, Typography, Avatar, Tooltip, IconButton, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
+import { AppBar, Toolbar, Button, Grid, Avatar, Tooltip, IconButton, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
 import { NightsStayRounded, WbSunnyRounded, MenuRounded } from '@material-ui/icons'
 import { changeTheme } from '../../actions/global'
@@ -53,6 +53,11 @@ const useStyles = makeStyles((theme) => ({
 
     position: "absolute",
     bottom: "-42px",
+    [theme.breakpoints.down(600)]: {
+      bottom: "-37px",
+      width: "65px",
+      height: "65px",
+    },
 
   }
 }));
@@ -143,6 +148,9 @@ function Header(props) {
 
                   <ListItem className={classes.textAlignCenter} button onClick={() => { themHandler(); handleDrawerToggle() }} >
                     <ListItemText primary={props.isDark ? <WbSunnyRounded /> : <NightsStayRounded />} />
+                  </ListItem>
+                  <ListItem className={classes.textAlignCenter}>
+                    <ListItemText primary={"v1.8"} />
                   </ListItem>
                 </List>
                 <Grid container className={classes.mobileDrawer} spacing={1} alignItems={"center"} direction={"column"}>

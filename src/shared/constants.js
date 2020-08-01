@@ -173,3 +173,18 @@ export const GLOBAL = {
   AUTH_USER_ERROR: "AUTH_USER_ERROR",
   LOGOUT: "LOGOUT",
 }
+
+export const ALBUM_TYPES = [
+  {
+    name: "All",
+    value: "all"
+  },
+  {
+    name: "Bhajan",
+    value: "bhajan"
+  },
+  {
+    name: "Vani",
+    value: "vani"
+  }
+]

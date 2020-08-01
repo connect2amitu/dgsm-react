@@ -31,32 +31,58 @@ class TopAlbums extends Component {
     const settings = {
       infinite: false,
       speed: 800,
-      slidesToShow: 10,
-      slidesToScroll: 10,
+      slidesToShow: 7,
+      dots: false,
+
+      slidesToScroll: 7,
       draggable: false,
       responsive: [
+        // {
+        //   breakpoint: 600,
+        //   settings: {
+        //     slidesToShow: 3,
+        //     slidesToScroll: 3,
+        //     initialSlide: 0
+        //   }
+        // },
+        // {
+        //   breakpoint: 425,
+        //   settings: {
+        //     slidesToShow: 2,
+        //     slidesToScroll: 2,
+        //     initialSlide: 0
+        //   }
+        // },
+        // {
+        //   breakpoint: 320,
+        //   settings: {
+        //     slidesToShow: 1,
+        //     slidesToScroll: 1,
+        //     initialSlide: 0
+        //   }
+        // }
         {
-          breakpoint: 600,
+          breakpoint: 1024,
           settings: {
             slidesToShow: 3,
             slidesToScroll: 3,
-            initialSlide: 0
+            infinite: true,
+            dots: true
           }
         },
         {
-          breakpoint: 425,
+          breakpoint: 600,
           settings: {
             slidesToShow: 2,
             slidesToScroll: 2,
-            initialSlide: 0
+            initialSlide: 2
           }
         },
         {
-          breakpoint: 320,
+          breakpoint: 480,
           settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            initialSlide: 0
+            slidesToShow: 2,
+            slidesToScroll: 2
           }
         }
       ]
@@ -80,10 +106,7 @@ class TopAlbums extends Component {
                   <Grid item>
                     <NavLink to={`/album/${album.slug}`}><Button style={{ ...cardStyle, background: `url(${HOST_API}/${album.cover}) center center / cover no-repeat` }}></Button></NavLink>
                   </Grid>
-                  <Grid item style={{
-                    width: "120px",
-                    margin: "0 auto"
-                  }}>
+                  <Grid item className={classes.albumName}>
                     <Typography variant={"caption"}>{album.name}</Typography>
                   </Grid>
                 </Grid>

@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { Button, Grid, CircularProgress, TextField, Typography } from '@material-ui/core';
-import { playStopButtonClickHandler } from '../../shared/funs';
 import { Fade } from '@material-ui/core';
 import PlaylistCard from '../../components/PlaylistCard';
 import { getPlaylists, createPlaylist } from '../../actions/playlist';
@@ -9,7 +8,8 @@ import DialogBox from '../../components/DialogBox';
 import GoogleLogin from 'react-google-login';
 import { GOOGLE_CLIENT_ID } from '../../shared/constants';
 import { addAuthUser } from '../../actions/global';
-import Skeleton from 'react-loading-skeleton';
+import Skeleton from '@material-ui/lab/Skeleton';
+
 
 var trackStyle = {
   borderRadius: "10px",
@@ -30,7 +30,6 @@ class MyPlaylist extends React.Component {
       playlistName: "",
 
     }
-    this.playStopButtonClickHandler = playStopButtonClickHandler.bind(this);
   }
 
   render() {

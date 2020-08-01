@@ -229,13 +229,19 @@ class AlbumsDetail extends React.Component {
   }
 
   playSong = (track) => {
+    console.log('this.props =>', this.props);
+
     this.setState({
       init: false
     }, () => {
       const { tracks } = this.props.albumDetail;
-      this.props.dispatch(playerAddTrack(tracks));
-      this.props.dispatch(playerCurrentTrack({ track }));
-      this.playStopButtonClickHandler(true);
+      if (this.props.player.currentTrack.track && this.props.player.currentTrack.track.id === track.id) {
+        this.playStopButtonClickHandler(true);
+      } else {
+        this.props.dispatch(playerAddTrack(tracks));
+        this.props.dispatch(playerCurrentTrack({ track }));
+        this.playStopButtonClickHandler(true);
+      }
     })
   }
 
