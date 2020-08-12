@@ -33,15 +33,16 @@ const actionsMap = {
   },
 
   [PLAYER.ADD_TRACK]: (state, action) => {
-    var playlist = [...state.playlist];
-    if (state.playlist.length > 0) {
-      const found = state.playlist.some(el => el.id === action.payload[0].id);
-      if (!found) {
-        playlist = [...playlist, ...action.payload]
-      }
-    } else {
-      playlist = [...action.payload]
-    }
+    // var playlist = [...state.playlist];
+    var playlist = [...action.payload]
+    // if (state.playlist.length > 0) {
+    //   const found = state.playlist.some(el => el.id === action.payload[0].id);
+    //   if (!found) {
+    //     playlist = [...playlist, ...action.payload]
+    //   }
+    // } else {
+    //   playlist = [...action.payload]
+    // }
 
     return {
       ...state,

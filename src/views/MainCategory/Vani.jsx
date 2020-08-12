@@ -11,7 +11,6 @@ import AlbumCard from '../../components/AlbumCard';
 import Error from '../../components/Error';
 import Skeleton from '@material-ui/lab/Skeleton';
 
-
 class Vani extends React.Component {
   constructor(props) {
     super(props);

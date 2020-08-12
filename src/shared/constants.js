@@ -1,5 +1,5 @@
 // export const HOST_API = "http://localhost/dgsm"
-export const HOST_API = window.location.origin === "https://dgsm.in" ? "https://admin.dgsm.in" : "http://localhost/dgsm"
+export const HOST_API = window.location.host.includes("dgsm.in") ? "https://admin.dgsm.in" : "http://localhost/dgsm"
 export const SESSION_EXPIRED_URL = '/404';
 export const OK_STATUS = 200;
 export const BAD_REQUEST = 400;
@@ -12,6 +12,7 @@ export const INTERNAL_SERVER_ERROR = 500;
 export const GOOGLE_CLIENT_ID = "811627969823-ves8f3n7ljkmfpmcbevg34b3v0ekeoje.apps.googleusercontent.com";
 export const GOOGLE_PHONE_ID = "770715490238-ft20jtu5vio0krq5c83nih44p48rg715.8765866490.apps.googleusercontent.com";
 export const JWT_SECRET = "amintu";
+export const GOOGLE_ANALYTICS_ID = "UA-175228683-1";
 
 
 export const LANGUAGES = [

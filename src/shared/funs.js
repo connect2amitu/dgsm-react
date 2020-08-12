@@ -33,6 +33,7 @@ export const display = (seconds) => {
 
 export const removeExt = (str) => {
   var _str = str.replace(/_/g, " ");
+  _str = _str.charAt(0).toUpperCase() + _str.slice(1);
   return _str.replace(/\.[^.]*$/, '');
 }
 export const getHeaders = () => {

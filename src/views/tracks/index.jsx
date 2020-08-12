@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { getTrack, clearTracks } from '../../actions/tracks';
-import { Button, Grid, IconButton, Badge } from '@material-ui/core';
+import { Button, Grid, IconButton, Badge, Tooltip } from '@material-ui/core';
 import { playStopButtonClickHandler, randomNumber } from '../../shared/funs';
 import { playerCurrentTrack } from '../../actions/player';
 import SongCard from '../../components/SongCard';
@@ -9,6 +9,7 @@ import { Fade } from '@material-ui/core';
 import classes from '../../assets/css/track.module.scss';
 import NoResultFound from '../../components/NoResultFound';
 import Skeleton from '@material-ui/lab/Skeleton';
+import { KeyboardArrowLeftRounded } from '@material-ui/icons';
 
 // var trackStyle = {
 //   borderRadius: "10px",
@@ -54,9 +55,21 @@ class Tracks extends React.Component {
     )
     return (
       <div className={classes.track}>
-        <Grid container spacing={2} className={classes.heading} direction={"column"}>
+        <Grid container spacing={2}>
+          <Grid item>
+            <Tooltip title={"Back"} style={{ width: 20, cursor: "pointer" }} placement="bottom">
+              <span>
+                <KeyboardArrowLeftRounded onClick={() => this.props.history.push(`/browse`)} style={{ fontSize: 40, margin: "18px 0" }} />
+              </span>
+            </Tooltip>
+          </Grid>
           <Grid item>
             <h1>All Tracks</h1>
+          </Grid>
+        </Grid>
+        <Grid container spacing={2} className={classes.heading} direction={"column"}>
+          <Grid item>
+
           </Grid>
           <Grid item>
             <Grid container justify={"center"}>
@@ -150,6 +163,18 @@ class Tracks extends React.Component {
   }
   pauseSong = () => {
     this.playStopButtonClickHandler(false);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.aZ !== this.props.match.params.aZ) {
+
+      var aZ = this.props.match.params.aZ ? this.props.match.params.aZ : "All";
+
+      this.setState({ aZ: aZ ? aZ : "all", page: 0 }, () => {
+        this.props.dispatch(clearTracks());
+        this.loadData();
+      })
+    }
   }
   componentDidMount() {
     this.setState({

@@ -106,7 +106,7 @@ class Vanis extends React.Component {
     this.playStopButtonClickHandler(false);
   }
   componentDidMount() {
-    this.loadData()
+    this.loadData();
   }
   componentWillUnmount() {
     this.props.dispatch(clearTracks());

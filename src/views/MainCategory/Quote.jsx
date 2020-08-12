@@ -79,7 +79,7 @@ class Quote extends React.Component {
   }
 
   componentDidMount() {
-    this.loadData()
+    this.loadData();
   }
 
   componentWillUnmount() {

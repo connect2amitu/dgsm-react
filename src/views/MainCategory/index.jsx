@@ -49,4 +49,5 @@ export default class MainCategoryDetail extends Component {
       </div>
     )
   }
+
 }

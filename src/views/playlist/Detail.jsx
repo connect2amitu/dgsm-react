@@ -197,7 +197,7 @@ class PlaylistDetail extends React.Component {
   componentDidMount() {
     const { dispatch, match } = this.props;
     const query = { size: 20, order: 'asc', page: 0, playlist_id: match.params.id }
-    dispatch(getPlaylistTrack(query))
+    dispatch(getPlaylistTrack(query));
   }
 }
 

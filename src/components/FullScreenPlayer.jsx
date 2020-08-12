@@ -31,7 +31,6 @@ export default function FullScreenPlayer(props) {
   const tags = player && player.currentTrack && player.currentTrack.track && player.currentTrack.track.tags && player.currentTrack.track.tags.length > 0 ? player.currentTrack.track.tags.split(", ") : [];
   // const tags = [];
   const lyrics = _.get(player, 'currentTrack.track.lyrics', false)
-
   return (
     <div>
       <IconButton disabled={disabled} onClick={handleClickOpen} color={"inherit"}><MoreVertRounded className={classes.color_white} /></IconButton>

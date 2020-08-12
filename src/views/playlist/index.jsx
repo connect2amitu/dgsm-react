@@ -10,7 +10,6 @@ import { GOOGLE_CLIENT_ID } from '../../shared/constants';
 import { addAuthUser } from '../../actions/global';
 import Skeleton from '@material-ui/lab/Skeleton';
 
-
 var trackStyle = {
   borderRadius: "10px",
   height: "200px",

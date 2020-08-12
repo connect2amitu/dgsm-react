@@ -1,12 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { getAlbums, clearAlbums } from '../../actions/albums';
-import { Button, Grid, Typography, Tabs, Tab } from '@material-ui/core';
+import { Button, Grid, Typography, Tabs, Tab, IconButton, Tooltip } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
 import classes from '../../assets/css/album.module.scss';
 import AlbumCard from '../../components/AlbumCard';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { ALBUM_TYPES } from '../../shared/constants';
+import { KeyboardArrowLeftRounded } from '@material-ui/icons';
+import { NavLink } from 'react-router-dom';
 
 
 class Albums extends React.Component {
@@ -34,9 +36,16 @@ class Albums extends React.Component {
     )
     return (
       <div className={classes.album}>
-        <Grid container justify={"space-between"}>
+        <Grid container alignItems={"flex-start"} spacing={2}>
           <Grid item>
-            <h1>{search ? `Searched for "${search}"` : `All Albums`}</h1>
+            <Tooltip title={"Back"} style={{ width: 20, cursor: "pointer" }} placement="bottom">
+              <span>
+                <KeyboardArrowLeftRounded onClick={() => this.props.history.push(`/browse`)} style={{ fontSize: 40, margin: "18px 0" }} />
+              </span>
+            </Tooltip>
+          </Grid>
+          <Grid item>
+            <h1> {search ? `Searched for "${search}"` : `All Albums`}</h1>
           </Grid>
         </Grid>
         <Grid container justify={"center"} className={classes.albumTypeContainer}>
@@ -133,6 +142,19 @@ class Albums extends React.Component {
     this.setState({ value, type }, () => {
       this.loadData();
     })
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params[0] !== this.props.match.params[0]) {
+
+      var value = ALBUM_TYPES.findIndex(data => data.value === this.props.match.params[0]);
+      var type = this.props.match.params[0] ? this.props.match.params[0] : "all";
+
+      this.setState({ value: value > 0 ? value : 0, type: type ? type : "all", page: 0 }, () => {
+        this.props.dispatch(clearAlbums());
+        this.loadData();
+      })
+    }
   }
 
   componentWillUnmount() {

@@ -4,8 +4,6 @@ import classes from '../../assets/css/track.module.scss';
 import { MAIN_CATEGORY } from '../../shared/constants';
 import { NavLink } from 'react-router-dom';
 
-
-
 var cardStyle = {
   borderRadius: "10px",
   height: "130px",

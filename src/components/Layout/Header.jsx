@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AppBar, Toolbar, Button, Grid, Avatar, Tooltip, IconButton, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
+import { AppBar, Toolbar, Button, Grid, Avatar, Tooltip, IconButton, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
 import { NightsStayRounded, WbSunnyRounded, MenuRounded } from '@material-ui/icons'
 import { changeTheme } from '../../actions/global'
@@ -58,7 +58,15 @@ const useStyles = makeStyles((theme) => ({
       width: "65px",
       height: "65px",
     },
-
+  },
+  contact: {
+    position: "absolute",
+    bottom: 35,
+    textAlign: "center",
+    width: "100%",
+    "& a": {
+      color: "inherit",
+    }
   }
 }));
 
@@ -76,7 +84,6 @@ function Header(props) {
   };
   return (
     <>
-
       <AppBar position="fixed">
         <Toolbar>
           <Grid container justify={"space-between"} alignItems={"center"}>
@@ -95,6 +102,9 @@ function Header(props) {
                 </Grid>
                 <Grid item>
                   <Button component={NavLink} to={"/quotes"} color="inherit">Quotes</Button>
+                </Grid>
+                <Grid item>
+                  <Button component={NavLink} to={"/contact"} color="inherit">Contact</Button>
                 </Grid>
                 <Grid item>
                   <Tooltip title={"My Playlist"} placement="top">
@@ -149,11 +159,22 @@ function Header(props) {
                   <ListItem className={classes.textAlignCenter} button onClick={() => { themHandler(); handleDrawerToggle() }} >
                     <ListItemText primary={props.isDark ? <WbSunnyRounded /> : <NightsStayRounded />} />
                   </ListItem>
-                  <ListItem className={classes.textAlignCenter}>
+                  {/* <ListItem className={classes.textAlignCenter}>
                     <ListItemText primary={"v1.8"} />
-                  </ListItem>
+                  </ListItem> */}
                 </List>
                 <Grid container className={classes.mobileDrawer} spacing={1} alignItems={"center"} direction={"column"}>
+                  <div className={classes.contact}>
+                    <Typography variant="caption" >
+                      <b>Managed By : </b><br />Meera Shyam Satsang Surat.
+                    </Typography>
+                    <Typography variant="caption" >
+                      <br /><b>For more details</b>,
+                    </Typography>
+                    <Typography variant="caption" >
+                      <br />Contact : <a href="tel:+919638250013">(+91) 963-825-0013</a>
+                    </Typography>
+                  </div>
                   {/* <Grid item>
                     <Button component={NavLink} to={"/browse"} color="inherit" onClick={handleDrawerToggle}>Browse</Button>
                   </Grid> */}

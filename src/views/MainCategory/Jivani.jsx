@@ -2,7 +2,6 @@ import React from 'react'
 import DGSMJivani from '../../components/Jivani';
 import { DADA_BHAGWAN, GEETA_BHAGWAN, SHAYAM_BHAGWAN, MEERA_BHAGWAN } from '../../assets/jivani';
 
-
 class Jivani extends React.Component {
   render() {
     var data = null;
@@ -27,6 +26,7 @@ class Jivani extends React.Component {
       <DGSMJivani data={data} />
     );
   }
+
 }
 
 export default Jivani

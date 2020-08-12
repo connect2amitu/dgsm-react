@@ -1,0 +1,17 @@
+.contact {
+  padding: 0 25px;
+
+  .paragraph {
+    text-indent: 50px;
+    text-align : justify;
+  }
+
+  .sliderWrapper {
+    .fontSlider {
+      position: fixed;
+      right   : 30px;
+      height  : 100px;
+      bottom  : 350px;
+    }
+  }
+}

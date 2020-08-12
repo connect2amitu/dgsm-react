@@ -3,6 +3,8 @@ import Header from './Header'
 import { Container, styled, } from '@material-ui/core'
 import Player from '../Player'
 import { withRouter } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
+import ReactGA from 'react-ga';
 
 const MyContainer = styled(Container)({
   paddingBottom: "90px",
@@ -11,14 +13,12 @@ const MyContainer = styled(Container)({
 
 
 function Layout({ history, children }) {
+  const { pathname } = useLocation();
   useEffect(() => {
-    const unlisten = history.listen(() => {
-      window.scrollTo(0, 0);
-    });
-    return () => {
-      unlisten();
-    }
-  });
+    ReactGA.pageview(window.location.pathname + window.location.search);
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
     <div>
       <Header />
