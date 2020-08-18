@@ -11,6 +11,8 @@ import classes from '../../assets/css/album.module.scss';
 import { getPlaylistTrack, removeTrackFromPlaylist, removePlaylist, renamePlaylist } from '../../actions/playlist';
 import { CancelRounded, PauseCircleFilledRounded, PlayCircleFilledRounded, DeleteForeverRounded, EditRounded } from '@material-ui/icons';
 import NoResultFound from '../../components/NoResultFound';
+import Meta from '../../components/SEO';
+import { capitalize } from 'lodash';
 
 class PlaylistDetail extends React.Component {
   constructor(props) {
@@ -30,6 +32,7 @@ class PlaylistDetail extends React.Component {
       <div className={classes.albumDetail}>
         {!isLoading &&
           <>
+            <Meta title={`${playlist && playlist.name ? capitalize(playlist.name) : ""} | My Playlist | DGSM`} description={`${playlist && playlist.name ? capitalize(playlist.name) : ""} | My playlist`} />
             <Grid container spacing={2} className={classes.albumContainer}>
               <Grid item >
                 <Fade in={true}>

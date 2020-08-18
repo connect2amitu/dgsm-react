@@ -9,6 +9,7 @@ import GoogleLogin from 'react-google-login';
 import { GOOGLE_CLIENT_ID } from '../../shared/constants';
 import { addAuthUser } from '../../actions/global';
 import Skeleton from '@material-ui/lab/Skeleton';
+import Meta from '../../components/SEO';
 
 var trackStyle = {
   borderRadius: "10px",
@@ -49,6 +50,8 @@ class MyPlaylist extends React.Component {
     )
     return (
       <>
+        <Meta title={`My Playlist | DGSM`} description={`My playlist`} />
+
         <Grid container justify={"space-between"} alignItems={"center"} >
           <Grid item>
             <h1>My Playlist</h1>

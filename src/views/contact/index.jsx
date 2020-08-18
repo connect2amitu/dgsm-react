@@ -1,11 +1,14 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
 import classes from '../../assets/css/contact.module.scss';
+import Meta from '../../components/SEO';
 
 
 export default function index() {
   return (
     <div className={classes.contact}>
+      <Meta title={`Contact | DGSM`} description={`Contact us for more detail and inquiry`} />
+
       <Grid container className={classes.heading}>
         <Grid item>
           <h1>Contact</h1>

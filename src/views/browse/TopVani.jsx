@@ -9,7 +9,7 @@ import classes from '../../assets/css/track.module.scss';
 import ViewMoreBtn from '../../components/ViewMoreBtn';
 import Skeleton from '@material-ui/lab/Skeleton';
 
-class TopVanis extends Component {
+class TopVani extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,10 +42,10 @@ class TopVanis extends Component {
       <div className={classes.track}>
         <Grid container justify={"space-between"} className={classes.heading}>
           <Grid item>
-            <h1>Top Vanis</h1>
+            <h1>Top Vani</h1>
           </Grid>
           <Grid item>
-            <ViewMoreBtn to={"/browse/vanis"} />
+            <ViewMoreBtn to={"/browse/vani"} />
           </Grid>
         </Grid>
         <Grid container spacing={2} className={classes.container}>
@@ -115,5 +115,5 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(TopVanis)
+export default connect(mapStateToProps)(TopVani)
 

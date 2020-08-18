@@ -11,6 +11,8 @@ import { PlayCircleFilledRounded, PauseCircleFilledRounded } from '@material-ui/
 import { NavLink } from 'react-router-dom';
 import classes from '../../assets/css/album.module.scss';
 import Skeleton from '@material-ui/lab/Skeleton';
+import Meta from '../../components/SEO';
+import { capitalize } from 'lodash';
 
 
 var trackStyle = {
@@ -41,6 +43,7 @@ class AlbumsDetail extends React.Component {
       <div className={classes.albumDetail}>
         {!isLoading && albumDetail &&
           <>
+            <Meta title={`${capitalize(albumDetail.name)} | Album | DGSM`} description={`${albumDetail.name} | Album`} url={`${HOST_API}/${albumDetail.cover}`} />
             <Grid container spacing={2} className={classes.albumContainer}>
               <Grid item >
                 <Fade in={true}>

@@ -10,6 +10,8 @@ import NoResultFound from '../../components/NoResultFound';
 import AlbumCard from '../../components/AlbumCard';
 import Error from '../../components/Error';
 import Skeleton from '@material-ui/lab/Skeleton';
+import { MAIN_CATEGORY } from '../../shared/constants';
+import Meta from '../../components/SEO';
 
 class Vani extends React.Component {
   constructor(props) {
@@ -30,6 +32,7 @@ class Vani extends React.Component {
     const { page } = this.state;
     var items = [];
 
+    var data = MAIN_CATEGORY.find(main => main.slug === this.props.match.params[0]);
     !isLoading && albums.length > 0 && albums.map((album, index) =>
       items.push(
         <Fade in={true} key={index}>
@@ -46,6 +49,7 @@ class Vani extends React.Component {
 
     return (
       <div className={classes.album} style={{ paddingTop: 15 }}>
+        <Meta title={`Vani | ${data.name || ""} | DGSM`} description={`Divine ${data.name || ""} Vani`} url={`https://admin.dgsm.in/uploads/dgsm/${this.props.match.params[0]}.jpg`} />
         <Grid container spacing={4} justify={"flex-start"} alignItems={"center"} className={classes.container} >
           {items}
           {

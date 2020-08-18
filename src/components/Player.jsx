@@ -350,15 +350,20 @@ class Player extends React.Component {
 
   static getDerivedStateFromProps(props, state) {
     const { player } = props;
-    // eslint-disable-next-line no-undef
-    navigator.mediaSession.metadata = new MediaMetadata({
-      title: removeExt(_.get(player, "currentTrack.track.name", "")),
-      artist: _.get(player, "currentTrack.track.artist_name", ""),
-      album: _.get(player, "currentTrack.track.artist_name", ""),
-      artwork: [
-        { src: `${HOST_API}/${player.currentTrack.track && player.currentTrack.track.cover}`, sizes: '512x512', type: 'image/png' },
-      ]
-    });
+    try {
+      // eslint-disable-next-line no-undef
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: removeExt(_.get(player, "currentTrack.track.name", "")),
+        artist: _.get(player, "currentTrack.track.artist_name", ""),
+        album: _.get(player, "currentTrack.track.artist_name", ""),
+        artwork: [
+          { src: `${HOST_API}/${player.currentTrack.track && player.currentTrack.track.cover}`, sizes: '512x512', type: 'image/png' },
+        ]
+      });
+    } catch (error) {
+      console.log('error =>', error);
+
+    }
     return state;
   }
 
@@ -397,7 +402,6 @@ class Player extends React.Component {
       // Do something more than just pausing audio...
     });
 
-    navigator.mediaSession.setActionHandler('seekbackward', null);
 
     /* Stop (supported since Chrome 77) */
 

@@ -1,14 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { getAlbums, clearAlbums } from '../../actions/albums';
-import { Button, Grid, Typography, Tabs, Tab, IconButton, Tooltip } from '@material-ui/core';
+import { Button, Grid, Typography, Tabs, Tab, Tooltip } from '@material-ui/core';
 import { Fade } from '@material-ui/core';
 import classes from '../../assets/css/album.module.scss';
 import AlbumCard from '../../components/AlbumCard';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { ALBUM_TYPES } from '../../shared/constants';
 import { KeyboardArrowLeftRounded } from '@material-ui/icons';
-import { NavLink } from 'react-router-dom';
+import Meta from '../../components/SEO';
+import { capitalize } from 'lodash';
 
 
 class Albums extends React.Component {
@@ -19,7 +20,7 @@ class Albums extends React.Component {
 
   render() {
     const { albums, isLoading, error, totalPages, match: { params: { search } } } = this.props
-    const { page, value } = this.state
+    const { page, value, type } = this.state
     var items = [];
     albums.map((album, index) =>
       items.push(
@@ -36,6 +37,7 @@ class Albums extends React.Component {
     )
     return (
       <div className={classes.album}>
+        <Meta title={`${capitalize(type)} | Album | DGSM`} description={`${capitalize(type)} | Album`} />
         <Grid container alignItems={"flex-start"} spacing={2}>
           <Grid item>
             <Tooltip title={"Back"} style={{ width: 20, cursor: "pointer" }} placement="bottom">

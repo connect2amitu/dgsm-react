@@ -9,6 +9,8 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import NoResultFound from '../../components/NoResultFound';
+import { MAIN_CATEGORY } from '../../shared/constants';
+import Meta from '../../components/SEO';
 
 class Quote extends React.Component {
   constructor(props) {
@@ -20,9 +22,11 @@ class Quote extends React.Component {
 
   render() {
     const { quotes, isLoading, error } = this.props
+    var data = MAIN_CATEGORY.find(main => main.slug === this.props.match.params[0]);
 
     return (
       <div className={classes.track}>
+        <Meta title={`Quote | ${data && data.name ? data.name : "Others"} | DGSM`} description={`Divine ${data && data.name ? data.name : "Others"} Quote`} />
         <Grid container className={classes.heading}>
           <Grid item>
             <h1>All Quotes</h1>

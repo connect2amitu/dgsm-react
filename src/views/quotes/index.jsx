@@ -3,6 +3,7 @@ import { Button, Grid, Typography } from '@material-ui/core';
 import classes from '../../assets/css/track.module.scss';
 import { MAIN_CATEGORY } from '../../shared/constants';
 import { NavLink } from 'react-router-dom';
+import Meta from '../../components/SEO';
 
 var cardStyle = {
   borderRadius: "10px",
@@ -29,6 +30,7 @@ class Quote extends React.Component {
   render() {
     return (
       <div className={classes.track}>
+        <Meta title={`Quotes | DGSM`} description={`"Divine Dada Bhagwan Quotes | Geeta Bhagwan  Quotes | Shyam Bhagwan  Quotes | Meera Bhagwan Quotes | Others Quotes`} />
         <Grid container className={classes.heading}>
           <Grid item>
             <h1>Quotes</h1>

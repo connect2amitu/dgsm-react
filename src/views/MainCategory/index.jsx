@@ -4,6 +4,7 @@ import { find } from 'lodash';
 import { MAIN_CATEGORY } from '../../shared/constants';
 import { NavLink } from 'react-router-dom';
 import classes from '../../assets/css/maincategory.module.scss';
+import Meta from '../../components/SEO';
 
 var trackStyle = {
   borderRadius: "10px",
@@ -20,6 +21,7 @@ export default class MainCategoryDetail extends Component {
     var data = find(MAIN_CATEGORY, { 'slug': slug });
     return (
       <div className={classes.mainCategory}>
+        <Meta title={`${data.name} | DGSM`} description={`Divine ${data.name} Bhajans, Vani, Quotes, Jivani`} url={`https://admin.dgsm.in/uploads/dgsm/${slug}.jpg`} />
         <Grid container spacing={2} direction={"column"} alignItems={"center"} className={classes.container}>
           <Grid item className={classes.albumCard}>
             <Fade in={true}>

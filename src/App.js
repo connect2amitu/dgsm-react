@@ -16,7 +16,7 @@ import { darkTheme, theme } from './theme';
 
 const Layout = React.lazy(() => import('./components/Layout'));
 const Tracks = React.lazy(() => import('./views/tracks'));
-const Vanis = React.lazy(() => import('./views/vani'));
+const Vani = React.lazy(() => import('./views/vani'));
 const Albums = React.lazy(() => import('./views/albums'));
 const Browse = React.lazy(() => import('./views/browse'));
 const Quotes = React.lazy(() => import('./views/quotes'));
@@ -62,7 +62,7 @@ function App({ isDark }) {
               <Route exact path="/quotes" component={Quotes} />
               <Route exact path="/quotes/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan|others)" component={MainCategoryQuote} />
               <Route exact path="/browse/tracks/:aZ?" component={Tracks} />
-              <Route exact path="/browse/vanis" component={Vanis} />
+              <Route exact path="/browse/vani" component={Vani} />
               <Route exact path="/browse/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan)" component={MainCategory} />
               <Route exact path="/browse/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan)/bhajan" component={MainCategoryBhajan} />
               <Route exact path="/browse/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan)/vani" component={MainCategoryVani} />

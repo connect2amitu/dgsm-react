@@ -16,6 +16,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import Loading from '../../components/Loading';
 import NoResultFound from '../../components/NoResultFound';
 import Skeleton from '@material-ui/lab/Skeleton';
+import Meta from '../../components/SEO';
 
 var trackStyle = {
   borderRadius: "10px",
@@ -50,6 +51,7 @@ class Bhajan extends React.Component {
       <div className={classes.browse}>
         {!isLoading && browse &&
           <>
+            <Meta title={`Bhajan | ${browse.name || ""} | DGSM`} description={`Divine ${browse.name || ""} Bhajans`} url={`${'https://admin.dgsm.in'}/${browse.avatar}`} />
             <Grid container spacing={1} className={classes.browseContainer}>
               <Grid item >
                 <Fade in={true}>

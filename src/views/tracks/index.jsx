@@ -10,6 +10,7 @@ import classes from '../../assets/css/track.module.scss';
 import NoResultFound from '../../components/NoResultFound';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { KeyboardArrowLeftRounded } from '@material-ui/icons';
+import Meta from '../../components/SEO';
 
 // var trackStyle = {
 //   borderRadius: "10px",
@@ -55,6 +56,8 @@ class Tracks extends React.Component {
     )
     return (
       <div className={classes.track}>
+        <Meta title={aZ === "All" ? `All Bhajans | DGSM` : `Bhajan start with ${aZ} | DGSM`} description={aZ === "All" ? `All Bhajans | DGSM` : `Bhajan start with ${aZ} | DGSM`} />
+
         <Grid container spacing={2}>
           <Grid item>
             <Tooltip title={"Back"} style={{ width: 20, cursor: "pointer" }} placement="bottom">

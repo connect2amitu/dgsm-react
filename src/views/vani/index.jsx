@@ -8,8 +8,9 @@ import SongCard from '../../components/SongCard';
 import { Fade } from '@material-ui/core';
 import classes from '../../assets/css/track.module.scss';
 import Skeleton from '@material-ui/lab/Skeleton';
+import Meta from '../../components/SEO';
 
-class Vanis extends React.Component {
+class Vani extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -41,9 +42,10 @@ class Vanis extends React.Component {
     )
     return (
       <div className={classes.track}>
+        <Meta title={`All Vani | DGSM`} description={`All Vani`} />
         <Grid container className={classes.heading}>
           <Grid item>
-            <h1>All Vanis</h1>
+            <h1>All Vani</h1>
           </Grid>
         </Grid>
         <Grid container spacing={3} className={classes.container}>
@@ -122,6 +124,6 @@ const mapStateToProps = state => {
 }
 
 
-var _Tracks = connect(mapStateToProps)(Vanis)
+var _Tracks = connect(mapStateToProps)(Vani)
 export default _Tracks
 
