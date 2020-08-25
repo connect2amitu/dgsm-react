@@ -168,17 +168,6 @@ class Tracks extends React.Component {
     this.playStopButtonClickHandler(false);
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.params.aZ !== this.props.match.params.aZ) {
-
-      var aZ = this.props.match.params.aZ ? this.props.match.params.aZ : "All";
-
-      this.setState({ aZ: aZ ? aZ : "all", page: 0 }, () => {
-        this.props.dispatch(clearTracks());
-        this.loadData();
-      })
-    }
-  }
   componentDidMount() {
     this.setState({
       aZ: this.props.match.params.aZ ? this.props.match.params.aZ : "All"

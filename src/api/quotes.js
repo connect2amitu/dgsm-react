@@ -12,8 +12,6 @@ export const getQuotes = (query) => {
 }
 
 export const getQuotesTitle = (query) => {
-  console.log('query =>', query);
-
   var _URL = URL + "/getQuoteTopics";
   _URL = generateURL(_URL, query);
   let options = {

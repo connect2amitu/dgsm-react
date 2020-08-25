@@ -198,6 +198,11 @@ class Bhajan extends React.Component {
       var query = { slug: this.props.match.params[0], content: 'bhajan', page: 0, size, lang };
       this.props.dispatch(clearBrowse());
       this.props.dispatch(getBrowseWithTrack(query));
+      if (newValue !== 0) {
+        this.props.history.push(`/browse/${this.props.match.params[0]}/bhajan/${LANGUAGES[newValue].value}`)
+      } else {
+        this.props.history.push(`/browse/${this.props.match.params[0]}/bhajan`)
+      }
     })
 
   };
@@ -234,7 +239,17 @@ class Bhajan extends React.Component {
 
 
   componentDidMount() {
-    this.loadData();
+    var lang = LANGUAGES[0].value;
+    var value = 0;
+
+    if (this.props.match.params[1]) {
+      lang = this.props.match.params[1];
+      value = LANGUAGES.findIndex(data => data.value === this.props.match.params[1]);
+    }
+
+    this.setState({ value, lang }, () => {
+      this.loadData();
+    })
   }
 
   componentWillUnmount() {

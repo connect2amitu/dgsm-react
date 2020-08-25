@@ -1,5 +1,5 @@
 // export const HOST_API = "http://localhost/dgsm"
-export const HOST_API = window.location.host.indexOf("dgsm.in") > -1 ? "https://admin.dgsm.in" : "http://localhost/dgsm"
+export const HOST_API = window.location.host.indexOf("dgsm.in") > -1 || true ? "https://admin.dgsm.in" : "http://localhost/dgsm"
 export const SESSION_EXPIRED_URL = '/404';
 export const OK_STATUS = 200;
 export const BAD_REQUEST = 400;

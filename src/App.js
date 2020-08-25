@@ -30,7 +30,6 @@ const MainCategoryQuote = React.lazy(() => import('./views/mainCategory/Quote'))
 const MainCategoryJivani = React.lazy(() => import('./views/mainCategory/Jivani'));
 const Page404 = React.lazy(() => import('./components/404'));
 const Contact = React.lazy(() => import('./views/contact'));
-
 // console.log(`%c
 // ██████╗  ██████╗ ███████╗███╗   ███╗\r
 // ██╔══██╗██╔════╝ ██╔════╝████╗ ████║\r
@@ -42,7 +41,7 @@ const Contact = React.lazy(() => import('./views/contact'));
 
 
 const initReactGA = () => {
-  ReactGA.initialize(GOOGLE_ANALYTICS_ID, { debug: true });
+  ReactGA.initialize(GOOGLE_ANALYTICS_ID, { debug: false });
 }
 function App({ isDark }) {
   useEffect(() => {
@@ -64,7 +63,7 @@ function App({ isDark }) {
               <Route exact path="/browse/tracks/:aZ?" component={Tracks} />
               <Route exact path="/browse/vani" component={Vani} />
               <Route exact path="/browse/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan)" component={MainCategory} />
-              <Route exact path="/browse/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan)/bhajan" component={MainCategoryBhajan} />
+              <Route exact path="/browse/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan)/bhajan/(hindi|sindhi|punjabi|english)?" component={MainCategoryBhajan} />
               <Route exact path="/browse/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan)/vani" component={MainCategoryVani} />
               <Route exact path="/browse/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan)/quote" component={MainCategoryQuote} />
               <Route exact path="/browse/(dada-bhagwan|geeta-bhagwan|shyam-bhagwan|meera-bhagwan)/jivani" component={MainCategoryJivani} />

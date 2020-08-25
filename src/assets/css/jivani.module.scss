@@ -1,8 +1,9 @@
 .jivani {
   padding: 0 25px;
+
   .paragraph {
     text-indent: 50px;
-    text-align: justify;
+    text-align : justify;
   }
 
   .sliderWrapper {
@@ -11,6 +12,21 @@
       right   : 30px;
       height  : 100px;
       bottom  : 350px;
+
+      svg {
+        color    : #009688;
+        font-size: 18px;
+      }
+    }
+
+    .plus {
+      bottom: 375px;
+      right : 22px;
+    }
+
+    .minus {
+      bottom: 245px;
+      right : 22px;
     }
   }
 }

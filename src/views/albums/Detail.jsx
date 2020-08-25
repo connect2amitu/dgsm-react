@@ -232,8 +232,6 @@ class AlbumsDetail extends React.Component {
   }
 
   playSong = (track) => {
-    console.log('this.props =>', this.props);
-
     this.setState({
       init: false
     }, () => {

@@ -43,8 +43,6 @@ const actionsMap = {
     }
   },
   [QUOTE.FETCH_TITLE_SUCCESS]: (state, action) => {
-    console.log('action =>', action);
-
     return {
       ...state,
       isLoading: false,

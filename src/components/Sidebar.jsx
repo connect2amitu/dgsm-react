@@ -1,5 +1,5 @@
 import React from 'react';
-import { DeleteRounded, ClearAllRounded, ArrowForwardIosRounded } from '@material-ui/icons';
+import { DeleteRounded, ClearAllRounded, ArrowForwardIosRounded, DeleteSweepRounded } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import Logo from '../assets/images/logo.png'
 import { ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, ListSubheader, Grid, Button, Divider, SwipeableDrawer, List, ListItem, ListItemText, Paper } from '@material-ui/core';
@@ -60,7 +60,7 @@ class Sidebar extends React.Component {
                           {`Playlist ( ${playlist.length} )`}
                         </Grid>
                         <Grid item>
-                          {playlist.length > 0 && <IconButton color={"secondary"} variant={"contained"} onClick={() => this.clearPlaylist()}><ClearAllRounded /></IconButton>}
+                          {playlist.length > 0 && <IconButton color={"secondary"} variant={"contained"} onClick={() => this.clearPlaylist()}><DeleteSweepRounded /></IconButton>}
                         </Grid>
                       </Grid>
                       <Divider />

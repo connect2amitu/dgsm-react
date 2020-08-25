@@ -101,8 +101,6 @@ class Albums extends React.Component {
   }
 
   handleChange = (event, newValue) => {
-    console.log('newValue =>', newValue);
-
     this.setState({
       value: newValue,
       page: 0,
@@ -122,8 +120,6 @@ class Albums extends React.Component {
 
   loadData = () => {
     const { page, size, type } = this.state
-    console.log('type =>', type);
-
     this.setState({ page: page + 1 }, () => {
       var query = { size, order: 'asc', page: page * size, type };
       if (this.props.match.params.search) {
@@ -134,7 +130,6 @@ class Albums extends React.Component {
   }
 
   componentDidMount() {
-    console.log('this.props =>', this.props.match.params[0]);
     var type = "all";
     var value = 0;
     if (this.props.match.params[0]) {
@@ -144,19 +139,6 @@ class Albums extends React.Component {
     this.setState({ value, type }, () => {
       this.loadData();
     })
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.params[0] !== this.props.match.params[0]) {
-
-      var value = ALBUM_TYPES.findIndex(data => data.value === this.props.match.params[0]);
-      var type = this.props.match.params[0] ? this.props.match.params[0] : "all";
-
-      this.setState({ value: value > 0 ? value : 0, type: type ? type : "all", page: 0 }, () => {
-        this.props.dispatch(clearAlbums());
-        this.loadData();
-      })
-    }
   }
 
   componentWillUnmount() {
